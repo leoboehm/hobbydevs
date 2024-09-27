@@ -30,13 +30,13 @@
 ## 1. Introduction
 
 ### 1.1 Purpose
-This Software Requirements Specification (SRS) describes all specifications for the application "Common Playground". It includes an overview about this project and its vision, detailed information about the planned features and boundary conditions of the development process.
+This Software Requirements Specification (SRS) describes all specifications for the application "Hobby Devs". It includes an overview about this project and its vision, detailed information about the planned features and boundary conditions of the development process.
 
 
 ### 1.2 Scope
-The project is going to be realized as an Android App.  
+The project is going to be realized as a Web Application.  
   
-Actors of this App can be users or moderators.  
+Actors of this App can be project owners or developers.  
   
 Planned Subsystems are: 
 * Notice Board:  
@@ -66,8 +66,8 @@ We need a tag system so everyone looking to join a game can search for the kind 
 
 | Title                                                              | Date       | Publishing organization   |
 | -------------------------------------------------------------------|:----------:| ------------------------- |
-| [Common Playground Blog](http://commonplayground.wordpress.com)    | 18.10.2018 | Common Playground Team    |
-| [GitHub](https://github.com/nilskre/CommonPlayground)              | 18.10.2018 | Common Playground Team    |
+| [Hobby Devs Blog](http://commonplayground.wordpress.com)    | 17.09.2024 | Hobby Devs Team    |
+| [GitHub](https://github.com/leoboehm/hobbydevs)              | 17.09.2024 | Hobby Devs Team    |
 
 
 ### 1.5 Overview
@@ -76,7 +76,7 @@ The following chapter provides an overview of this project with vision and Overa
 ## 2. Overall Description
 
 ### 2.1 Vision
-Inspired by carpool coordination services like ‘BlaBlaCar’ or ‘Mitfahrzentrale’ we want to build an application to coordinate game sessions. We plan to create a platform for people who are looking for other people to play games with. Covering online multiplayer games, tabletop, pen and paper or regular board games we want to provide a kind of bulletin board where people can state what they want to play, when and where they want to do it and how many people they are looking for. Others can then react to the postings and virtually join the play session to be connected by us so everyone can coordinate the actual play session together on a Common Playground.
+Hobby Devs is about creating a collaborative space, where ideas meet development. We want to connect people with innovative ideas to hobby developers who can bring these visions to life. Users can post their project ideas and developers can apply, providing their budget and time frame. Through ratings and reviews, the project idea can find the perfect developer, that will help you build ideas to reality.
 
 ### 2.2 Use Case Diagram
 
@@ -89,31 +89,21 @@ Inspired by carpool coordination services like ‘BlaBlaCar’ or ‘Mitfahrzent
 The technology we use is:
 
 Backend:
--Gradle and Springboot
--H2 Database
 
 Frontend:
--Android with Java and XML
+-Vue.js + Vuetify
 
 IDE:
--IntelliJ and Android Studio
+-Visual Studio Code
 
 Project Management:
 -YouTrack
 -GitHub
--Microsoft Teams
+-Discord
 
 Deployment:
--Travis CI
--Docker and Heroku
 
 Testing:
--Cucumber
--Espresso
--JUnit
--Codacy
--CodeMR
--RestAssured
 
 ## 3. Specific Requirements
 
