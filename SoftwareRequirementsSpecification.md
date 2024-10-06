@@ -91,15 +91,15 @@ The technology we use is:
 Backend:
 
 Frontend:
--Vue.js + Vuetify
+- Vue.js + Vuetify
 
 IDE:
--Visual Studio Code
+- Visual Studio Code
 
 Project Management:
--YouTrack
--GitHub
--Discord
+- YouTrack
+- GitHub
+- Discord
 
 Deployment:
 
@@ -109,10 +109,9 @@ Testing:
 
 ### 3.1 Functionality
 This section will explain the different use cases, you could see in the Use Case Diagram, and their functionality.  
-Until December we plan to implement:
-- 3.1.1 Posting a session
-- 3.1.2 Getting an overview
-- 3.1.3 Creating an account
+Until [Month] we plan to implement:
+- 3.1.1 Filling out an application form as a developer
+- 3.1.2 Creating an account
 - 3.1.4 Logging in
 - 3.1.5 Logging out
 
@@ -123,10 +122,10 @@ Until June, we want to implement:
 - 3.1.9 Finding a session
 - 3.1.10 Getting in touch
 
-#### 3.1.1 Posting a session
-This feature is the essential one of our project. The user gets the possibility to post a session. Therefore, they have to select a game and also set the time when they want to play.For offline games, they have to set a location, too. For online games the location can be a server for example or simply be tagged as 'online'.
+#### 3.1.1 Filling out an application form as a developer
+This feature is the essential one of our project. The developer gets the possibility to fill out an application form for their desired project. Therefore, they have to fill out a form with ...
 
-[Posting a session](./use_cases/UC1_Post_Session.md)
+[Filling out an application form as a developer](./use_cases/UC2_Application_Developer.md)
 
 #### 3.1.2 Getting an overview
 This feature provides a basic overview over all current sessions. All posted sessions are added here. From this overview you can select a session and from there join this session.
