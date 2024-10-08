@@ -17,7 +17,7 @@ This use case allows hobby developers to apply for a project by filling out an a
 ![Mockup Post a Session](../mockups/uc2_applying_for_a_project_mockup.png)
 
 ## 1.3 Screenshots
-<img src="./Screenshots/UC1_Post_Session_Screenshot0.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot1.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot2.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot3.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot4.png" alt="Posting" width="300"/>
+(n/a)
 
 # 2. Flow of Events
 
