@@ -14,7 +14,7 @@ This use case allows hobby developers to apply for a project by filling out an a
 
 
 ## 1.2 Mockup 
-![Mockup Post a Session](applying_for_a_project_mockup.png)
+![Mockup Post a Session](../mockups/uc2_applying_for_a_project_mockup.png)
 
 ## 1.3 Screenshots
 <img src="./Screenshots/UC1_Post_Session_Screenshot0.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot1.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot2.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot3.png" alt="Posting" width="300"/> <img src="./Screenshots/UC1_Post_Session_Screenshot4.png" alt="Posting" width="300"/>
@@ -29,7 +29,7 @@ This use case allows hobby developers to apply for a project by filling out an a
 - The application is sent to the project owner.
 
 ### Activity Diagram
-![Activity Diagram](UC2_activity_diagram_application.png)
+![Activity Diagram](../activity_diagrams/UC2_activity_diagram_application.png)
 
 ### .feature File
 
