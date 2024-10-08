@@ -33,9 +33,9 @@ This use case allows hobby developers to apply for a project by filling out an a
 
 ### .feature File
 
-[.feature File Posting a session](../../frontend/app/src/androidTest/assets/features/UC1_Post_Session.feature)
+[.feature File Applying for a Project](../features/uc2_applying_for_a_project)
 ```Cucumber
-Feature: Use Case 1 Applying for a Project
+Feature: Use Case 2 Applying for a Project
   As a DEVELOPER
   I want to open the project details page and apply for a project
   Therefore I want the fields: name, skills, availability, experience, and motivation to be available for input
