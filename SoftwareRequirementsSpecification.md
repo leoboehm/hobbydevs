@@ -232,7 +232,7 @@ The logo is licensed to the Common Playground Team and is only allowed to use fo
 The development will follow the common clean code standards and naming conventions. Also we will create a definition of d which will be added here as soon as its complete.
 
 ## 4. Supporting Information
-For any further information you can contact the Common Playground Team or check our [Common Playground Blog](http://commonplayground.wordpress.com). 
+For any further information you can contact the Hobby Devs Team or check our [Hobby Devs Blog](https://hobbydevs.wordpress.com). 
 The Team Members are:
 - Leonie
 - Zelong
