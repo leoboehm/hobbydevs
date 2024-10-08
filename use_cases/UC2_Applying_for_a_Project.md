@@ -86,12 +86,6 @@ Feature: Use Case 2 Applying for a Project
 - The application is sent to the project owner.
 - The project owner receives a notification of a new application.
 
-
-### 5.1 Save changes / Sync with server
-
-If a session gets posted it needs to get synced with the server, so that every user can see the session.
-
-
 # 6. Function Points
 
 Calculate the function points based on the complexity of the form and interactions.
