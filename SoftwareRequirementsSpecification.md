@@ -126,7 +126,7 @@ Until [Month], we want to implement:
 [...](../use_cases/UC1_....md)
 
 #### 3.1.2 Filling out an application form as a developer
-This feature is the essential one of our project. The developer gets the possibility to fill out an application form for their desired project. Therefore, they have to fill out a form with ...
+This feature is the essential one of our project. The developer gets the possibility to fill out an application form for their desired project. Therefore, they have to fill out a form with their name, skills, availability, past experience, motivation and contact information.
 
 [Filling out an application form as a developer](./use_cases/UC2_Applying_for_a_Project.md)
 
