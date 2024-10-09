@@ -1,4 +1,4 @@
-# Use-Case Specification: Applying for a Project
+# Use-Case Specification: Applying for a Project (CRUD - Create)
 
 # 1. Applying for a Project
 
@@ -96,3 +96,6 @@ Feature: Use Case 2 Applying for a Project
 # 6. Function Points
 
 Calculate the function points based on the complexity of the form and interactions.
+
+# 7. CRUD Operation
+This Use Case represents the "Create" operation in the CRUD (Create, Read, Update, Delete) model, as it involves the creation of an application by the developer.
