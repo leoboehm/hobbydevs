@@ -1,4 +1,4 @@
-# Use-Case Specification: Applying for a Project (CRUD - Create)
+# Use-Case Specification: Applying for a Project
 
 # 1. Applying for a Project
 
