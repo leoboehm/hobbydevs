@@ -39,7 +39,6 @@ This use case allows hobby developers to apply for a project by filling out an a
 ![Activity Diagram](../activity_diagrams/UC2_activity_diagram_application.png)
 
 ### .feature File
-
 [.feature File Applying for a Project](../features/uc2_applying_for_a_project)
 ```Cucumber
 Feature: Use Case 2 Applying for a Project
@@ -84,17 +83,14 @@ Feature: Use Case 2 Applying for a Project
 - Data privacy considerations (sensitive info like contact details).
 
 # 4. Preconditions
-
 - The developer is logged in to the platform.
 - The developer has clicked on the "Apply for Project" button.
 
 # 5. Postconditions
-
 - The application is sent to the project owner.
 - The project owner receives a notification of a new application.
 
 # 6. Function Points
-
 Calculate the function points based on the complexity of the form and interactions.
 
 # 7. CRUD Operation
