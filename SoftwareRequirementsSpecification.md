@@ -205,16 +205,16 @@ The user interfaces to be implemented include:
 (n/a)
 
 ### 3.9.3 Software Interfaces
-To be determined (TBD), including compatibility details with operating systems and web browsers.
+(tbd), including compatibility details with operating systems and web browsers.
 
 ### 3.9.4 Communication Interfaces
-To be determined (TBD), focusing on the protocols used for data transfer between the client and server.
+(tbd), focusing on the protocols used for data transfer between the client and server.
 
 ## 3.10 Licensing Requirements
 Licensing requirements for third-party libraries and components used will be documented as they are identified, ensuring compliance with all relevant licenses.
 
 ## 3.11 Legal, Copyright, and Other Notices
-To be determined (TBD), including disclaimers and copyright notices relevant to the application and its content.
+(tbd), including disclaimers and copyright notices relevant to the application and its content.
 
 ## 3.12 Applicable Standards
 The development will adhere to common clean code standards and naming conventions. A detailed definition of standards will be provided here once finalized.
