@@ -135,46 +135,46 @@ This feature is the essential one of our project. The developer gets the possibi
 (Next Semester)
 
 ## 3.2 Usability
-We plan to design the user interface to be as intuitive and self-explanatory as possible, making users feel comfortable using the website.
+tbd
 
 ### 3.2.1 No Training Time Needed
-Our goal is for users to open the website and be able to use all features without any explanation or help.
+tbd
 
 ### 3.2.2 Familiar Feeling
-We aim to implement a website with familiar designs and functions, allowing users to interact in ways they already know without needing to learn new interfaces.
+tbd
 
 ## 3.3 Reliability
 
 ### 3.3.1 Availability
-The server shall be available 95% of the time. We will identify the "rush hours" of our application, as server downtime should be minimized during peak usage times to avoid inconvenience to users.
+tbd
 
 ### 3.3.2 Defect Rate
-Our goal is to ensure no data loss occurs. This is critical for maintaining application integrity, even after server downtimes.
+tbd
 
 ## 3.4 Performance
 
 ### 3.4.1 Capacity
-The system should be capable of managing thousands of concurrent requests and allow for unlimited user registrations to accommodate growth.
+tbd
 
 ### 3.4.2 Storage Efficiency
-The application will optimize data storage to minimize overhead. This includes regular data clean-up routines to remove unused or redundant data and efficient data structures to maximize storage usage.
+tbd
 
 ### 3.4.3 Website Performance / Response Time
-To provide the best website performance, we aim to keep the response time under 2 seconds for all user interactions, significantly enhancing the overall user experience.
+tbd
 
 ## 3.5 Supportability
 
 ### 3.5.1 Coding Standards
-We will adhere to established clean code standards, such as meaningful naming conventions for variables and methods based on their functionalities. This approach will keep the code easy to read and facilitate future development.
+tbd
 
 ### 3.5.2 Testing Strategy
-The application will maintain high test coverage, with all critical functionalities and edge cases thoroughly tested. This proactive testing strategy will help identify and resolve implementation errors quickly.
+tbd
 
 ## 3.6 Design Constraints
-We are committed to providing a modern and user-friendly design for both the UI and the architecture of our application. Functionalities will be modular to support easy updates and feature enhancements.
+tbd
 
 ## 3.7 Online User Documentation and Help System Requirements
-The website's usage should be as intuitive as possible, minimizing the need for extensive documentation. However, if users require assistance, we will implement a contextual help system that provides tips and FAQs accessible directly from the interface.
+tbd
 
 ## 3.8 Purchased Components
 Currently, we have no purchased components. Should any be acquired in the future, they will be documented in this section along with their licensing details.
@@ -187,25 +187,24 @@ The user interfaces to be implemented include:
 - **Project Management**: A page for creating, editing, and viewing project details.
 - **User Authentication**: Interfaces for registration and login.
 - **User Profile**: A section for users to view and edit their personal information and settings.
-- **Help/FAQ**: A dedicated help page providing answers to common user questions.
 
 ### 3.9.2 Hardware Interfaces
-(n/a)
+n/a
 
 ### 3.9.3 Software Interfaces
-(tbd), including compatibility details with operating systems and web browsers.
+tbd
 
 ### 3.9.4 Communication Interfaces
-(tbd), focusing on the protocols used for data transfer between the client and server.
+tbd
 
 ## 3.10 Licensing Requirements
 Licensing requirements for third-party libraries and components used will be documented as they are identified, ensuring compliance with all relevant licenses.
 
 ## 3.11 Legal, Copyright, and Other Notices
-(tbd), including disclaimers and copyright notices relevant to the application and its content.
+tbd
 
 ## 3.12 Applicable Standards
-The development will adhere to common clean code standards and naming conventions. A detailed definition of standards will be provided here once finalized.
+tbd
 
 ## 4. Supporting Information
 For any further information you can contact the Hobby Devs Team or check our [Hobby Devs Blog](https://hobbydevs.wordpress.com). 
