@@ -108,12 +108,8 @@ Until *[Month] -> Next Semester*, we want to implement:
 #### 3.1.2 Logging in
 The website will provide the possibility to register and log in. This will also make the usability easier when a user wants to ... because they don't have to enter their mail address every time.
 
-(tbd)
-
 #### 3.1.3 Logging out
 In case you share your device, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
-
-(tbd)
 
 #### 3.1.4 Publish Project
 *(In Progress)*
