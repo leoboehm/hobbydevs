@@ -74,27 +74,15 @@ Hobby Devs is about creating a collaborative space, where ideas meet development
 - Yellow: Planned until end of *next semester*
 
 ### 2.3 Technology Stack
-The technology we use is:
 
-**Backend**: 
-- PHP
-
-**Frontend**:
-- Vue.js + Vuetify
-
-**IDE**:
-- Visual Studio Code
-
-**Project Management**:
-- YouTrack
-- GitHub
-- Discord
-
-**Deployment**:
-- (tbd)
-
-**Testing**:
-- (tbd)
+| **Category**        | **Technology**              |
+|---------------------|-----------------------------|
+| **Backend**         | PHP                         |
+| **Frontend**        | Vue.js + Vuetify           |
+| **IDE**             | Visual Studio Code          |
+| **Project Management** | YouTrack, GitHub, Discord |
+| **Deployment**      | tbd                         |
+| **Testing**         | tbd                         |
 
 ## 3. Specific Requirements
 
