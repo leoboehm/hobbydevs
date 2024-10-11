@@ -68,7 +68,7 @@ The following chapter provides an overview of this project with vision and Overa
 Hobby Devs is about creating a collaborative space, where ideas meet development. We want to connect people with innovative ideas to hobby developers who can bring these visions to life. Users can post their project ideas and developers can apply, providing their budget and time frame. Through ratings and reviews, the project idea can find the perfect developer, that will help you build ideas to reality.
 
 ### 2.2 Use Case Diagram
-*(In Progress)*
+*In Progress*
 
 - Green: Planned until end of november
 - Yellow: Planned until end of *next semester*
@@ -95,7 +95,7 @@ Until November we plan to implement:
 - 3.1.4 Publish Project
 - 3.1.5 Applying for a Project
 
-Until *[Month] -> Next Semester*, we want to implement:
+Until *(Month -> Next Semester)*, we want to implement:
 - 3.1.6 Editing Project
 - 3.1.7. Chat Function
 - 3.1.8. Payment
@@ -103,7 +103,7 @@ Until *[Month] -> Next Semester*, we want to implement:
 - 3.1.10. Email Notification
 
 #### 3.1.1 Create User Account
-(tbd)
+tbd
 
 #### 3.1.2 Logging in
 The website will provide the possibility to register and log in. This will also make the usability easier when a user wants to ... because they don't have to enter their mail address every time.
@@ -112,7 +112,7 @@ The website will provide the possibility to register and log in. This will also 
 In case you share your device, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
 
 #### 3.1.4 Publish Project
-*(In Progress)*
+*In Progress*
 
 #### 3.1.5 Applying for a Project
 This feature is the essential one of our project. The developer gets the possibility to fill out an application form for their desired project. Therefore, they have to fill out a form with their name, skills, availability, past experience, motivation and contact information.
@@ -120,19 +120,19 @@ This feature is the essential one of our project. The developer gets the possibi
 [Applying for a Project](./use_cases/UC2_Applying_for_a_Project.md)
 
 #### 3.1.6 Editing Project
-(Next Semester)
+*Next Semester*
 
 #### 3.1.7 Chat Function
-(Next Semester)
+*Next Semester*
 
 #### 3.1.8 Payment
-(Next Semester)
+*Next Semester*
 
 #### 3.1.9 Rating & Reviews
-(Next Semester)
+*Next Semester*
 
 #### 3.1.10 Email Notification
-(Next Semester)
+*Next Semester*
 
 ## 3.2 Usability
 tbd
