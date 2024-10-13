@@ -14,17 +14,17 @@ This use case allows hobby developers to apply for a project by filling out an a
 
 
 ## 1.2 Mockup 
-![Mockup Applying for a Project](../mockups/uc2_applying_for_a_project_mockup.png)
+![Mockup Applying for a Project](../mockups/uc5_applying_for_a_project_mockup.png)
 
 ## 1.3 Screenshots
 ### Submit Action
-![Submit Action](../screenshots/uc2_validation.jpg)
+![Submit Action](../screenshots/uc5_validation.jpg)
 
 ### Input Missing
-![Input Missing](../screenshots/uc2_input_missing.png)
+![Input Missing](../screenshots/uc5_input_missing.png)
 
 ### Form Validation Error
-![Form Validation Error](../screenshots/uc2_error.jpg)
+![Form Validation Error](../screenshots/uc5_error.jpg)
 
 # 2. Flow of Events
 
@@ -39,7 +39,7 @@ This use case allows hobby developers to apply for a project by filling out an a
 ![Activity Diagram](../activity_diagrams/UC5_activity_diagram_applying_for_a_project.png)
 
 ### .feature File
-[.feature File Applying for a Project](../features/uc2_applying_for_a_project)
+[.feature File Applying for a Project](../features/uc5_applying_for_a_project)
 ```Cucumber
 Feature: Use Case 2 Applying for a Project
   As a DEVELOPER
