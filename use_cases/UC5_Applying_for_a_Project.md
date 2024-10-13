@@ -91,7 +91,7 @@ Feature: Use Case 2 Applying for a Project
 - The project owner receives a notification of a new application.
 
 # 6. Function Points
-Calculate the function points based on the complexity of the form and interactions.
+n/a
 
 # 7. CRUD Operation
 This Use Case represents the "Create" operation in the CRUD (Create, Read, Update, Delete) model, as it involves the creation of an application by the developer.
