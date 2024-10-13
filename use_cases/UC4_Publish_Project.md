@@ -17,6 +17,7 @@ Every normal user can create new operations, making him the owner of the newly c
 By filing up the form as detailed as possible, the project owner can find the most suitable developer to help his project.
 
 ## 1.2 Mockup 
+![Mockup Publish project](../mockups/UC4_Publsih_project_mockup.png)
 
 # 2. Flow of Events
 
