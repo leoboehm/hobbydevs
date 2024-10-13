@@ -112,12 +112,14 @@ The website will provide the possibility to register and log in. This will also 
 In case you share your device, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
 
 #### 3.1.4 Publish Project
-*In Progress*
+In this feature every very user can create new operations, making him the owner of the newly created project. In this process, the project owner should provide detailed information for users to look at and select the project that they want to participate in. 
+
+[Publish Project](./use_cases/UC4_Publish_Project.md)
 
 #### 3.1.5 Applying for a Project
 This feature is the essential one of our project. The developer gets the possibility to fill out an application form for their desired project. Therefore, they have to fill out a form with their name, skills, availability, past experience, motivation and contact information.
 
-[Applying for a Project](./use_cases/UC2_Applying_for_a_Project.md)
+[Applying for a Project](./use_cases/UC5_Applying_for_a_Project.md)
 
 #### 3.1.6 Editing Project
 *Next Semester*
