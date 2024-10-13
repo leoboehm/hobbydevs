@@ -1,4 +1,4 @@
-Feature: Use Case 2 Applying for a Project
+Feature: Use Case 5 Applying for a Project
   As a DEVELOPER
   I want to open the project details page and apply for a project
   Therefore I want the fields: name, skills, availability, experience, and motivation to be available for input
