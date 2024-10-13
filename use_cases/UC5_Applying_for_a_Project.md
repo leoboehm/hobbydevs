@@ -36,7 +36,7 @@ This use case allows hobby developers to apply for a project by filling out an a
 - The application is sent to the project owner.
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/UC2_activity_diagram_application.png)
+![Activity Diagram](../activity_diagrams/UC2_activity_diagram.png)
 
 ### .feature File
 [.feature File Applying for a Project](../features/uc2_applying_for_a_project)
