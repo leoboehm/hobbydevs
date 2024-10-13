@@ -27,8 +27,8 @@ By filing up the form as detailed as possible, the project owner can find the mo
 4. The project owner checks the detailed form.
 5. The project owner clicks the button "Publish" to publish the new project.
 
-
 ### Activity Diagram
+![Activity diagram Publish project](../activity_diagrams/UC4_activity_Publish_project.png)
 
 
 ## 2.2 Alternative Flows
@@ -40,7 +40,6 @@ By filing up the form as detailed as possible, the project owner can find the mo
 
 # 4. Preconditions
 - The project owner is logged in.
-- 
 
 # 5. Postconditions
 - The project owner receives a notification of new applicaton.
