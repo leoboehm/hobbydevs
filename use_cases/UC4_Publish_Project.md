@@ -46,7 +46,7 @@ By filing up the form as detailed as possible, the project owner can find the mo
 - The project owner receives a notification of new applicaton.
 
 # 6. Function Points
-tbd
+n/a
 
 # 7. CRUD Operation
-tbd
+This Use Case represents the "Create" operation in the CRUD (Create, Read, Update, Delete) model, as it involves the creation of a project by a project owner.
