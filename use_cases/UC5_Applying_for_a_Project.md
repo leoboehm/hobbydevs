@@ -38,41 +38,7 @@ This use case allows hobby developers to apply for a project by filling out an a
 ### Activity Diagram
 ![Activity Diagram](../activity_diagrams/UC5_activity_diagram_applying_for_a_project.png)
 
-### .feature File
-[.feature File Applying for a Project](../features/uc5_applying_for_a_project)
-```Cucumber
-Feature: Use Case 2 Applying for a Project
-  As a DEVELOPER
-  I want to open the project details page and apply for a project
-  Therefore I want the fields: name, skills, availability, experience, and motivation to be available for input
 
-  Background:
-    Given The developer is logged in
-    And Project Details page is open
-
-  @apply-project-feature
-  Scenario Outline: Submit an application for a project
-    When The developer types the name <name> and the input is correct
-    And The developer types the skills <skills>
-    And The developer selects the availability <availability>
-    And The developer types the past experience <experience>
-    And The developer types the motivation <motivation>
-    And The developer presses the submit button
-    Then The application is sent
-    And A confirmation message is shown
-
-    Examples: Applications
-      | name       | skills              | availability  | experience                | motivation            |
-      | Jane Smith | Java, Flutter       | Immediate     | Built an app for a client | Interested in app dev  |
-      | John Doe   | Python, Django      | In two weeks  | Led backend dev projects  | Love the project idea  |
-
-  @apply-project-feature
-  Scenario: Leaving the Application Form without submitting
-    When The developer presses the Back button
-    Then No request is sent
-    And The application form is closed
-
-```
 
 ## 2.2 Alternative Flows
 - The developer cancels the application before submitting.
