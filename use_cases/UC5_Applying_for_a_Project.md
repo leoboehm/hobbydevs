@@ -75,6 +75,7 @@ Feature: Applying for a Project
     When the developer clicks the "Submit" button
     Then an error message is displayed indicating the email is invalid
     And the form is not submitted
+```
 
 ## 2.2 Alternative Flows
 - The developer cancels the application before submitting.
