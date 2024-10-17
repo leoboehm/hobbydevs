@@ -71,7 +71,7 @@ Hobby Devs is about creating a collaborative space, where ideas meet development
 ![Use Case Diagram](./use_cases/UCD.png)
 
 - Blue: Planned until end of november
-- Red: Planned until end of *next semester*
+- Green: Planned until end of *next semester*
 
 ### 2.3 Technology Stack
 
