@@ -1,45 +1,38 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "frontend-testing",
+  "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
+    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
+    "lint": "eslint . --fix",
+    "format": "prettier --write src/"
   },
   "dependencies": {
-    "vue": "^3.2.13",
-    "vue-router": "^4.0.3",
-    "vuetify": "^3.7.3",
-    "vuex": "^4.0.0"
+    "pinia": "^2.2.4",
+    "vue": "^3.5.12",
+    "vue-router": "^4.4.5",
+    "vuetify": "^3.7.0-beta.1"
   },
   "devDependencies": {
-    "@mdi/font": "^7.4.47",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "vue-cli-plugin-vuetify": "^2.5.8"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+    "@eslint/js": "^9.13.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitest/eslint-plugin": "1.1.7",
+    "@vue/eslint-config-prettier": "^10.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "cypress": "^13.15.0",
+    "eslint": "^9.13.0",
+    "eslint-plugin-cypress": "^4.0.0",
+    "eslint-plugin-vue": "^9.29.0",
+    "jsdom": "^25.0.1",
+    "prettier": "^3.3.3",
+    "start-server-and-test": "^2.0.8",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.3"
+  }
 }
