@@ -191,7 +191,7 @@ The user interfaces to be implemented include:
 - **User Profile**: A section for users to view and edit their personal information and settings.
 
 ### 3.9.2 Hardware Interfaces
-n/a
+(n/a)
 
 ### 3.9.3 Software Interfaces
 tbd
