@@ -27,4 +27,5 @@ Feature: Publish Project
     When the Project Owner clicks on the "Publish new project" button
     And the Project Owner decides not to continue the process
     Then the Project Owner can cancel the operation
-    And no project is published
+    And no project is published 
+    
