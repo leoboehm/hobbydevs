@@ -51,13 +51,17 @@ Xamarin provides MVVM for our purposes.
 ![mvvm]
 ## 3. Architectural Goals and Constraints
 As we use Xamarin we don't have any MVC tool.
+
 ## 4. Use-Case View
+
 ### 4.1 Use-Case Realizations
 
 ![oucd2]
 ## 5. Logical View
+
 ### 5.1 Overview
 n/a
+
 ### 5.2 Architecturally Significant Design Packages
 The class diagram; containing all Data Access Objects, Models and Controllers that we will need to finish for the basic functionality:
 
