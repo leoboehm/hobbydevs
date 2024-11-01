@@ -13,3 +13,7 @@ You can find our project blog here:
 ## Miro Board
 We plan and brainstorm everything on Miro. You can find our board here:
 [Miro Board](https://miro.com/welcomeonboard/a3pPelhaaUs4RGRLRkN0MnRLZjIwVGx0UzFzM2xBWVFJVTNZMVduR0pNS0VTMzFIMHZCeVBvUWtLMlY3eTFUV3wzNDU4NzY0NTcyMTQ3ODA2MDc4fDI=?share_link_id=164227986547)
+
+## Live Server
+Our project is deployed here:
+[Live](http://89.58.3.3:8000/)
