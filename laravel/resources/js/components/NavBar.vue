@@ -40,7 +40,7 @@
       Login
       </v-btn>
     </v-app-bar>
-//1S
+//
     <v-main>
       <router-view></router-view>
     </v-main>
