@@ -1,9 +1,16 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <main>
-    <TheWelcome />
+    <NavBar />
+    <router-view />
   </main>
 </template>
+
+<script>
+import NavBar from '../components/NavBar.vue';
+
+export default {
+  components: {
+    NavBar,
+  },
+};
+</script>
