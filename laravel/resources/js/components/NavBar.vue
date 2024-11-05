@@ -21,8 +21,6 @@
           </v-list>
         </v-menu>
 
-        
-
         <v-btn  color="blue" to="/forum">Forum</v-btn>
         <v-btn  color="blue" to="/about">About</v-btn>
       </v-toolbar-items>
@@ -56,17 +54,17 @@ export default {
       this.$router.push("/login");
   },
     goToProjectDetails() {
-      this.$router.push("/project/details"); // Adjust the route as necessary
+      this.$router.push("/project/details"); 
     },
     goToProjectList() {
-      this.$router.push("/project/list"); // Adjust the route as necessary
+      this.$router.push("/project/list"); 
     },
 },
 };
 </script>
 
 <style scoped>
-/* Optional: adjust spacing, colors, or other styles as needed */
+
 .search-bar {
   max-width: 200px;
 }
