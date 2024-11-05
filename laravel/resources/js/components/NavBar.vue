@@ -4,7 +4,23 @@
       <v-app-bar-title >HobbyDev</v-app-bar-title>
       <v-toolbar-items>
         <v-btn  color="blue" class="white--text" to="/">Home</v-btn>
-        <v-btn  color="blue" to="/project">Project</v-btn>
+
+        <v-menu offset-y>
+          <template #activator="{ on }">
+            <v-btn color="blue" class="white--text" v-on="on">
+              Project
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="goToProjectDetails">
+              <v-list-item-title>Project Details</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="goToProjectList">
+              <v-list-item-title>Project List</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        
         <v-btn  color="blue" to="/forum">Forum</v-btn>
         <v-btn  color="blue" to="/about">About</v-btn>
       </v-toolbar-items>
@@ -37,6 +53,12 @@ export default {
     onLoginClick() {
       this.$router.push("/login");
   },
+    goToProjectDetails() {
+      this.$router.push("/project/details"); // Adjust the route as necessary
+    },
+    goToProjectList() {
+      this.$router.push("/project/list"); // Adjust the route as necessary
+    },
 },
 };
 </script>
