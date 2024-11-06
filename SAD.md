@@ -91,11 +91,19 @@ Laravel follows the MVC (Model-View-Controller) pattern, which helps in organizi
 n/a
 
 ## 7. Deployment View
-To deploy our application, both Vue.js and Laravel need to be set up and configured on the server.
+This section describes the deployment setup of our client-server architecture:
 
-**Build Commands**:
-- For Vue.js production build: `npm run prod`
-- For Laravel optimizations: `php artisan optimize`
+- **Client**: Vue.js frontend that interfaces with the Laravel backend
+- **Server**: Laravel backend deployed on a PHP-compatible hosting environment
+
+The diagram below shows the deployment architecture, with the client (frontend) and server (backend) interacting over HTTP:
+
+```plaintext
++-------------+      +-------------+      +--------------------+
+|  Client     | <--> |   Network   | <--> |       Server       |
+| (Vue.js)    |      | (Internet)  |      |   (Laravel PHP)    |
++-------------+      +-------------+      +--------------------+
+```
 
 **Deployment Process**:
 1. Install dependencies using `npm install` and `composer install`
