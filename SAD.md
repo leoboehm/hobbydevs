@@ -43,51 +43,73 @@ n/a
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.
 
 ## 2. Architectural Representation
-As we develop a Chross-Plattform mobile ab MVVM is the pattern of choice.
-It allows us to decouple the UI (View) from the Business Logic (Model/ViewModel).
+*As we develop a Chross-Plattform mobile ab MVVM is the pattern of choice.
+It allows us to decouple the UI (View) from the Business Logic (Model/ViewModel).*
 
-Xamarin provides MVVM for our purposes.
+*Xamarin provides MVVM for our purposes.*
 
-![mvvm]
+In Progress (change text & image)
+![mvvm] 
+
 ## 3. Architectural Goals and Constraints
-As we use Xamarin we don't have any MVC tool.
+Our main architectural goal is to build a scalable and maintainable web application that follows the MVC (Model-View-Controller) pattern. Laravel, our chosen PHP framework, natively implements this pattern, helping us achieve separation of concerns and ensuring that each part of the application can be managed independently.
+
+Another goal is to have a full-stack framework that facilitates integration between frontend and backend components. Laravel supports the use of Vue.js within its ecosystem, allowing us to build a cohesive application that maintains consistent communication between frontend and backend. By using the Blade templating engine, we ensure that our frontend views are rendered efficiently, while Eloquent ORM simplifies our database interactions.
+
+**Constraints:**
+1. Limited experience with PHP among team members, making Laravel both a learning opportunity and a challenge
+2. Requirement to follow the MVC architecture for better organization and scalability
+3. Need to support both frontend and backend within the same framework, favoring Laravel due to its compatibility with Vue.js
 
 ## 4. Use-Case View
+![Use-Case]
 
 ### 4.1 Use-Case Realizations
+Our application supports various interactions for two main actors: **Developer** and **Project Owner**.
 
-![oucd2]
+- **Developer** can create an account, log in/out, manage their profile, give reviews, communicate via chat, apply for projects, and submit their CVs
+- **Project Owner** can publish projects, manage project details, make payments, and create contracts with developers. Both actors can interact within the platform’s network, allowing for communication and notification setups
+
 ## 5. Logical View
 
 ### 5.1 Overview
-n/a
+Laravel’s logical view is divided according to the MVC pattern:
+- **Model**: Eloquent ORM for database management and queries
+- **View**: Blade templating engine to create dynamic HTML pages
+- **Controller**: Handles the logic that connects Models and Views
 
 ### 5.2 Architecturally Significant Design Packages
-The class diagram; containing all Data Access Objects, Models and Controllers that we will need to finish for the basic functionality:
-
-![Class Diagram]
+Laravel packages used include:
+- **Eloquent ORM** for database management
+- **Blade** for templating views
+- **Laravel Mix** for asset management
 
 ### 5.3 Pattern
-We’ve choosen a service locator pattern to be used on our server. This pattern is typical for C#.
+Laravel follows the MVC (Model-View-Controller) pattern, which helps in organizing the application structure and makes the application more maintainable and scalable.
 
-The service locator pattern is a design pattern used in to encapsulate the processes involved in obtaining a service with a strong abstraction layer. 
-
-This pattern uses a central registry known as the "service locator", which on request returns the information necessary to perform a certain task.
-
-The approach simplifies component-based applications where all dependencies are cleanly listed at the beginning of the whole application design, consequently making traditional dependency injection a more complex way of connecting objects.
-
-Therefore we rebuild our InfrastructureInitializer to a SocketServerFactory.
-![patternserver]
-
-As we already used some patterns since the beginning of development, we decided not to compromise the code integrity completely. Therefore not realy much changed in our code.
-
-![patternclass]
 ## 6. Process View
 n/a
 
 ## 7. Deployment View
-![client/server]
+This section describes the deployment setup of our client-server architecture:
 
+- **Client**: Vue.js frontend that interfaces with the Laravel backend
+- **Server**: Laravel backend deployed on a PHP-compatible hosting environment
+
+The diagram below shows the deployment architecture, with the client (frontend) and server (backend) interacting over HTTP:
+
+```plaintext
++-------------+      +-------------+      +--------------------+
+|  Client     | <--> |   Network   | <--> |       Server       |
+| (Vue.js)    |      | (Internet)  |      |   (Laravel PHP)    |
++-------------+      +-------------+      +--------------------+
+```
+
+**Deployment Process**:
+1. Install dependencies using `npm install` and `composer install`
+2. Run the build commands to create optimized versions of both frontend and backend
+3. Configure environment variables and ensure a compatible PHP hosting environment
+   
 ## 8. Implementation View
 
 ### 8.1 Overview
@@ -105,17 +127,5 @@ n/a
 ## 11. Quality
 n/a
 
-
-[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram_mvvm_2ndSem.png "Class Diagram with MVVM"
-
 [mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
-
-[client/server]: https://github.com/Haus4/NeCo/raw/develop/docs/img/Client_Server_Architecture.jpg "Client-Server-Architecture"
-
-[oucd]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram Semester 1"
-
-[oucd2]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UseCaseDiagramm_2nd.jpg "Overall Use Case Diagram Semester 2"
-
-[patternclass]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/before_server_cd.PNG "Image of Pattern Class Diagram"
-
-[patternserver]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/server_patterns.png "Image of Pattern Diagram"
+[Use-Case]: https://github.com/leoboehm/hobbydevs/blob/main/use_cases/Use_Case_Diagram.png
