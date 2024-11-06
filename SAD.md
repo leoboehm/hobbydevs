@@ -55,6 +55,7 @@ In Progress (change text & image)
 In Progress 
 
 ## 4. Use-Case View
+![Use-Case]
 
 ### 4.1 Use-Case Realizations
 In Progress
@@ -95,3 +96,4 @@ n/a
 
 
 [mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
+[Use-Case]: https://github.com/leoboehm/hobbydevs/blob/main/use_cases/Use_Case_Diagram.png
