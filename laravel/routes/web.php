@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// catches csrf token if neccessary
+Route::get('/csrf-token', function () {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
+
+// redirects routing to Vue
 Route::get('/{vue_capture?}', function () {
     return view('welcome');
-})->where('vue_capture', '[\/\w\.-]*');
+})->where('vue_capture', '^(?!csrf-token).*');

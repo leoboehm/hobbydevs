@@ -94,6 +94,8 @@
 </template>
 
 <script>
+import { useAuthStore } from '../stores/auth'
+
 export default {
     name: 'SignUpView',
 
@@ -119,13 +121,42 @@ export default {
                 matchPassword: value =>
                     value === this.password || 'Passwords must match',
             },
+
+            // authentification store
+            authStore: undefined,
         }
     },
+
+    beforeMount() {
+        // init auth store
+        this.authStore = useAuthStore()
+    },
+
     methods: {
         submit() {
             if (this.$refs.form.validate()) {
-                console.log('Form is valid and ready to submit!')
-                alert('Sign Up Successful!')
+                if (this.authStore != undefined) {
+                    this.authStore.actionRegisterNewUser({
+                        email: this.email,
+                        firstname: this.firstname,
+                        lastname: this.lastname,
+                        password: this.password,
+                        type: this.accountType,
+                        username: this.username,
+                    })
+
+                    this.$router.push({ name: 'Login' })
+                    // if (response.error == null) {
+                    //     console.log(
+                    //         'Error during registration: ' + response.error,
+                    //     )
+                    //     alert('An error has occurred during registration...')
+                    // } else {
+                    //     this.$router.push({ name: 'login' })
+                    // }
+                } else {
+                    alert('Registration not possible. Try again later...')
+                }
             }
         },
         cancel() {
