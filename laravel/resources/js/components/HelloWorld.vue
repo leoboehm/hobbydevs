@@ -8,16 +8,6 @@ defineProps({
 </script>
 
 <template>
-    <v-card
-        class="mx-auto"
-        theme="dark"
-        max-width="400"
-        title="Welcome to Vuetify 3"
-    >
-        <v-card-text class="text-h5 py-2">
-            This project is using Vuetify 3. Have fun!
-        </v-card-text>
-    </v-card>
     <div class="greetings">
         <h1 class="green">{{ msg }}</h1>
         <h3>
