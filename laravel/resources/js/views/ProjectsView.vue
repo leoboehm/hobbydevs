@@ -1,16 +1,12 @@
 <template>
-    <main>
-        <NavBar />
-        <router-view />
-    </main>
+    <div>
+        <h1>Projects Page</h1>
+        <p>This is the placeholder for the Projects page.</p>
+    </div>
 </template>
 
 <script>
-import NavBar from '../components/NavBar.vue'
-
 export default {
-    components: {
-        NavBar,
-    },
+    name: 'ProjectsView',
 }
 </script>

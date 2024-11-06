@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'PostProject',
+    name: 'PostProjectView',
 }
 </script>

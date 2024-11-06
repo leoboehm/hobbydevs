@@ -1,13 +1,13 @@
 <template>
     <v-app-bar color="black" dark>
-        <v-app-bar-title>HobbyDev</v-app-bar-title>
+        <v-app-bar-title>HobbyDevs</v-app-bar-title>
         <v-toolbar-items>
             <v-btn color="blue" class="white--text" to="/">Home</v-btn>
 
             <v-menu offset-y>
                 <template #activator="{ on }">
                     <v-btn color="blue" class="white--text" v-on="on">
-                        Project
+                        Projects
                     </v-btn>
                 </template>
                 <v-list>
@@ -20,7 +20,6 @@
                 </v-list>
             </v-menu>
 
-            <v-btn color="blue" to="/forum">Forum</v-btn>
             <v-btn color="blue" to="/about">About</v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>

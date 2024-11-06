@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'Developers',
+    name: 'DevelopersView',
 }
 </script>

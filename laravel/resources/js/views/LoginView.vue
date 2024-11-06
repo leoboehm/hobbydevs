@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'Login',
+    name: 'LoginView',
 }
 </script>

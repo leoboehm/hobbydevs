@@ -1,7 +1,3 @@
-<script setup>
-import HelloWorld from '.././components/HelloWorld.vue'
-</script>
-
 <template>
     <v-container fluid>
         <img
@@ -16,6 +12,15 @@ import HelloWorld from '.././components/HelloWorld.vue'
         </div>
     </v-container>
 </template>
+
+<script>
+import HelloWorld from '.././components/HelloWorld.vue'
+
+export default {
+    name: 'HomeView',
+    components: { HelloWorld },
+}
+</script>
 
 <style scoped>
 header {

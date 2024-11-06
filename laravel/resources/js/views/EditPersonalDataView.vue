@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'EditData',
+    name: 'EditPersonalDataView',
 }
 </script>

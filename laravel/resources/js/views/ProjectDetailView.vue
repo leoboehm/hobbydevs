@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'ProjectDetail',
+    name: 'ProjectDetailView',
 }
 </script>

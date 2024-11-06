@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'Applications',
+    name: 'ApplicationsView',
 }
 </script>

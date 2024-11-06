@@ -95,6 +95,8 @@
 
 <script>
 export default {
+    name: 'SignUpView',
+
     data() {
         return {
             valid: false,

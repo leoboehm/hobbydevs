@@ -7,6 +7,6 @@
 
 <script>
 export default {
-    name: 'OwnProfile',
+    name: 'ProfileView',
 }
 </script>
