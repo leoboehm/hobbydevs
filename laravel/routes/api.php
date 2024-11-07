@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // register new user
 Route::post('/register', [RegisterController::class, 'register']);
+// login user
+Route::post('/login', [AuthController::class, 'login']);
+// logout user
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
