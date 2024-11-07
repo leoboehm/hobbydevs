@@ -43,7 +43,6 @@ n/a
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.
 
 ## 2. Architectural Representation
-In Progress (change text & image)
 ![MVVM](https://github.com/leoboehm/hobbydevs/blob/70580156bc90b5d729722beb10d10598a00dc29b/MVVM.png)
 
 ## 3. Architectural Goals and Constraints
