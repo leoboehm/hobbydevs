@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('authStore', {
         // register new user
         async actionRegisterNewUser(userData) {
             try {
-                const response = await apiClient.post('/register', userData)
+                await apiClient.post('/register', userData)
             } catch (error) {
                 this.error = error.response
                     ? error.response.data.message
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('authStore', {
         // login user
         async login(email, password) {
           try {
-            await axios.post('/api/login', { email, password });
+            await apiClient.post('/login', { email, password });
             this.user = { email };
           } catch (error) {
             console.error('Login failed', error);
@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('authStore', {
         // logout user
         async logout() {
           try {
-            await axios.post('/api/logout');
+            await apiClient.post('/logout');
             this.user = null;
           } catch (error) {
             console.error('Logout failed', error);
