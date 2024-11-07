@@ -42,6 +42,6 @@
     },
     "cypress-cucumber-preprocessor": {
         "nonGlobalStepDefinitions": true,
-        "stepDefinitions": "cypress/e2e/cucumber/step_definitions/*.js"
+        "stepDefinitions": "cypress/e2e/cucumber/step_definitions/*_steps.js"
     }
 }
