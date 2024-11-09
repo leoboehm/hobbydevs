@@ -62,6 +62,7 @@ Feature: User Login
     When the user clicks the "Submit" button
     Then an error message is displayed indicating the missing information
     And the user is not logged in
+```
 
 ### Activity Diagram
 tbd
