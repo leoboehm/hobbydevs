@@ -22,7 +22,7 @@ tbd
 6. If the credentials are valid, the user is redirected to their dashboard.
 
 ### Activity Diagram
-tbd
+![Activity Diagram](../activity_diagrams/uc2_ad_login.png)
 
 ### .feature File
 
