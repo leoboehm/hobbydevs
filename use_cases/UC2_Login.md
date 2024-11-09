@@ -26,7 +26,7 @@ tbd
 
 ### .feature File
 
-The Gherkin script for this use case is available [here](../features/UC2_Login).
+The Gherkin script for this use case is available [here](../features/UC2_Login.feature).
 
 ```gherkin
 Feature: User Login
