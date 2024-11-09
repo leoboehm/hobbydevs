@@ -6,10 +6,7 @@
 This use case allows users to log out of the platform. Once logged out, the user will be redirected to the homepage or login screen, ending their current session.
 
 ### 1.2 Mockup
-tbd
-
-### 1.3 Screenshots
-tbd
+![Mockup Logout](../mockups/uc3_logout.png)
 
 ## 2. Flow of Events
 
