@@ -5,6 +5,16 @@
                 <span class="headline">Login</span>
             </v-card-title>
             <v-card-text>
+                <!-- Not signed up yet message -->
+                <v-alert 
+                    v-if="!isSignedIn" 
+                    type="info" 
+                    class="mb-4" 
+                    dense
+                >
+                    Not signed up yet? <v-btn text color="blue" @click="goToSignUp">Click here</v-btn> to sign up.
+                </v-alert>
+
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <!-- Username -->
                     <v-text-field
@@ -63,6 +73,13 @@ export default {
         this.authStore = useAuthStore()
     },
 
+    computed: {
+        isSignedIn() {
+            // Check if the user is signed in through authStore
+            return this.authStore && this.authStore.isLoggedIn
+        }
+    },
+
     methods: {
         submit() {
             if (this.$refs.form.validate()) {
@@ -83,6 +100,10 @@ export default {
             this.password = ''
             this.$refs.form.resetValidation()
         },
+        goToSignUp() {
+            // Redirect to the sign-up page if user is not signed in
+            this.$router.push({ name: 'SignUp' })
+        }
     },
 }
 </script>
@@ -92,5 +113,3 @@ export default {
     height: 100vh;
 }
 </style>
-
-
