@@ -6,10 +6,14 @@
 This use case enables users to log into the platform by providing valid login credentials. The login form should include fields for a username and password. Upon successful login, the user is granted access to their dashboard.
 
 ### 1.2 Mockup
-tbd
+![Mockup Login](../mockups/uc2_login.png)
 
 ### 1.3 Screenshots
-tbd
+### Login Sucessful
+![Login Successful](../screenshots/uc2_login_successful.png)
+
+### Login Fail
+![Login Fail](../screenshots/uc2_login_fail.png)
 
 ## 2. Flow of Events
 
