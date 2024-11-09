@@ -25,7 +25,7 @@ tbd
 
 ### .feature File
 
-The Gherkin script for this use case is available here.
+The Gherkin script for this use case is available [here](../features/UC3_Logout.feature).
 
 ```gherkin
 Feature: User Logout
