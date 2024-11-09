@@ -9,9 +9,7 @@ This use case enables users to log into the platform by providing valid login cr
 tbd
 
 ### 1.3 Screenshots
-- **Login Screen with Input Fields**
-- **Successful Login**
-- **Login Error (e.g., incorrect password)**
+tbd
 
 ---
 
@@ -26,7 +24,7 @@ tbd
 6. If the credentials are valid, the user is redirected to their dashboard.
 
 ### Activity Diagram
-![Activity Diagram for Login Process](path/to/activity-diagram.png)
+tbd
 
 ---
 
