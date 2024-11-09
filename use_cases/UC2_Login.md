@@ -11,8 +11,6 @@ tbd
 ### 1.3 Screenshots
 tbd
 
----
-
 ## 2. Flow of Events
 
 ### 2.1 Basic Flow
@@ -25,8 +23,6 @@ tbd
 
 ### Activity Diagram
 tbd
-
----
 
 ### .feature File
 
@@ -61,9 +57,6 @@ Feature: User Login
     Then an error message is displayed indicating the missing information
     And the user is not logged in
 ```
-
-### Activity Diagram
-tbd
 
 ## 2.2 Alternative Flows
 - The user cancels the login process.
