@@ -21,7 +21,7 @@ tbd
 5. The user is redirected to the homepage or login screen.
 
 ### Activity Diagram
-![Activity Diagram](../activity_diagrams/uc3_ad_logout.png)
+![Activity Diagram](../activity_diagrams/uc3_activity_diagram_logout.png)
 
 ### .feature File
 
