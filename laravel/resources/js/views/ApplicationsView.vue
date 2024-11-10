@@ -6,11 +6,20 @@
             </v-card-title>
             <v-card-text>
                 <v-form ref="form" v-model="valid" lazy-validation>
-                    <!-- Developer Name -->
+                    <!-- First Name -->
                     <v-text-field
-                        v-model="developerName"
+                        v-model="firstName"
                         :rules="[rules.required]"
-                        label="Developer Name"
+                        label="First Name"
+                        outlined
+                        required
+                    ></v-text-field>
+
+                     <!-- Last Name -->
+                     <v-text-field
+                        v-model="lastName"
+                        :rules="[rules.required]"
+                        label="Last Name"
                         outlined
                         required
                     ></v-text-field>
@@ -83,7 +92,8 @@ export default {
     data() {
         return {
             valid: false,
-            developerName: '',
+            firstName: '',
+            lastName: '',
             skills: [],  // Array to store skills as tags
             availableSkills: ['Java', 'Python', 'JavaScript', 'C++', 'HTML', 'CSS'],  // Initial skill options
             availability: '',
@@ -106,7 +116,8 @@ export default {
             }
         },
         cancel() {
-            this.developerName = ''
+            this.firstName = ''
+            this.lastName = ''
             this.skills = []
             this.availability = ''
             this.pastExperience = ''
