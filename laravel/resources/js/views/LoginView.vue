@@ -16,11 +16,11 @@
                 </v-alert>
 
                 <v-form ref="form" v-model="valid" lazy-validation>
-                    <!-- Username -->
-                    <v-text-field
-                        v-model="username"
-                        :rules="[rules.required]"
-                        label="Username"
+                     <!-- Email -->
+                     <v-text-field
+                        v-model="email"
+                        :rules="[rules.required, rules.email]"
+                        label="Email"
                         outlined
                         required
                     ></v-text-field>
@@ -59,11 +59,13 @@ export default {
     data() {
         return {
             valid: false,
-            username: '',
+            email: '',
             password: '',
             showPassword: false,
             rules: {
                 required: value => !!value || 'This field is required',
+                email: value =>
+                    /.+@.+\..+/.test(value) || 'E-mail must be valid',
             },
             authStore: undefined,
         }
@@ -85,7 +87,7 @@ export default {
             if (this.$refs.form.validate()) {
                 if (this.authStore) {
                     this.authStore.actionLogin({
-                        username: this.username,
+                        email: this.email,
                         password: this.password,
                     })
 
@@ -96,7 +98,7 @@ export default {
             }
         },
         cancel() {
-            this.username = ''
+            this.email = ''
             this.password = ''
             this.$refs.form.resetValidation()
         },
