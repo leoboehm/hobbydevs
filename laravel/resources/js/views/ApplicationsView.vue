@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import { useAuthStore } from '../stores/auth'
 export default {
     name: 'ApplyForProject',
 
@@ -108,13 +109,30 @@ export default {
     },
 
     methods: {
-        submit() {
+        async submit() {
             if (this.$refs.form.validate()) {
-                // Perform form submission logic here
-                alert('Application submitted successfully!')
-                this.$router.push({ name: 'Home' })
+                const applicationData = {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    skills: this.skills,
+                    availability: this.availability,
+                    pastExperience: this.pastExperience,
+                    motivation: this.motivation,
+                    contactInfo: this.contactInfo,
+                }
+
+                const authStore = useAuthStore()
+                try {
+                    await authStore.applyForProject(applicationData)
+                    alert('Application submitted successfully!')
+                    this.$router.push({ name: 'Home' })
+                } catch (error) {
+                    console.error('Failed to submit application:', error)
+                    alert('There was an error submitting your application.')
+                }
             }
         },
+
         cancel() {
             this.firstName = ''
             this.lastName = ''
