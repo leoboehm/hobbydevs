@@ -1,48 +1,142 @@
-<template>
-    <div>
-    <h2>Publish Project</h2>
 
+<template v-slot:item.1>
+    <v-stepper-step step="1" complete>
+    <v-card title="Step One" flat>
+        <v-card-text>
+            <v-row>
+                <v-col cols="12">
+                    <v-text-field
+                        v-model="project.title"
+                        label="Project Title"
+                        outlined
+                        dense
+                        required
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field
+                        v-model="project.description"
+                        label="Project Description"
+                        outlined
+                        dense
+                        required
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-select
+                        v-model="project.category"
+                        :items="categories"
+                        label="Category"
+                        outlined
+                        dense
+                        required
+                    ></v-select>
+                </v-col>
+                <v-col cols="12">
+                    <v-select
+                        v-model="project.skills"
+                        :items="skills"
+                        label="Skills"
+                        outlined
+                        dense
+                        multiple
+                        required
+                    ></v-select>
+                </v-col>
+            </v-row>
+        </v-card-text>
+    </v-card>
+    </v-stepper-step>
+    <v-stepper-step>
+    <v-card title="Step Two" flat>
+        <v-card-text>
+            <v-row>
+                <v-col cols="12">
+                    <v-text-field
+                        v-model="project.salary"
+                        label="Project salary range"
+                        outlined
+                        dense
+                        required
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field
+                        v-model="project.description"
+                        label="Project Duration"
+                        outlined
+                        dense
+                        required
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-date-input
+                v-model="project.start_date"
+                label="Project Start Date"
+                outlined
+                dense
+                required
+            ></v-date-input>
+            <v-date-input
+                v-model="project.end_date"
+                label="Project End Date"
+                outlined
+                dense
+                required
+            ></v-date-input>    
 
-    <div>
-        <label for="projecttitle">Project Title:</label>
-        <input v-model="projecttitle" type="text" id="projecttitle" placeholder="Enter your project title." />
-    </div>
-
-    <div>
-        <label for="ProjectDescription">Project Descriptions:</label>
-        <input v-model="projectdescription" type="text" id="ProjectDescription" placeholder="Enter your project description." />
-    </div>
-    
-
-
-    <div>
-        <label for="skillsneeded">Skills Requirments:</label>
-        <input v-model="skillsneeded" type="skillsneeded" id="skillsneeded" placeholder="Enter skills required." />
-    <v-combobox
-        v-model="skills"
-        :items="availableSkills"
-        label="Skills"
-        multiple
-        outlined
-        chips
-        clearable_
-        small-chips
-    ></v-combobox>  
-    </div>
-    </div>
+        </v-card-text>
+    </v-card>
+    </v-stepper-step>
 </template>
 
 <script>
+    import {VDateInput} from '/node_modules/vuetify/lib/labs/VDateInput'
+
     export default {
         data(){
             return{
-                Selectedcategory: '',
-                categories: ['Frontend', 'Backend', 'Database', 'Security', 'Design', 'Testing'],
-                skills: [], 
-                availableSkills: ['Java', 'Python', 'JavaScript', 'C++', 'HTML', 'CSS'],
+                project: {
+                    title: '',
+                    description: '',
+                    category: '',
+                    skills: [],
+                    salary: 0,
+                },
+                categories: [
+                    'Web Development',
+                    'Mobile Development',
+                    'Desktop Development',
+                    'Game Development',
+                    'Data Science',
+                    'Machine Learning',
+                    'Artificial Intelligence',
+                    'Cyber Security',
+                    'Networking',
+                ],
+                skills: [
+                    'HTML',
+                    'CSS',
+                    'JavaScript',
+                    'PHP',
+                    'Python',
+                    'Java',
+                    'C#',
+                    'C++',
+                    'Ruby',
+                    'Swift',
+                    'Kotlin',
+                    'Dart',
+                    'React',
+                    'Vue',
+                ],
             }
+        },
+        components: {
+            VDateInput
         }
     };
+
     </script>
 
     <style scoped>
