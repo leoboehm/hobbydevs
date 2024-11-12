@@ -37,6 +37,23 @@
         <v-btn colour="red" class="red--text" icon @click="onLoginClick">
             Login
         </v-btn>
+
+        <v-btn colour="red" class="red--text" icon @click="onLogoutClick">
+            logout
+        </v-btn>
+        <v-dialog v-model="dialog" width="auto">
+            <v-card
+                max-width="400"
+                prepend-icon="mdi-update"
+                text="Are you sure you want to logout?."
+                title="Logging out"
+            >
+            <template v-slot:actions>
+                <v-btn class="ms-auto" text="Yes" @click="dialog = false"></v-btn>
+                <v-btn class="ms-auto" text="No" @click="dialog = false"></v-btn>
+            </template>
+            </v-card>
+        </v-dialog>
     </v-app-bar>
 </template>
 
@@ -46,6 +63,9 @@ export default {
         onLoginClick() {
             this.$router.push('/login')
         },
+        onLogoutClick() {
+            this.dialog = true
+        },
         goToProjectDetails() {
             this.$router.push('/project/details')
         },
@@ -53,6 +73,11 @@ export default {
             this.$router.push('/project/list')
         },
     },
+    data() {
+        return {
+            dialog: false,
+        }
+    }
 }
 </script>
 
