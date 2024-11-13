@@ -73,7 +73,7 @@ const router = createRouter({
             path: '/publsih-project',
             name: 'PublishProject',
             component: () => import('../views/Publishproject.vue'),
-        }
+        },
     ],
 })
 

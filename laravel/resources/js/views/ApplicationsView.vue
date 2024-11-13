@@ -15,8 +15,8 @@
                         required
                     ></v-text-field>
 
-                     <!-- Last Name -->
-                     <v-text-field
+                    <!-- Last Name -->
+                    <v-text-field
                         v-model="lastName"
                         :rules="[rules.required]"
                         label="Last Name"
@@ -95,15 +95,23 @@ export default {
             valid: false,
             firstName: '',
             lastName: '',
-            skills: [],  // Array to store skills as tags
-            availableSkills: ['Java', 'Python', 'JavaScript', 'C++', 'HTML', 'CSS'],  // Initial skill options
+            skills: [], // Array to store skills as tags
+            availableSkills: [
+                'Java',
+                'Python',
+                'JavaScript',
+                'C++',
+                'HTML',
+                'CSS',
+            ], // Initial skill options
             availability: '',
             pastExperience: '',
             motivation: '',
             contactInfo: '',
             rules: {
                 required: value => !!value || 'This field is required',
-                email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
+                email: value =>
+                    /.+@.+\..+/.test(value) || 'E-mail must be valid',
             },
         }
     },

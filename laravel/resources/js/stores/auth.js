@@ -19,32 +19,31 @@ export const useAuthStore = defineStore('authStore', {
         },
         // login user
         async login(email, password) {
-          try {
-            await apiClient.post('/login', { email, password });
-            this.user = { email };
-          } catch (error) {
-            console.error('Login failed', error);
-          }
+            try {
+                await apiClient.post('/login', { email, password })
+                this.user = { email }
+            } catch (error) {
+                console.error('Login failed', error)
+            }
         },
         // logout user
         async logout() {
-          try {
-            await apiClient.post('/logout');
-            this.user = null;
-          } catch (error) {
-            console.error('Logout failed', error);
-          }
+            try {
+                await apiClient.post('/logout')
+                this.user = null
+            } catch (error) {
+                console.error('Logout failed', error)
+            }
         },
         // Apply for project
         async applyForProject(applicationData) {
-          try {
-            await apiClient.post('/apply', applicationData)
-          } catch (error) {
-            this.error = error.response
-            ? error.response.data.message
-            : 'An error occurred during application submission'
-          }
+            try {
+                await apiClient.post('/apply', applicationData)
+            } catch (error) {
+                this.error = error.response
+                    ? error.response.data.message
+                    : 'An error occurred during application submission'
+            }
         },
-      },
-  })
-    
+    },
+})

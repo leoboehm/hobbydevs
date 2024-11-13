@@ -48,10 +48,18 @@
                 text="Are you sure you want to logout?."
                 title="Logging out"
             >
-            <template v-slot:actions>
-                <v-btn class="ms-auto" text="Yes" @click="dialog = false"></v-btn>
-                <v-btn class="ms-auto" text="No" @click="dialog = false"></v-btn>
-            </template>
+                <template v-slot:actions>
+                    <v-btn
+                        class="ms-auto"
+                        text="Yes"
+                        @click="dialog = false"
+                    ></v-btn>
+                    <v-btn
+                        class="ms-auto"
+                        text="No"
+                        @click="dialog = false"
+                    ></v-btn>
+                </template>
             </v-card>
         </v-dialog>
     </v-app-bar>
@@ -77,7 +85,7 @@ export default {
         return {
             dialog: false,
         }
-    }
+    },
 }
 </script>
 
