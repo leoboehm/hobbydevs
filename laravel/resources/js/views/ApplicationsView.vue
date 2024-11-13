@@ -86,9 +86,9 @@
 </template>
 
 <script>
-import { useAuthStore } from '../stores/auth'
+import { useProjectStore } from '../stores/project'
 export default {
-    name: 'ApplyForProject',
+    name: 'ApplicationsView',
 
     data() {
         return {
@@ -129,9 +129,9 @@ export default {
                     contactInfo: this.contactInfo,
                 }
 
-                const authStore = useAuthStore()
+                const projectStore = useProjectStore()
                 try {
-                    await authStore.applyForProject(applicationData)
+                    await projectStore.applyForProject(applicationData)
                     alert('Application submitted successfully!')
                     this.$router.push({ name: 'Home' })
                 } catch (error) {

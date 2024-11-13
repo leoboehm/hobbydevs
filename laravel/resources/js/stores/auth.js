@@ -34,16 +34,6 @@ export const useAuthStore = defineStore('authStore', {
             } catch (error) {
                 console.error('Logout failed', error)
             }
-        },
-        // Apply for project
-        async applyForProject(applicationData) {
-            try {
-                await apiClient.post('/apply', applicationData)
-            } catch (error) {
-                this.error = error.response
-                    ? error.response.data.message
-                    : 'An error occurred during application submission'
-            }
-        },
+        }
     },
 })
