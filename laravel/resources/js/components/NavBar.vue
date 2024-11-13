@@ -2,11 +2,13 @@
     <v-app-bar color="black" dark>
         <v-app-bar-title>HobbyDevs</v-app-bar-title>
         <v-toolbar-items>
-            <v-btn color="blue" class="white--text" to="/">Home</v-btn>
+            <v-btn color="blue" to="/">Home</v-btn>
+            <v-btn color="blue" to="/projects/post">Publish Project</v-btn>
+            <v-btn color="blue" to="/applications">Apply for Project</v-btn>
 
             <!-- <v-menu offset-y>
                 <template #activator="{ on }">
-                    <v-btn color="blue" class="white--text" v-on="on">
+                    <v-btn color="blue" v-on="on">
                         Projects
                     </v-btn>
                 </template>
