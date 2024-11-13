@@ -34,12 +34,8 @@
             class="search-bar"
         ></v-text-field>
 
-        <v-btn colour="red" class="red--text" icon @click="onLoginClick">
-            Login
-        </v-btn>
-
-        <v-btn colour="red" class="red--text" icon @click="onLogoutClick">
-            logout
+        <v-btn class="text-red mx-2" icon @click="isSignedIn ? onLogoutClick : onLoginClick">
+            {{ isSignedIn ? "Logout" : "Login" }}
         </v-btn>
         <v-dialog v-model="dialog" width="auto">
             <v-card
@@ -66,7 +62,22 @@
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/auth"
+
 export default {
+    name: "NavBar",
+
+    data() {
+        return {
+            authStore: undefined,
+
+            dialog: false,
+        }
+    },
+    
+    beforeMount() {
+        this.authStore = useAuthStore()
+    },
     methods: {
         onLoginClick() {
             this.$router.push('/login')
@@ -81,11 +92,12 @@ export default {
             this.$router.push('/project/list')
         },
     },
-    data() {
-        return {
-            dialog: false,
-        }
-    },
+    computed: {
+        isSignedIn() {
+            // Check if the user is signed in through authStore
+            return this.authStore && this.authStore.getUserLoggedIn
+        },
+    }
 }
 </script>
 

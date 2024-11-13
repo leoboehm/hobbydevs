@@ -77,7 +77,7 @@ export default {
     computed: {
         isSignedIn() {
             // Check if the user is signed in through authStore
-            return this.authStore && this.authStore.isLoggedIn
+            return this.authStore && this.authStore.getUserLoggedIn
         },
     },
 

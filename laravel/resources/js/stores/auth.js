@@ -6,6 +6,9 @@ export const useAuthStore = defineStore('authStore', {
         user: null,
         error: null,
     }),
+    getters: {
+        getUserLoggedIn: state => state.user == null ? false : true
+    },
     actions: {
         // register new user
         async actionRegisterNewUser(userData) {
