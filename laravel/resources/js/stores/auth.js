@@ -7,7 +7,7 @@ export const useAuthStore = defineStore('authStore', {
         error: null,
     }),
     getters: {
-        getUserLoggedIn: state => state.user == null ? false : true
+        getUserLoggedIn: state => (state.user == null ? false : true),
     },
     actions: {
         // register new user
@@ -21,22 +21,22 @@ export const useAuthStore = defineStore('authStore', {
             }
         },
         // login user
-        async login(email, password) {
+        async actionLogin(credentials) {
             try {
-                await apiClient.post('/login', { email, password })
-                this.user = { email }
+                await apiClient.post('/login', credentials)
+                this.user = credentials.email
             } catch (error) {
                 console.error('Login failed', error)
             }
         },
         // logout user
-        async logout() {
+        async actionLogout() {
             try {
                 await apiClient.post('/logout')
                 this.user = null
             } catch (error) {
                 console.error('Logout failed', error)
             }
-        }
+        },
     },
 })

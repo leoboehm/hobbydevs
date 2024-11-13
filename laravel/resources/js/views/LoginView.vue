@@ -6,7 +6,7 @@
             </v-card-title>
             <v-card-text>
                 <!-- Not signed up yet message -->
-                <v-alert v-if="!isSignedIn" type="info" class="mb-4" dense>
+                <v-alert type="info" class="mb-4" dense>
                     Not signed up yet?
                     <v-btn text color="blue" @click="goToSignUp"
                         >Click here</v-btn
@@ -74,12 +74,7 @@ export default {
         this.authStore = useAuthStore()
     },
 
-    computed: {
-        isSignedIn() {
-            // Check if the user is signed in through authStore
-            return this.authStore && this.authStore.getUserLoggedIn
-        },
-    },
+    computed: {},
 
     methods: {
         submit() {

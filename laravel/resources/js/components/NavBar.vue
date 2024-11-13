@@ -4,21 +4,21 @@
         <v-toolbar-items>
             <v-btn color="blue" class="white--text" to="/">Home</v-btn>
 
-            <v-menu offset-y>
+            <!-- <v-menu offset-y>
                 <template #activator="{ on }">
                     <v-btn color="blue" class="white--text" v-on="on">
                         Projects
                     </v-btn>
                 </template>
                 <v-list>
-                    <v-list-item @click="goToProjectDetails">
+                    <v-list-item to="/project/details">
                         <v-list-item-title>Project Details</v-list-item-title>
                     </v-list-item>
-                    <v-list-item @click="goToProjectList">
+                    <v-list-item to="/project/list">
                         <v-list-item-title>Project List</v-list-item-title>
                     </v-list-item>
                 </v-list>
-            </v-menu>
+            </v-menu> -->
 
             <v-btn color="blue" to="/about">About</v-btn>
         </v-toolbar-items>
@@ -34,8 +34,19 @@
             class="search-bar"
         ></v-text-field>
 
-        <v-btn class="text-red mx-2" icon @click="isSignedIn ? onLogoutClick : onLoginClick">
-            {{ isSignedIn ? "Logout" : "Login" }}
+        <v-btn
+            v-if="!authStore.getUserLoggedIn"
+            class="text-red mx-2"
+            @click="loginClick"
+        >
+            Login
+        </v-btn>
+        <v-btn
+            v-if="authStore.getUserLoggedIn"
+            class="text-red mx-2"
+            @click="dialog = true"
+        >
+            Logout
         </v-btn>
         <v-dialog v-model="dialog" width="auto">
             <v-card
@@ -45,11 +56,7 @@
                 title="Logging out"
             >
                 <template v-slot:actions>
-                    <v-btn
-                        class="ms-auto"
-                        text="Yes"
-                        @click="dialog = false"
-                    ></v-btn>
+                    <v-btn class="ms-auto" text="Yes" @click="logout"></v-btn>
                     <v-btn
                         class="ms-auto"
                         text="No"
@@ -62,10 +69,10 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth"
+import { useAuthStore } from '@/stores/auth'
 
 export default {
-    name: "NavBar",
+    name: 'NavBar',
 
     data() {
         return {
@@ -74,30 +81,24 @@ export default {
             dialog: false,
         }
     },
-    
+
     beforeMount() {
         this.authStore = useAuthStore()
     },
     methods: {
-        onLoginClick() {
+        loginClick() {
             this.$router.push('/login')
         },
-        onLogoutClick() {
-            this.dialog = true
-        },
-        goToProjectDetails() {
-            this.$router.push('/project/details')
-        },
-        goToProjectList() {
-            this.$router.push('/project/list')
+        logout() {
+            if (this.authStore) {
+                this.authStore.actionLogout()
+
+                this.$router.push({ name: 'Home' })
+            } else {
+                alert('Error during logout. Try again later...')
+            }
         },
     },
-    computed: {
-        isSignedIn() {
-            // Check if the user is signed in through authStore
-            return this.authStore && this.authStore.getUserLoggedIn
-        },
-    }
 }
 </script>
 
