@@ -1,122 +1,156 @@
-<template v-slot:item.1>
-    <v-stepper-step step="1" complete>
-        <v-card title="Step One" flat>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12">
-                        <v-text-field
-                            v-model="project.title"
-                            label="Project Title"
+<template>
+    <v-stepper v-model="currentStep">
+        <template v-slot:default="{ prev, next }">
+        <v-stepper-header>
+            <v-stepper-item
+                title="Step One"
+                value="1"
+                :complete="currentStep > currentStep - 1"
+            ></v-stepper-item>
+
+            <v-divider></v-divider>
+
+            <v-stepper-item
+                title="Step Two"
+                value="2"
+                complete
+            ></v-stepper-item>
+
+            <v-divider></v-divider>
+
+            <v-stepper-item title="Step Three" value="3"></v-stepper-item>
+        </v-stepper-header>
+
+        <v-stepper-window>
+            <v-stepper-window-item step="1" value="1">
+                <v-card title="Step One" flat>
+                    <v-card-text>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="project.title"
+                                    label="Project Title"
+                                    outlined
+                                    dense
+                                    required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="project.description"
+                                    label="Project Description"
+                                    outlined
+                                    dense
+                                    required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-select
+                                    v-model="project.category"
+                                    :items="categories"
+                                    label="Category"
+                                    outlined
+                                    dense
+                                    required
+                                ></v-select>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-select
+                                    v-model="project.skills"
+                                    :items="skills"
+                                    label="Skills"
+                                    outlined
+                                    dense
+                                    multiple
+                                    required
+                                ></v-select>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-card>
+            </v-stepper-window-item>
+
+            <v-stepper-window-item value="2" step="2">
+                <v-card title="Step Two" flat>
+                    <v-card-text>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="project.salary"
+                                    label="Project salary range"
+                                    outlined
+                                    dense
+                                    required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="project.description"
+                                    label="Project Duration"
+                                    outlined
+                                    dense
+                                    required
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-date-input
+                            v-model="project.start_date"
+                            label="Project Start Date"
                             outlined
                             dense
                             required
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field
-                            v-model="project.description"
-                            label="Project Description"
+                        ></v-date-input>
+                        <v-date-input
+                            v-model="project.end_date"
+                            label="Project End Date"
                             outlined
                             dense
                             required
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-select
-                            v-model="project.category"
-                            :items="categories"
-                            label="Category"
-                            outlined
-                            dense
-                            required
-                        ></v-select>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-select
-                            v-model="project.skills"
-                            :items="skills"
-                            label="Skills"
-                            outlined
-                            dense
-                            multiple
-                            required
-                        ></v-select>
-                    </v-col>
-                </v-row>
-            </v-card-text>
-        </v-card>
-    </v-stepper-step>
-    <v-stepper-step>
-        <v-card title="Step Two" flat>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12">
-                        <v-text-field
-                            v-model="project.salary"
-                            label="Project salary range"
-                            outlined
-                            dense
-                            required
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field
-                            v-model="project.description"
-                            label="Project Duration"
-                            outlined
-                            dense
-                            required
-                        ></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-date-input
-                    v-model="project.start_date"
-                    label="Project Start Date"
-                    outlined
-                    dense
-                    required
-                ></v-date-input>
-                <v-date-input
-                    v-model="project.end_date"
-                    label="Project End Date"
-                    outlined
-                    dense
-                    required
-                ></v-date-input>
-            </v-card-text>
-        </v-card>
-    </v-stepper-step>
+                        ></v-date-input>
+                    </v-card-text>
+                </v-card>
+            </v-stepper-window-item>
+
+            <v-stepper-window-item value="3" step="3"
+                ><v-card title="Step Three" flat>
+                    <div>
+                        <p>Project ID :{{ randomNumber }}</p>
+                        <button @click="generateRandomNumber">ID</button>
+                    </div>
+                    <v-date-input
+                        v-model="application.start_date"
+                        label="Application Start Date"
+                        outlined
+                        dense
+                        required
+                    ></v-date-input>
+                    <v-date-input
+                        v-model="application.end_date"
+                        label="Applicaiton End Date"
+                        outlined
+                        dense
+                        required
+                    ></v-date-input>
+                </v-card>
+            </v-stepper-window-item>
+        </v-stepper-window>
         
-    <v-stepper-step>
-        <v-card title="Step Three" flat>
-            <div>
-                <p>Project ID :{{ randomNumber }}</p>
-                <button @click="generateRandomNumber">ID</button>
-            </div>
-            <v-date-input
-                    v-model="application.start_date"
-                    label="Application Start Date"
-                    outlined
-                    dense
-                    required
-                ></v-date-input>
-                <v-date-input
-                    v-model="application.end_date"
-                    label="Applicaiton End Date"
-                    outlined
-                    dense
-                    required
-                ></v-date-input>
-        </v-card>
-    </v-stepper-step>
+        <v-stepper-actions
+          :disabled="disabled"
+          @click:next="next"
+          @click:prev="prev"
+        ></v-stepper-actions>
+    </template>
+    </v-stepper>
 </template>
 
 <script>
 import { VDateInput } from '/node_modules/vuetify/lib/labs/VDateInput'
-import ApplicaitonStepper from '../components/ApplicaitonStepper.vue';
 export default {
     data() {
         return {
+            currentStep: 1,
+
             project: {
                 title: '',
                 description: '',
@@ -160,7 +194,6 @@ export default {
     },
     components: {
         VDateInput,
-        ApplicaitonStepper,
     },
     methods: {
         generateRandomNumber() {

@@ -1,6 +1,13 @@
 <template>
-    <v-container class="fill-height d-flex justify-center align-start" style="width: 100%;">
-        <v-card elevation="2" style="width: 80vw; max-width: 1200px;" class="px-4 py-4">
+    <v-container
+        class="fill-height d-flex justify-center align-start"
+        style="width: 100%"
+    >
+        <v-card
+            elevation="2"
+            style="width: 80vw; max-width: 1200px"
+            class="px-4 py-4"
+        >
             <v-card-title>
                 <span class="headline">Sign Up</span>
             </v-card-title>
