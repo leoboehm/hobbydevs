@@ -88,9 +88,6 @@ If the entered email or password format is incorrect, the system displays an err
 ## 5.2 Failed Registration:
 - An appropriate error message is displayed, and the user remains on the registration screen.
 
-### 5.1 Save changes / Sync with server
-Data gets encoded and saved in database
-
 # 6. Function Points
 n/a
 
