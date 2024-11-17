@@ -1,6 +1,6 @@
 <template>
-    <v-container class="fill-height d-flex justify-center align-center">
-        <v-card elevation="2" max-width="600">
+    <v-container class="fill-height d-flex justify-center align-start" style="width: 100%;">
+        <v-card elevation="2" style="width: 80vw; max-width: 1200px;" class="px-4 py-4">
             <v-card-title>
                 <span class="headline">Apply for a Project</span>
             </v-card-title>
