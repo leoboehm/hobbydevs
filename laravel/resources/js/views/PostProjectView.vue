@@ -23,7 +23,7 @@
 
         <v-stepper-window>
             <v-stepper-window-item step="1" value="1">
-                <v-card title="Step One" flat>
+                <v-card title="Project Detail" flat>
                     <v-card-text>
                         <v-row>
                             <v-col cols="12">
@@ -65,15 +65,6 @@
                                     required
                                 ></v-select>
                             </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-card>
-            </v-stepper-window-item>
-
-            <v-stepper-window-item value="2" step="2">
-                <v-card title="Step Two" flat>
-                    <v-card-text>
-                        <v-row>
                             <v-col cols="12">
                                 <v-text-field
                                     v-model="project.salary"
@@ -83,6 +74,20 @@
                                     required
                                 ></v-text-field>
                             </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-card>
+                <v-stepper-actions
+                    :disabled="disabled"
+                    @click:next="next"
+                ></v-stepper-actions>
+            </v-stepper-window-item>
+
+            <v-stepper-window-item value="2" step="2">
+                <v-card title="Step Two" flat>
+                    <v-card-text>
+                        <v-row>
+
                             <v-col cols="12">
                                 <v-text-field
                                     v-model="project.description"
@@ -109,6 +114,11 @@
                         ></v-date-input>
                     </v-card-text>
                 </v-card>
+                <v-stepper-actions
+                    :disabled="disabled"
+                    @click:next="next"
+                    @click:prev="prev"
+                ></v-stepper-actions>
             </v-stepper-window-item>
 
             <v-stepper-window-item value="3" step="3"
@@ -132,14 +142,15 @@
                         required
                     ></v-date-input>
                 </v-card>
+                <v-stepper-actions
+                    :disabled="disabled"
+                    nextText="Submit"
+                    @click:next="next"
+                    @click:prev="prev"
+                ></v-stepper-actions>
             </v-stepper-window-item>
         </v-stepper-window>
         
-        <v-stepper-actions
-          :disabled="disabled"
-          @click:next="next"
-          @click:prev="prev"
-        ></v-stepper-actions>
     </template>
     </v-stepper>
 </template>
@@ -149,8 +160,7 @@ import { VDateInput } from '/node_modules/vuetify/lib/labs/VDateInput'
 export default {
     data() {
         return {
-            currentStep: 1,
-
+            currentStep: 0,
             project: {
                 title: '',
                 description: '',
