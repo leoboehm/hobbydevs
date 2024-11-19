@@ -32,7 +32,7 @@ By filing up the form as detailed as possible, the project owner can find the mo
 ![Activity diagram Publish project](../activity_diagrams/UC4_activity_Publish_project.png)
 
 ### .feature File
-The Gherkin script for this use case is available [here](../features/features/UC4_Publish_Project.feature)
+The Gherkin script for this use case is available [here](../features/UC4_Publish_Project.feature)
 ```Gherkin
 Feature: Publish Project
 
