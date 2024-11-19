@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Project;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Application;
 
-class ApplicationController extends Controller
+class ProjectApplicationController extends Controller
 {
-    public function store(Request $request)
+    public function postApplication(Request $request)
     {
         $validatedData = $request->validate([
             'firstName' => 'required|string|max:255',

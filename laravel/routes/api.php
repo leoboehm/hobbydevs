@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Project\ProjectApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +30,4 @@ Route::post('/login', [AuthController::class, 'login']);
 // logout user
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 // applications
-Route::post('/applications', [ApplicationController::class, 'store']);
+Route::post('/applications', [ProjectApplicationController::class, 'postApplication']);

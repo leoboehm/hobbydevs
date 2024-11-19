@@ -68,7 +68,7 @@ const router = createRouter({
             path: '/signup',
             name: 'SignUp',
             component: () => import('../views/SignUpView.vue'),
-        }
+        },
     ],
 })
 

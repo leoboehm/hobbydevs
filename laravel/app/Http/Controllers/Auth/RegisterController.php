@@ -11,9 +11,6 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        // Validate the request
-        // validateRequestData($request);
-
         // Create the user
         User::create([
             'email' => $request->email,
@@ -28,12 +25,7 @@ class RegisterController extends Controller
         return response()->json(['message' => 'User registered successfully'], 201);;
     }
 
-    private function validateRequestData(Request $request){
-        $request->validate([
-            'type' => 'required|string|max:255',
-            'username' => 'required|string|min:3|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+    public function deleteUserAccount(Request $request){
+
     }
 }
