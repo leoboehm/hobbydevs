@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 // logout user
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+// applications
+Route::post('/applications', [ApplicationController::class, 'store']);
