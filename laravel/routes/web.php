@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 // redirects routing to Vue
 Route::get('/{vue_capture?}', function () {
     return view('welcome');
-})->where('vue_capture', '^(?!uml).*[\/\w\.-]**');
+})->where('vue_capture', '^(?!uml).*[\/\w\.-]*');

@@ -136,7 +136,7 @@
                     ></v-date-input>
                     <v-date-input
                         v-model="application.end_date"
-                        label="Applicaiton End Date"
+                        label="Application End Date"
                         outlined
                         dense
                         required
@@ -156,7 +156,6 @@
 </template>
 
 <script>
-import { VDateInput } from '/node_modules/vuetify/lib/labs/VDateInput'
 export default {
     data() {
         return {
@@ -203,7 +202,6 @@ export default {
         }
     },
     components: {
-        VDateInput,
     },
     methods: {
         generateRandomNumber() {
