@@ -95,7 +95,7 @@ Until November we plan to implement:
 - 3.1.4 Publish Project
 - 3.1.5 Applying for a Project
 
-Until *(Month -> Next Semester)*, we want to implement:
+Until *Next Semester*, we want to implement:
 - 3.1.6 Editing Project
 - 3.1.7. Chat Function
 - 3.1.8. Payment
@@ -103,13 +103,19 @@ Until *(Month -> Next Semester)*, we want to implement:
 - 3.1.10. Email Notification
 
 #### 3.1.1 Create User Account
-tbd
+This use case allows new users to register and create an account on the platform. The user's data will be securely stored in the database.
+
+[Create User Account](./use_cases/UC1_Create_User_Account.md)
 
 #### 3.1.2 Logging in
 The website will provide the possibility to register and log in. This will also make the usability easier when a user wants to ... because they don't have to enter their mail address every time.
 
+[Logging in](./use_cases/UC2_Login.md)
+
 #### 3.1.3 Logging out
 In case you share your device, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
+
+[Logging out](./use_cases/UC3_Logout.md)
 
 #### 3.1.4 Publish Project
 In this feature every very user can create new operations, making him the owner of the newly created project. In this process, the project owner should provide detailed information for users to look at and select the project that they want to participate in. 
