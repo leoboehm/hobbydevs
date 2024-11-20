@@ -7,11 +7,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        // Debug session store
+        if (!Session::has('_token')) {
+            return response()->json(['message' => 'Session not started'], 500);
+        }
+        
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -24,6 +30,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        // Debug CSRF token
+        if (!$request->has('_token')) {
+            return response()->json(['message' => 'CSRF token missing from request'], 400);
+        }
+    
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

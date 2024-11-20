@@ -20,16 +20,16 @@ use App\Http\Controllers\Project\ProjectController;
 */
 
 // return user
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
 // register new user
 Route::post('/register', [RegisterController::class, 'register']);
 // login user
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('web');
 // logout user
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('web');
 // applications
 Route::post('/applications', [ProjectApplicationController::class, 'postApplication']);
 // publish project
