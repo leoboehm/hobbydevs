@@ -20,10 +20,16 @@ const router = createRouter({
             component: () => import('../views/DevelopersView.vue'),
         },
         {
-            path: '/applications',
-            name: 'Applications',
+            path: '/apply/:projectId',
+            name: 'Apply',
             component: () => import('../views/ApplicationsView.vue'),
+            props: true,
         },
+        // {
+        //     path: '/applications',
+        //     name: 'Applications',
+        //     component: () => import('../views/ApplicationsView.vue'),
+        // },
         {
             path: '/profile',
             name: 'Profile',

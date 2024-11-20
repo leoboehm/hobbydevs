@@ -21,13 +21,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@hobbydevs.com'
         ]);
         
-        \App\Models\Project::factory(10)->create();
-
         \App\Models\Project::factory()->create([
             'title' => 'Hobby Devs',
             'description' => 'This is a fun Software Engineering Project for young students of Computer Science!',
             'salary_range' => 'You will not get paid ;)',
             'duration' => '2 Semesters',
         ]);
+        \App\Models\Project::factory(10)->create();
     }
 }

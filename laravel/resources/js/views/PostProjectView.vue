@@ -87,7 +87,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
-                                    v-model="project.description"
+                                    v-model="project.duration"
                                     label="Project Duration"
                                     outlined
                                     dense
@@ -267,7 +267,7 @@
 
 <script>
 import { useDate } from 'vuetify'
-import { useProjectStore } from '@/stores/project'
+import { useProjectStore } from '../stores/project'
 
 export default {
     data() {

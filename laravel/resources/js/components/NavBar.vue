@@ -4,7 +4,6 @@
         <v-toolbar-items>
             <v-btn color="blue" to="/">Home</v-btn>
             <v-btn color="blue" to="/projects/post">Publish Project</v-btn>
-            <v-btn color="blue" to="/applications">Apply for Project</v-btn>
 
             <!-- <v-menu offset-y>
                 <template #activator="{ on }">
