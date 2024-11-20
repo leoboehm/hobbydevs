@@ -1,4 +1,4 @@
-t# Common Playground - Software Requirements Specification 
+# Common Playground - Software Requirements Specification 
 
 ## Table of contents
 - [Table of contents](#table-of-contents)
