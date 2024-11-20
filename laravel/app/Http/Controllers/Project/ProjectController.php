@@ -33,7 +33,9 @@ class ProjectController extends Controller
             'salary_range' => $request->salaryRange,
             'duration' => $request->duration,
             'start_date' => $request->startDate,
-            'end_date' => $request->endDate
+            'deadline' => $request->deadline,
+            'application_start_date' => $request->applicationStartDate,
+            'application_deadline' => $request->applicationDeadline,
         ]);
 
         return response()->json(['message' => 'Project published successfully'], 201);

@@ -23,7 +23,9 @@ class Project extends Model
         'salary_range',
         'duration',
         'start_date',
-        'end_date'
+        'deadline',
+        'application_start_date',
+        'application_deadline'
     ];
 
     /**
@@ -40,6 +42,8 @@ class Project extends Model
      */
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date' => 'datetime'
+        'deadline' => 'datetime',
+        'application_start_date',
+        'application_deadline'
     ];
 }

@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('salary_range')->nullable();
             $table->string('duration')->nullable();
             $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->timestamp('deadline')->nullable();
+            $table->timestamp('application_start_date')->nullable();
+            $table->timestamp('application_deadline')->nullable();
             $table->timestamps();
             
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
