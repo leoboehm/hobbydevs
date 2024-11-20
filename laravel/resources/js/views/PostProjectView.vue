@@ -84,7 +84,7 @@
                 </v-stepper-window-item>
 
                 <v-stepper-window-item value="2" step="2">
-                    <v-card title="Step Two" flat>
+                    <v-card title="Project Duration" flat>
                         <v-card-text>
                             <v-row>
                                 <v-col cols="12">
@@ -121,11 +121,7 @@
                 </v-stepper-window-item>
 
                 <v-stepper-window-item value="3" step="3"
-                    ><v-card title="Step Three" flat>
-                        <div>
-                            <p>Project ID :{{ randomNumber }}</p>
-                            <button @click="generateRandomNumber">ID</button>
-                        </div>
+                    ><v-card title="Application Timeline" flat>
                         <v-date-input
                             v-model="application.start_date"
                             label="Application Start Date"
@@ -154,6 +150,7 @@
 </template>
 
 <script>
+import { VDateInput } from '/node_modules/vuetify/lib/labs/VDateInput'
 export default {
     data() {
         return {
@@ -164,6 +161,8 @@ export default {
                 category: '',
                 skills: [],
                 salary: 0,
+                start_date: '',
+                end_date: '',
             },
             application: {
                 start_date: '',
@@ -199,11 +198,10 @@ export default {
             randomNumber: null,
         }
     },
-    components: {},
+    components: {
+        VDateInput,
+    },
     methods: {
-        generateRandomNumber() {
-            this.randomNumber = Math.floor(100000 + Math.random() * 900000)
-        },
     },
 }
 </script>
