@@ -18,14 +18,14 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
     response => response.data, // Return response data as usual
     error => {
-      if (error.response && error.response.status === 419) {
-        // If the CSRF token has expired (419 error), reload the page
-        window.location.reload();
-      }
-      return Promise.reject(error); // Reject the error as usual
-    }
-  );
-  
+        if (error.response && error.response.status === 419) {
+            // If the CSRF token has expired (419 error), reload the page
+            window.location.reload()
+        }
+        return Promise.reject(error) // Reject the error as usual
+    },
+)
+
 // Fetch CSRF token before making requests
 fetchCsrfToken().then(() => {
     // Once the CSRF token is fetched, set the header
@@ -33,6 +33,5 @@ fetchCsrfToken().then(() => {
         .querySelector('meta[name="csrf-token"]')
         .getAttribute('content')
 })
-
 
 export default apiClient

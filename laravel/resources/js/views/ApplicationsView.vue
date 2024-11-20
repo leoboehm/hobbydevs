@@ -138,7 +138,7 @@ export default {
 
                 const projectStore = useProjectStore()
                 try {
-                    await projectStore.applyForProject(applicationData)
+                    await projectStore.actionApplyForProject(applicationData)
                     alert('Application submitted successfully!')
                     this.$router.push({ name: 'Home' })
                 } catch (error) {

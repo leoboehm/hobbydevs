@@ -3,12 +3,11 @@ import apiClient from '../services/axios'
 
 export const useProjectStore = defineStore('projectStore', {
     state: () => ({
-        user: null,
         error: null,
     }),
     actions: {
         // Apply for project
-        async applyForProject(applicationData) {
+        async actionApplyForProject(applicationData) {
             try {
                 await apiClient.post('/apply', applicationData)
             } catch (error) {
@@ -18,14 +17,38 @@ export const useProjectStore = defineStore('projectStore', {
             }
         },
         // Publish project
-        async publishProject(projectData) {
+        async actionPublishProject(projectData) {
             try {
-                await apiClient.post('/publish', projectData)
+                await apiClient.post('/project', projectData)
             } catch (error) {
                 this.error = error.response
                     ? error.response.data.message
                     : 'An error occurred during project publishment'
             }
-        }
+        },
+        // Get project list
+        async actionGetAllProjects() {
+            try {
+                let projects = await apiClient.get('/project')
+                return projects
+            } catch (error) {
+                this.error = error.response
+                    ? error.response.data.message
+                    : 'An error occurred during fetching of project list'
+                return null
+            }
+        },
+        // Get project by ID
+        async actionGetProjectByID(id) {
+            try {
+                let project = await apiClient.get('/project/' + id)
+                return project
+            } catch (error) {
+                this.error = error.response
+                    ? error.response.data.message
+                    : 'An error occurred during fetching of project with id: ' + id
+                return null
+            }
+        },
     },
 })

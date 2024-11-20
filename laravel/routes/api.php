@@ -23,6 +23,9 @@ use App\Http\Controllers\Project\ProjectController;
 Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
     return $request->user();
 });
+// return project list
+Route::get('/projects/all', [ProjectController::class, 'getProjectList']);
+Route::get('/projects/{id}', [ProjectController::class, 'getProjectById']);
 
 // register new user
 Route::post('/register', [RegisterController::class, 'register']);
@@ -32,5 +35,6 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('web');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('web');
 // applications
 Route::post('/applications', [ProjectApplicationController::class, 'postApplication']);
-// publish project
-Route::post('/publish', [ProjectController::class, 'postProject']);
+
+// project routes
+Route::apiResource('project', ProjectController::class);
