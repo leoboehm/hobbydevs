@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->longText('description');
             $table->string('category');
@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

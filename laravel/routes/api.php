@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Project\ProjectApplicationController;
+use App\Http\Controllers\Project\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 // applications
 Route::post('/applications', [ProjectApplicationController::class, 'postApplication']);
+// publish project
+Route::post('/publish', [ProjectController::class, 'postProject']);

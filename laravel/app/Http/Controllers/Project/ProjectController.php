@@ -6,17 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 
-class ProjectsController extends Controller
+class ProjectController extends Controller
 {
     public function postProject(Request $request)
     {
         // Create the project
         Project::create([
-            'owner_id' => $request->ownerID,
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
-            'skills' => $request->skills,
+            'skills' => json_encode($request->skills),
             'salary_range' => $request->salaryRange,
             'start_date' => $request->startDate,
             'end_date' => $request->endDate
