@@ -31,6 +31,7 @@ class ProjectController extends Controller
             'category' => $request->category,
             'skills' => json_encode($request->skills),
             'salary_range' => $request->salaryRange,
+            'duration' => $request->duration,
             'start_date' => $request->startDate,
             'end_date' => $request->endDate
         ]);

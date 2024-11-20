@@ -201,8 +201,7 @@ export default {
     components: {
         VDateInput,
     },
-    methods: {
-    },
+    methods: {},
 }
 </script>
 

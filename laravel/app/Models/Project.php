@@ -21,6 +21,7 @@ class Project extends Model
         'category',
         'skills',
         'salary_range',
+        'duration',
         'start_date',
         'end_date'
     ];

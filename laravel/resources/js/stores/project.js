@@ -46,7 +46,8 @@ export const useProjectStore = defineStore('projectStore', {
             } catch (error) {
                 this.error = error.response
                     ? error.response.data.message
-                    : 'An error occurred during fetching of project with id: ' + id
+                    : 'An error occurred during fetching of project with id: ' +
+                      id
                 return null
             }
         },
