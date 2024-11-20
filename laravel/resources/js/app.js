@@ -12,6 +12,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import DayJsAdapter from '@date-io/dayjs'
 
 import '@mdi/font/css/materialdesignicons.css'
 const vuetify = createVuetify({
@@ -22,6 +23,9 @@ const vuetify = createVuetify({
     },
     icons: {
         defaultSet: 'mdi',
+    },
+    date: {
+        adapter: DayJsAdapter,
     },
 })
 
