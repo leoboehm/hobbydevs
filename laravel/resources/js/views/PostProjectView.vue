@@ -5,7 +5,6 @@
                 <v-stepper-item
                     title="Project Detail"
                     value="1"
-                    :complete="currentStep > currentStep - 1"
                 ></v-stepper-item>
 
                 <v-divider></v-divider>
@@ -13,7 +12,6 @@
                 <v-stepper-item
                     title="Duration & Salary"
                     value="2"
-                    complete
                 ></v-stepper-item>
 
                 <v-divider></v-divider>
