@@ -8,9 +8,23 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
-    public function postProject(Request $request)
+    /**
+     * Route: GET /project
+     * Display a listing of projects.
+     */
+    public function index()
     {
-        // Create the project
+        $projects = Project::all();
+
+        return response()->json($projects);
+    }
+
+    /**
+     * Route: POST /project
+     * Store a newly created project in storage.
+     */
+    public function store(Request $request)
+    {
         Project::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -21,7 +35,40 @@ class ProjectController extends Controller
             'end_date' => $request->endDate
         ]);
 
-        // Return success message
-        return response()->json(['message' => 'Project published successfully'], 201);;
+        return response()->json(['message' => 'Project published successfully'], 201);
+    }
+
+    /**
+     * Route: GET /project/{id}
+     * Return project by ID
+     */
+    public function show(string $id)
+    {
+        $project = Project::find($id);
+
+        // Check if the project exists
+        if (!$project) {
+            return response()->json(['message' => 'Project not found'], 404);
+        }
+
+        return response()->json($project);
+    }
+
+    /**
+     * Route: PUT/PATCH /project/{id}
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Route: DELETE /project/{id}
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
