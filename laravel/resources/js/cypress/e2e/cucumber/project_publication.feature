@@ -7,7 +7,7 @@ Feature: Publish Project
   Scenario: Successful project creation
     Given the Project Owner is logged in
     When the Project Owner clicks on the "Publish Project" button
-    And the Project Owner fills up the project creation form with valid project detail data (Project Title, Project Description, Category, Skills)
+    And the Project Owner fills up the project creation form with valid project detail data
     And the Project Owner clicks on the "Next" button
     And the Project Owner fills up the project creation form with valid duration and salary data (Project Salary Range, Project Duration, Start Date, Deadline)
     And the Project Owner clicks on the "Next" button

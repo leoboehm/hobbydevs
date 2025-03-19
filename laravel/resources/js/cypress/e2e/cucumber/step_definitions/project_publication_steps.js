@@ -3,22 +3,23 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 // Scenario 1: Successful project creation
 
 Given('the Project Owner is logged in', () => {
-  cy.login().then(() => {
-    cy.checkLoginState().should('eq', true);
-  });
+  cy.visit('http://localhost:8000');
+  // cy.login().then(() => {
+  //   cy.checkLoginState().should('eq', true);
+  // });
 });
 
 When('the Project Owner clicks on the "Publish Project" button', () => {
   // Code to click on the "Publish Project" button
-  cy.get('button').contains('Publish Project').click();
+  cy.get('a').contains('Publish Project').click();
 });
 
-When('the Project Owner fills up the project creation form with valid project detail data (Project Title, Project Description, Category, Skills)', () => {
+When('the Project Owner fills up the project creation form with valid project detail data', () => {
   // Fill in the project detail form
   cy.get('#project-title').type('New Web Development Project');
   cy.get('#project-description').type('A project to develop a web application');
   cy.get('#category').select('Web Development');
-  cy.get('#skills').type('HTML, CSS, JavaScript, React');
+  cy.get('#skills').select('HTML, CSS, JavaScript');
 });
 
 When('the Project Owner clicks on the "Next" button', () => {

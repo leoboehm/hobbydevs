@@ -22,6 +22,7 @@
                         <v-row dense>
                             <v-col cols="12">
                                 <v-text-field
+                                    id="project-title"
                                     v-model="project.title"
                                     label="Project Title"
                                     outlined
@@ -31,6 +32,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
+                                    id="project-description"
                                     v-model="project.description"
                                     label="Project Description"
                                     outlined
@@ -40,6 +42,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-select
+                                    id="category"
                                     v-model="project.category"
                                     :items="categories"
                                     label="Category"
@@ -50,6 +53,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-select
+                                    id="skills"
                                     v-model="project.skills"
                                     :items="skills"
                                     label="Skills"
@@ -78,6 +82,7 @@
                         <v-row dense>
                             <v-col cols="12">
                                 <v-text-field
+                                    id="salary-range"
                                     v-model="project.salary"
                                     label="Project Salary Range"
                                     outlined
@@ -87,6 +92,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
+                                    id="project-duration"
                                     v-model="project.duration"
                                     label="Project Duration"
                                     outlined
@@ -96,6 +102,7 @@
                             </v-col>
                             <v-col cols="5" class="mr-8">
                                 <v-text-field
+                                    id="project-start-date"
                                     v-model="project.start_date"
                                     label="Start Date"
                                     readonly
@@ -130,6 +137,7 @@
                             </v-col>
                             <v-col cols="5">
                                 <v-text-field
+                                    id="project-end-date"
                                     v-model="project.end_date"
                                     label="Deadline"
                                     readonly
@@ -183,6 +191,7 @@
                         <v-row dense>
                             <v-col cols="5" class="mr-8">
                                 <v-text-field
+                                    id="application-start-date"
                                     v-model="application.start_date"
                                     label="Start Date"
                                     readonly
@@ -217,6 +226,7 @@
                             </v-col>
                             <v-col cols="5">
                                 <v-text-field
+                                    id="application-end-date"
                                     v-model="application.end_date"
                                     label="End Date"
                                     readonly
