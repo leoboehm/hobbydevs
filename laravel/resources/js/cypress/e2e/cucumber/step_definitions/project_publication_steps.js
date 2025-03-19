@@ -1,100 +1,105 @@
-import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
-Before(() => {
-  cy.wrap({
-    isLoggedIn: false,
-    projectData: {},
-    published: false,
-    errorMessage: ''
-  }).as('projectPublishing');
-});
+// Scenario 1: Successful project creation
 
 Given('the Project Owner is logged in', () => {
-  cy.get('@projectPublishing').then(state => {
-    state.isLoggedIn = true;
-    cy.wrap(state).as('projectPublishing');
+  cy.login().then(() => {
+    cy.checkLoginState().should('eq', true);
   });
 });
 
-When('the Project Owner clicks on the "Publish new project" button', () => {
-  cy.get('button').contains('Publish new project').click();
+When('the Project Owner clicks on the "Publish Project" button', () => {
+  // Code to click on the "Publish Project" button
+  cy.get('button').contains('Publish Project').click();
 });
 
-When('the Project Owner fills up the project creation form with valid data', () => {
-  cy.get('input[name="title"]').type('New Project');
-  cy.get('textarea[name="description"]').type('This is a valid project description');
-  cy.get('@projectPublishing').then(state => {
-    state.projectData = { title: 'New Project', description: 'This is a valid project description' };
-    cy.wrap(state).as('projectPublishing');
-  });
-});
-
-When('the Project Owner fills up the project creation form with missing or invalid data', () => {
-  cy.get('input[name="title"]').clear();
-  cy.get('textarea[name="description"]').clear();
-  cy.get('@projectPublishing').then(state => {
-    state.projectData = { title: '', description: '' };
-    cy.wrap(state).as('projectPublishing');
-  });
+When('the Project Owner fills up the project creation form with valid project detail data (Project Title, Project Description, Category, Skills)', () => {
+  // Fill in the project detail form
+  cy.get('#project-title').type('New Web Development Project');
+  cy.get('#project-description').type('A project to develop a web application');
+  cy.get('#category').select('Web Development');
+  cy.get('#skills').type('HTML, CSS, JavaScript, React');
 });
 
 When('the Project Owner clicks on the "Next" button', () => {
+  // Click on the "Next" button
   cy.get('button').contains('Next').click();
-  cy.get('@projectPublishing').then(state => {
-    if (!state.projectData.title || !state.projectData.description) {
-      state.errorMessage = 'Invalid project data';
-      cy.wrap(state).as('projectPublishing');
-    }
-  });
 });
 
-Then('the system displays an error message', () => {
-  cy.get('@projectPublishing').then(state => {
-    expect(state.errorMessage).to.equal('Invalid project data');
-  });
-  cy.contains('Invalid project data').should('be.visible');
+When('the Project Owner fills up the project creation form with valid duration and salary data (Project Salary Range, Project Duration, Start Date, Deadline)', () => {
+  // Fill in duration and salary details
+  cy.get('#salary-range').type('€5000 - €7000');
+  cy.get('#project-duration').type('3 months');
+  cy.get('#start-date').type('2025-04-01');
+  cy.get('#deadline').type('2025-06-30');
 });
 
-Then('the Project Owner is prompted to correct the information', () => {
-  cy.get('@projectPublishing').then(state => {
-    expect(state.errorMessage).to.not.be.empty;
-  });
+When('the Project Owner clicks on the "Next" button', () => {
+  // Click on the "Next" button
+  cy.get('button').contains('Next').click();
 });
 
-When('the Project Owner checks the detailed information page', () => {
-  cy.url().should('include', '/project/details');
-  cy.contains('Project Details').should('be.visible');
+When('the Project Owner fills up the project creation form with valid application data (Start Date, End Date)', () => {
+  // Fill in application data
+  cy.get('#application-start-date').type('2025-04-01');
+  cy.get('#application-end-date').type('2025-04-30');
 });
 
-When('the Project Owner clicks the "Publish" button', () => {
-  cy.get('button').contains('Publish').click();
-  cy.get('@projectPublishing').then(state => {
-    state.published = true;
-    cy.wrap(state).as('projectPublishing');
-  });
+When('the Project Owner clicks on the "Submit" button', () => {
+  // Click on the "Submit" button
+  cy.get('button').contains('Submit').click();
 });
 
 Then('the project is successfully published', () => {
-  cy.get('@projectPublishing').then(state => {
-    expect(state.published).to.be.true;
-  });
-  cy.contains('Project published successfully').should('be.visible');
+  // Check that the project has been published (e.g., a success message or redirection)
+  cy.url().should('include', '/project/overview');
+  cy.contains('Project successfully published').should('be.visible');
 });
 
-Then('the Project Owner receives a notification of the new application', () => {
-  cy.contains('Notification received').should('be.visible');
+
+// Scenario 2: Project creation with missing or invalid data
+
+When('the Project Owner fills up the project creation form with missing or invalid data', () => {
+  // Fill out the form with missing or invalid data
+  cy.get('#project-title').type(''); // Empty project title
+  cy.get('#project-description').type(''); // Empty description
+  cy.get('#category').select(''); // No category selected
+  cy.get('#skills').type(''); // No skills provided
 });
 
-When('the Project Owner decides not to continue the process', () => {
+When('the Project Owner clicks on the "Next" or "Submit" button', () => {
+  // Click on the "Next" or "Submit" button, depending on where the form is at
+  cy.get('button').contains('Next').click();
+});
+
+Then('the system displays an error message', () => {
+  // Check for an error message on the page
+  cy.contains('Please fill out all required fields').should('be.visible');
+});
+
+Then('the Project Owner is prompted to correct the information', () => {
+  // Ensure the form fields are still highlighted or a prompt is shown to correct errors
+  cy.get('#project-title').should('have.class', 'is-invalid');
+  cy.get('#project-description').should('have.class', 'is-invalid');
+  cy.get('#category').should('have.class', 'is-invalid');
+  cy.get('#skills').should('have.class', 'is-invalid');
+});
+
+
+// Scenario 3: Project Owner decides not to publish the project
+
+When('the Project Owner decides to cancel the process', () => {
+  // Code to cancel the project creation process
   cy.get('button').contains('Cancel').click();
 });
 
-Then('the Project Owner can cancel the operation', () => {
-  cy.get('button').contains('Publish').should('exist');
+Then('the Project Owner is able to cancel the operation', () => {
+  // Check that the Project Owner has been redirected or the modal is closed
+  cy.url().should('not.include', '/project/create');
+  cy.contains('Project creation cancelled').should('be.visible');
 });
 
 Then('no project is published', () => {
-  cy.get('@projectPublishing').then(state => {
-    expect(state.published).to.be.false;
-  });
+  // Ensure that no project is published or visible
+  cy.contains('No projects found').should('be.visible');
 });
