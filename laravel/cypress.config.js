@@ -1,7 +1,7 @@
-import { defineConfig } from 'cypress'
-import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
-import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
-import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
+import { defineConfig } from "cypress";
+import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
+import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
+import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
 
 export default defineConfig({
   e2e: {
@@ -10,13 +10,20 @@ export default defineConfig({
         plugins: [createEsbuildPlugin(config)],
       });
 
-      on('file:preprocessor', bundler);
+      on("file:preprocessor", bundler);
       await addCucumberPreprocessorPlugin(on, config);
 
       return config;
     },
-    specPattern: 'cypress/e2e/cucumber/*.feature',
-    supportFile: 'cypress/support/index.js',
-    baseUrl: 'http://localhost:8000'
+    specPattern: "cypress/e2e/cucumber/*.feature",
+    supportFile: "cypress/support/index.js",
+    baseUrl: "http://localhost:8000",
+  },
+
+  component: {
+    devServer: {
+      framework: "vue",
+      bundler: "vite",
+    },
   },
 });
