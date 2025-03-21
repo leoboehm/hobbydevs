@@ -43,7 +43,7 @@ n/a
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.
 
 ## 2. Architectural Representation
-![MVVM](https://github.com/leoboehm/hobbydevs/blob/70580156bc90b5d729722beb10d10598a00dc29b/MVVM.png)
+![MVVM](https://github.com/leoboehm/hobbydevs/blob/401fcb65994cc0692142bf81fad2f8885814822e/MVVM.png)
 
 ## 3. Architectural Goals and Constraints
 Our main architectural goal is to build a scalable and maintainable web application that follows the MVC (Model-View-Controller) pattern. Laravel, our chosen PHP framework, natively implements this pattern, helping us achieve separation of concerns and ensuring that each part of the application can be managed independently.
