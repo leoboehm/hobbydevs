@@ -43,4 +43,20 @@ class ProjectApplicationController extends Controller
     return response()->json($applications);
 }
 
+public function getReceivedApplications(Request $request)
+{
+    $user = $request->user(); // logged-in user (project owner)
+
+    // Get applications where the project belongs to the current user
+    $applications = \App\Models\Application::with(['user', 'project'])
+        ->whereHas('project', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return response()->json($applications);
+}
+
+
 }
