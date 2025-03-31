@@ -5,5 +5,5 @@ Given('I visit the home page', () => {
 });
 
 Then('I should see the welcome message', () => {
-  cy.get('h1').should('contain', 'You did it!');
+  cy.get('h1').should('contain', 'Welcome to HobbyDevs!');
 });
