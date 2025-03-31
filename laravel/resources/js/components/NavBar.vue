@@ -20,7 +20,7 @@
                     </v-list-item>
                 </v-list>
             </v-menu> -->
-
+            <v-btn color="blue" to="/sent-applications">My Applications</v-btn>
             <v-btn color="blue" to="/about">About</v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
