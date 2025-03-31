@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use app\Models\Application;
 class User extends Authenticatable
 {
     use HasFactory;
@@ -46,4 +46,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    // Define the relationship between User and Applications
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

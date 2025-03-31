@@ -32,4 +32,15 @@ class ProjectApplicationController extends Controller
 
         return response()->json($application, 201);
     }
+    //added this function to get all applications linked to the user
+    public function getSentApplications(Request $request)
+{
+    $user = Auth::user();  // Get the authenticated user
+
+    // Fetch all applications that are linked to this user
+    $applications = Application::where('user_id', $user->id)->get();
+
+    return response()->json($applications);
+}
+
 }

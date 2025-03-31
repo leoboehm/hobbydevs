@@ -38,3 +38,4 @@ Route::post('/applications', [ProjectApplicationController::class, 'postApplicat
 
 // project routes
 Route::apiResource('project', ProjectController::class);
+Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);// for the developer to view their sent applications
