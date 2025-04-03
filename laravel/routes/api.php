@@ -24,7 +24,8 @@ Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // return project list
-Route::get('/projects/all', [ProjectController::class, 'getProjectList']);
+Route::get('/projects', [ProjectController::class, 'getProjectList']);
+
 Route::get('/projects/{id}', [ProjectController::class, 'getProjectById']);
 
 // register new user
@@ -38,3 +39,5 @@ Route::post('/applications', [ProjectApplicationController::class, 'postApplicat
 
 // project routes
 Route::apiResource('project', ProjectController::class);
+Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
+Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);

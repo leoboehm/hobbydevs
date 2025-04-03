@@ -4,6 +4,8 @@
         <v-toolbar-items>
             <v-btn color="blue" to="/">Home</v-btn>
             <v-btn color="blue" to="/projects/post">Publish Project</v-btn>
+            <v-btn color="blue" v-if="authStore.getUserLoggedIn" to="/applications">Applications
+</v-btn>
 
             <!-- <v-menu offset-y>
                 <template #activator="{ on }">
