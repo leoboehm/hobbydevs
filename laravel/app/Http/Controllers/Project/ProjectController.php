@@ -36,6 +36,7 @@ class ProjectController extends Controller
             'deadline' => $request->deadline,
             'application_start_date' => $request->applicationStartDate,
             'application_deadline' => $request->applicationDeadline,
+            'owner_id' => auth()->id(),
         ]);
 
         return response()->json(['message' => 'Project published successfully'], 201);
@@ -74,4 +75,5 @@ class ProjectController extends Controller
     {
         //
     }
-}
+    
+}   
