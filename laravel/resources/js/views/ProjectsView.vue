@@ -7,6 +7,10 @@
             <v-col cols="12">
                 <v-card>
                     <v-card-title>{{ project.title }}</v-card-title>
+                    <v-card-text>
+                        Category: {{ project.category }}<br />
+                        Required Skills: {{ project.skills }}<br />
+                    </v-card-text>
                     <v-card-actions>
                         <v-btn 
                             @click="viewProjectDetail(project.id)" 
@@ -34,7 +38,7 @@ import { useProjectStore } from '../stores/project'
 export default {
     name: 'HomeView',
 
-    /* data() {
+ /* data() {
         return {
             projectStore: useProjectStore(),
             projectList: [  // Mock data
