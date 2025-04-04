@@ -75,10 +75,5 @@ class ProjectController extends Controller
     {
         //
     }
-    public function getProjectList()
-{
-    return response()->json(Project::all());
-}
-
     
 }   
