@@ -85,7 +85,7 @@ export default {
                         password: this.password,
                     })
 
-                    this.$router.push({ name: 'Home' })
+                    this.$router.push({ name: 'Profile' })
                 } else {
                     alert('Login not possible. Try again later...')
                 }
