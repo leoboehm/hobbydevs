@@ -17,5 +17,8 @@ class Application extends Model
         'past_experience',
         'motivation',
         'contact_info',
+        'user_id',
+        'project_id',
+        'status',
     ];
 }

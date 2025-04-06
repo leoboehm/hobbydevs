@@ -3,6 +3,8 @@
         <h2 class="text-green my-2">
             These projects are currently looking for Developers:
         </h2>
+        
+
         <v-row dense v-for="project in projectList" :key="project.id">
             <v-col cols="12">
                 <v-card>
