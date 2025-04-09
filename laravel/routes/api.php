@@ -24,7 +24,7 @@ Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
     return $request->user();
 });
 // return project list
-Route::get('/projects', [ProjectController::class, 'index']);
+
 Route::get('/projects/{id}', [ProjectController::class, 'getProjectById']);
 
 // register new user
