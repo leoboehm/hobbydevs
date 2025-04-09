@@ -108,74 +108,20 @@
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="5" class="mr-8">
-                                    <v-text-field
+                                    <DatePicker
                                         id="project-start-date"
-                                        v-model="project.start_date"
+                                        v-model="unformatted_project_start_date"
                                         label="Start Date"
-                                        readonly
-                                    >
-                                        <template v-slot:prepend>
-                                            <v-menu
-                                                v-model="startDateMenu"
-                                                :close-on-content-click="false"
-                                                transition="scale-transition"
-                                            >
-                                                <template
-                                                    v-slot:activator="{ props }"
-                                                >
-                                                    <v-icon
-                                                        v-bind="props"
-                                                        icon="mdi-calendar"
-                                                    />
-                                                </template>
-                                                <v-date-picker
-                                                    v-model="
-                                                        unformatted_project_start_date
-                                                    "
-                                                    @update:modelValue="
-                                                        startDateMenu = false
-                                                    "
-                                                    :min="today"
-                                                    hide-header
-                                                ></v-date-picker>
-                                            </v-menu>
-                                        </template>
-                                    </v-text-field>
+                                        :min="today"
+                                    />
                                 </v-col>
                                 <v-col cols="5">
-                                    <v-text-field
+                                    <DatePicker
                                         id="project-end-date"
-                                        v-model="project.end_date"
+                                        v-model="unformatted_project_end_date"
                                         label="Deadline"
-                                        readonly
-                                    >
-                                        <template v-slot:prepend>
-                                            <v-menu
-                                                v-model="deadlineMenu"
-                                                :close-on-content-click="false"
-                                                transition="scale-transition"
-                                            >
-                                                <template
-                                                    v-slot:activator="{ props }"
-                                                >
-                                                    <v-icon
-                                                        v-bind="props"
-                                                        icon="mdi-calendar"
-                                                    />
-                                                </template>
-                                                <v-date-picker
-                                                    v-model="
-                                                        unformatted_project_end_date
-                                                    "
-                                                    @update:modelValue="
-                                                        deadlineMenu = false
-                                                    "
-                                                    :min="project.start_date"
-                                                    hide-header
-                                                ></v-date-picker>
-                                            </v-menu>
-                                        </template>
-                                    </v-text-field>
+                                        :min="project.start_date"
+                                    />
                                 </v-col>
                             </v-row>
                         </v-card-text>
@@ -197,80 +143,24 @@
                         <v-card-text>
                             <v-row dense>
                                 <v-col cols="5" class="mr-8">
-                                    <v-text-field
+                                    <DatePicker
                                         id="application-start-date"
-                                        v-model="application.start_date"
+                                        v-model="
+                                            unformatted_application_start_date
+                                        "
                                         label="Start Date"
-                                        readonly
-                                    >
-                                        <template v-slot:prepend>
-                                            <v-menu
-                                                v-model="
-                                                    applicationStartDateMenu
-                                                "
-                                                :close-on-content-click="false"
-                                                transition="scale-transition"
-                                            >
-                                                <template
-                                                    v-slot:activator="{ props }"
-                                                >
-                                                    <v-icon
-                                                        v-bind="props"
-                                                        icon="mdi-calendar"
-                                                    />
-                                                </template>
-                                                <v-date-picker
-                                                    v-model="
-                                                        unformatted_application_start_date
-                                                    "
-                                                    @update:modelValue="
-                                                        applicationStartDateMenu = false
-                                                    "
-                                                    :min="today"
-                                                    hide-header
-                                                ></v-date-picker>
-                                            </v-menu>
-                                        </template>
-                                    </v-text-field>
+                                        :min="project.start_date"
+                                    />
                                 </v-col>
                                 <v-col cols="5">
-                                    <v-text-field
+                                    <DatePicker
                                         id="application-end-date"
-                                        v-model="application.end_date"
+                                        v-model="
+                                            unformatted_application_end_date
+                                        "
                                         label="End Date"
-                                        readonly
-                                    >
-                                        <template v-slot:prepend>
-                                            <v-menu
-                                                v-model="
-                                                    applicationDeadlineMenu
-                                                "
-                                                :close-on-content-click="false"
-                                                transition="scale-transition"
-                                            >
-                                                <template
-                                                    v-slot:activator="{ props }"
-                                                >
-                                                    <v-icon
-                                                        v-bind="props"
-                                                        icon="mdi-calendar"
-                                                    />
-                                                </template>
-                                                <v-date-picker
-                                                    v-model="
-                                                        unformatted_application_end_date
-                                                    "
-                                                    @update:modelValue="
-                                                        applicationDeadlineMenu = false
-                                                    "
-                                                    :min="
-                                                        application.start_date
-                                                    "
-                                                    hide-header
-                                                ></v-date-picker>
-                                            </v-menu>
-                                        </template>
-                                    </v-text-field>
+                                        :min="application.start_date"
+                                    />
                                 </v-col>
                             </v-row>
                         </v-card-text>
@@ -293,7 +183,10 @@
 import { useDate } from 'vuetify'
 import { useProjectStore } from '../stores/project'
 
+import DatePicker from '@/components/DatePicker.vue'
+
 export default {
+    components: { DatePicker },
     data() {
         return {
             valid: false,
@@ -409,5 +302,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
