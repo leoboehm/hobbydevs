@@ -1,102 +1,121 @@
 <template>
-    <v-container
-        class="fill-height d-flex justify-center align-start"
-        style="width: 100%"
-    >
-        <v-card
-            elevation="2"
-            style="width: 80vw; max-width: 1200px"
-            class="px-4 py-4"
-        >
-            <v-card-title>
-                <span class="headline">Sign Up</span>
-            </v-card-title>
-            <v-card-text>
-                <v-form ref="form" v-model="valid" lazy-validation>
-                    <!-- Account Type -->
-                    <v-select
-                        v-model="accountType"
-                        :items="accountTypes"
-                        label="Account Type"
-                        :rules="[rules.required]"
-                        outlined
-                        required
-                    ></v-select>
+    <v-container fluid class="py-4">
+        <v-row justify="center">
+            <v-col cols="6">
+                <v-card class="elevation-2 rounded-lg">
+                    <v-card-title class="headline text-center py-6">
+                        Sign Up
+                    </v-card-title>
 
-                    <!-- First Name -->
-                    <v-text-field
-                        v-model="firstname"
-                        :rules="[rules.required]"
-                        label="First Name"
-                        outlined
-                        required
-                    ></v-text-field>
+                    <v-card-text>
+                        <v-form ref="form" v-model="valid" lazy-validation>
+                            <!-- Account Type -->
+                            <v-select
+                                v-model="accountType"
+                                :items="accountTypes"
+                                label="Account Type"
+                                :rules="[rules.required]"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-select>
 
-                    <!-- Last Name -->
-                    <v-text-field
-                        v-model="lastname"
-                        :rules="[rules.required]"
-                        label="Last Name"
-                        outlined
-                        required
-                    ></v-text-field>
+                            <!-- First Name -->
+                            <v-text-field
+                                v-model="firstname"
+                                :rules="[rules.required]"
+                                label="First Name"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-text-field>
 
-                    <!-- Username -->
-                    <v-text-field
-                        v-model="username"
-                        :rules="[rules.required, rules.minLength(3)]"
-                        label="Username"
-                        outlined
-                        required
-                    ></v-text-field>
+                            <!-- Last Name -->
+                            <v-text-field
+                                v-model="lastname"
+                                :rules="[rules.required]"
+                                label="Last Name"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-text-field>
 
-                    <!-- Email -->
-                    <v-text-field
-                        v-model="email"
-                        :rules="[rules.required, rules.email]"
-                        label="Email"
-                        outlined
-                        required
-                    ></v-text-field>
+                            <!-- Username -->
+                            <v-text-field
+                                v-model="username"
+                                :rules="[rules.required, rules.minLength(3)]"
+                                label="Username"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-text-field>
 
-                    <!-- Password -->
-                    <v-text-field
-                        v-model="password"
-                        :rules="[rules.required, rules.minLength(6)]"
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="showPassword ? 'text' : 'password'"
-                        @click:append="showPassword = !showPassword"
-                        label="Password"
-                        outlined
-                        required
-                    ></v-text-field>
+                            <!-- Email -->
+                            <v-text-field
+                                v-model="email"
+                                :rules="[rules.required, rules.email]"
+                                label="Email"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-text-field>
 
-                    <!-- Confirm Password -->
-                    <v-text-field
-                        v-model="confirmPassword"
-                        :rules="[rules.required, rules.matchPassword]"
-                        :append-icon="
-                            showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'
-                        "
-                        :type="showConfirmPassword ? 'text' : 'password'"
-                        @click:append="
-                            showConfirmPassword = !showConfirmPassword
-                        "
-                        label="Confirm Password"
-                        outlined
-                        required
-                    ></v-text-field>
-                </v-form>
-            </v-card-text>
-            <v-card-actions class="justify-end">
-                <!-- Cancel Button -->
-                <v-btn text color="red" @click="cancel">Cancel</v-btn>
-                <!-- Sign Up Button -->
-                <v-btn color="primary" @click="submit" :disabled="!valid">
-                    Sign Up
-                </v-btn>
-            </v-card-actions>
-        </v-card>
+                            <!-- Password -->
+                            <v-text-field
+                                v-model="password"
+                                :rules="[rules.required, rules.minLength(6)]"
+                                :append-icon="
+                                    showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                                "
+                                :type="showPassword ? 'text' : 'password'"
+                                @click:append="showPassword = !showPassword"
+                                label="Password"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-text-field>
+
+                            <!-- Confirm Password -->
+                            <v-text-field
+                                v-model="confirmPassword"
+                                :rules="[rules.required, rules.matchPassword]"
+                                :append-icon="
+                                    showConfirmPassword
+                                        ? 'mdi-eye'
+                                        : 'mdi-eye-off'
+                                "
+                                :type="
+                                    showConfirmPassword ? 'text' : 'password'
+                                "
+                                @click:append="
+                                    showConfirmPassword = !showConfirmPassword
+                                "
+                                label="Confirm Password"
+                                outlined
+                                required
+                                class="mb-4"
+                            ></v-text-field>
+                        </v-form>
+                    </v-card-text>
+
+                    <v-card-actions class="justify-end py-4">
+                        <!-- Cancel Button -->
+                        <v-btn text color="red" @click="cancel" class="mr-4">
+                            Cancel
+                        </v-btn>
+
+                        <!-- Sign Up Button -->
+                        <v-btn
+                            color="primary"
+                            @click="submit"
+                            :disabled="!valid"
+                        >
+                            Sign Up
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -181,7 +200,5 @@ export default {
 </script>
 
 <style scoped>
-.fill-height {
-    height: 100vh;
-}
+
 </style>
