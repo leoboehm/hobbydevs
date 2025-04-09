@@ -1,58 +1,36 @@
 <template>
-    <v-app-bar color="black" dark>
-        <v-app-bar-title>HobbyDevs</v-app-bar-title>
-        <v-toolbar-items>
-            <v-btn color="blue" to="/">Home</v-btn>
-            <v-btn color="blue" to="/projects/post">Publish Project</v-btn>
-
-            <v-btn color="blue" v-if="authStore.getUserLoggedIn" to="/applications">Applications
-</v-btn>
-
-
-            <!-- <v-menu offset-y>
-                <template #activator="{ on }">
-                    <v-btn color="blue" v-on="on">
-                        Projects
-                    </v-btn>
-                </template>
-                <v-list>
-                    <v-list-item to="/project/details">
-                        <v-list-item-title>Project Details</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item to="/project/list">
-                        <v-list-item-title>Project List</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu> -->
-
-            <v-btn color="blue" to="/about">About</v-btn>
-        </v-toolbar-items>
-        <v-spacer></v-spacer>
-
-        <v-text-field
-            flat
-            solo
-            hide-details
-            color="blue"
-            prepend-inner-icon="mdi-magnify"
-            placeholder="Search"
-            class="search-bar"
-        ></v-text-field>
-
-        <v-btn
-            v-if="!authStore.getUserLoggedIn"
-            class="text-red mx-2"
-            @click="loginClick"
-        >
-            Login
-        </v-btn>
-        <v-btn
-            v-if="authStore.getUserLoggedIn"
-            class="text-red mx-2"
-            @click="dialog = true"
-        >
-            Logout
-        </v-btn>
+    <v-app-bar app color="blue-darken-2" dark flat>
+        <v-container class="d-flex justify-space-between align-center">
+            <v-toolbar-title class="text-h6 font-weight-bold"
+                >HobbyDevs
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon to="/" class="home-btn"><v-icon>mdi-home</v-icon></v-btn>
+            <v-btn text to="/projects" class="nav-btn">
+                <v-icon left>mdi-briefcase</v-icon> Projects
+            </v-btn>
+            <v-btn text to="/about" class="nav-btn">
+                <v-icon left>mdi-information</v-icon> About
+            </v-btn>
+            <v-btn
+                text
+                v-if="!authStore.getUserLoggedIn"
+                to="/login"
+                class="nav-btn"
+                color="blue-darken-4"
+            >
+                <v-icon left>mdi-login</v-icon> Login
+            </v-btn>
+            <template v-else>
+                <v-btn text to="/projects/post" class="nav-btn">
+                    Publish Project
+                </v-btn>
+                <v-btn text to="/applications" class="nav-btn">
+                    Applications
+                </v-btn>
+                <v-btn text @click="logout" class="nav-btn">Logout</v-btn>
+            </template>
+        </v-container>
         <v-dialog v-model="dialog" width="auto">
             <v-card
                 max-width="400"
@@ -91,9 +69,6 @@ export default {
         this.authStore = useAuthStore()
     },
     methods: {
-        loginClick() {
-            this.$router.push('/login')
-        },
         logout() {
             if (this.authStore) {
                 this.authStore.actionLogout()
@@ -108,7 +83,16 @@ export default {
 </script>
 
 <style scoped>
-.search-bar {
-    max-width: 200px;
+.nav-btn {
+    font-weight: 600;
+}
+
+.nav-btn .v-icon {
+    margin-right: 8px;
+}
+
+.logout-btn {
+    font-weight: 600;
+    color: #f44336;
 }
 </style>
