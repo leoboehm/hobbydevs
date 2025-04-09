@@ -50,6 +50,7 @@
 
 <script>
 import { useProjectStore } from '../stores/project'
+import { useAuthStore } from '@/stores/auth'
 
 export default {
     name: 'ProjectsView',
@@ -57,6 +58,7 @@ export default {
     data() {
         return {
             projectStore: useProjectStore(),
+            authStore: useAuthStore(),
             projectList: [],
         }
     },
@@ -76,10 +78,18 @@ export default {
 
     methods: {
         viewProjectDetail(id) {
-            this.$router.push({ name: 'ProjectDetail', params: { id } })
+            if (this.authStore.getUserLoggedIn) {
+                this.$router.push({ name: 'ProjectDetail', params: { id } })
+            } else {
+                this.$router.push({ name: 'Login' })
+            }
         },
         apply(id) {
-            this.$router.push({ name: 'Apply', params: { projectId: id } })
+            if (this.authStore.getUserLoggedIn) {
+                this.$router.push({ name: 'Apply', params: { projectId: id } })
+            } else {
+                this.$router.push({ name: 'Login' })
+            }
         },
     },
 }
