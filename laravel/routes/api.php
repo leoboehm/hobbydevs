@@ -24,6 +24,7 @@ Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 // register new user
 Route::post('/register', [RegisterController::class, 'register']);
 // login user
