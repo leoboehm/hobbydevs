@@ -195,11 +195,6 @@ export default {
 
             currentStep: 0,
 
-            startDateMenu: false,
-            deadlineMenu: false,
-            applicationStartDateMenu: false,
-            applicationDeadlineMenu: false,
-
             unformatted_project_start_date: null,
             unformatted_project_end_date: null,
             unformatted_application_start_date: null,
