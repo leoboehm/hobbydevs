@@ -43,6 +43,7 @@
                                         outlined
                                         dense
                                         required
+                                        :rules="[rules.required]"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
@@ -370,7 +371,7 @@ export default {
                     description: this.project.description,
                     category: this.project.category,
                     skills: this.project.skills,
-                    salary_range: this.project.salaryRange,
+                    salary_range: this.project.salary,
                     duration: this.project.duration,
                     startDate: this.project.start_date,
                     deadline: this.project.end_date,
@@ -381,40 +382,32 @@ export default {
                 this.$router.push({ name: 'Home' })
             }
         },
+
+        formatStartDate(date) {
+            this.project.start_date = this.date.format(date, 'fullDate')
+        },
+        formatEndDate(date) {
+            this.project.end_date = this.date.format(date, 'fullDate')
+        },
+        formatApplicationStartDate(date) {
+            this.application.start_date = this.date.format(date, 'fullDate')
+        },
+        formatApplicationEndDate(date) {
+            this.application.end_date = this.date.format(date, 'fullDate')
+        },
     },
     computed: {
         today: () => new Date(),
     },
 
     watch: {
-        unformatted_project_start_date(newValue) {
-            this.project.start_date = this.date.format(newValue, 'fullDate')
-        },
-        unformatted_project_end_date(newValue) {
-            this.project.end_date = this.date.format(newValue, 'fullDate')
-        },
-        unformatted_application_start_date(newValue) {
-            this.application.start_date = this.date.format(newValue, 'fullDate')
-        },
-        unformatted_application_end_date(newValue) {
-            this.application.end_date = this.date.format(newValue, 'fullDate')
-        },
+        unformatted_project_start_date: 'formatStartDate',
+        unformatted_project_end_date: 'formatEndDate',
+        unformatted_application_start_date: 'formatApplicationStartDate',
+        unformatted_application_end_date: 'formatApplicationEndDate',
     },
 }
 </script>
 
 <style scoped>
-h2 {
-    margin-bottom: 20px;
-}
-div {
-    margin: 8px 0;
-}
-input {
-    padding: 6px;
-    font-size: 1em;
-}
-.output {
-    margin-top: 20px;
-}
 </style>
