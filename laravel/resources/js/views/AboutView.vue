@@ -1,44 +1,53 @@
 <template>
-    <div class="help-container">
-      <h1>About Us</h1>
-      <p class="intro">
-        Welcome to <strong>Hobby Devs</strong> – a space where ideas meet development.
-        Here's how to navigate and make the most of our platform.
-      </p>
+    <v-container class="py-10 d-flex justify-center">
+      <v-card elevation="2" class="pa-6" max-width="1000">
+        <v-card-title>
+          <span class="text-h5 font-weight-medium">Help Center</span>
+        </v-card-title>
   
-      <section>
-        <h2>What is Hobby Devs?</h2>
-        <p>
-          Hobby Devs connects idea creators with hobby developers who want to work on exciting, real-world projects.
-          Whether you’re a project owner or a developer, our platform is designed for smooth, productive collaboration.
-        </p>
-      </section>
+        <v-divider class="my-4"></v-divider>
   
-      <section>
-        <h2>Getting Started</h2>
-        <ul>
-          <li><strong>Project Owners:</strong> Submit your idea with a clear description, budget and timeline.</li>
-          <li><strong>Developers:</strong> Explore available projects and apply based on your skills and availability.</li>
-        </ul>
-      </section>
+        <v-card-text>
+          <p class="mb-6">
+            Welcome to <strong>Hobby Devs</strong> – a collaborative platform where ideas meet development. Here's how to get started.
+          </p>
   
-      <section>
-        <h2>Profiles & Applications</h2>
-        <p>
-          Developers can create profiles showcasing their skills and experience. Project owners use these to find the best matches.
-        </p>
-        <p>
-          Forms allow project owners to explain what they need and developers can apply with tailored proposals.
-        </p>
-      </section>
+          <v-expansion-panels multiple>
+            <v-expansion-panel>
+              <v-expansion-panel-title>What is Hobby Devs?</v-expansion-panel-title>
+              <v-expansion-panel-text>
+                Hobby Devs connects idea creators with hobby developers who want to build real-world projects. Whether you’re a project owner or a developer, we make collaboration simple and rewarding.
+              </v-expansion-panel-text>
+            </v-expansion-panel>
   
-      <section>
-        <h2>Need More Help?</h2>
-        <p>
-          Still got questions? Reach out to our team at <a href="mailto:teamhobbydev@gmail.com">teamhobbydev@gmail.com</a>.
-        </p>
-      </section>
-    </div>
+            <v-expansion-panel>
+              <v-expansion-panel-title>Getting Started</v-expansion-panel-title>
+              <v-expansion-panel-text>
+                <ul class="pl-4">
+                  <li><strong>Project Owners:</strong> Post your idea, describe your needs and set a budget and timeline.</li>
+                  <li><strong>Developers:</strong> Explore projects and apply with your experience and availability.</li>
+                </ul>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+  
+            <v-expansion-panel>
+              <v-expansion-panel-title>Profiles & Applications</v-expansion-panel-title>
+              <v-expansion-panel-text>
+                Developers can create detailed profiles to showcase their skills and past work. Project owners submit forms explaining what they're looking for and review developer applications accordingly.
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+  
+            <v-expansion-panel>
+              <v-expansion-panel-title>Need More Help?</v-expansion-panel-title>
+              <v-expansion-panel-text>
+                Feel free to contact our team at
+                <a href="mailto:teamhobbydev@gmail.com">teamhobbydev@gmail.com</a> if you need any help or support.
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-card-text>
+      </v-card>
+    </v-container>
   </template>
   
   <script>
@@ -46,47 +55,4 @@
     name: 'HelpView',
   }
   </script>
-  
-  <style scoped>
-  .help-container {
-    max-width: 800px;
-    margin: 3rem auto;
-    padding: 0 1.5rem;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    color: var(--color-primary);
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  
-  .intro {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  section {
-    margin-bottom: 2rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-    color: var(--color-primary);
-  }
-  
-  p {
-    margin-bottom: 1rem;
-  }
-  
-  ul {
-    padding-left: 1.2rem;
-  }
-  
-  li {
-    margin-bottom: 0.5rem;
-  }
-  </style>
   
