@@ -5,7 +5,28 @@
                 <v-card class="elevation-2 rounded-lg">
                     <v-card-title class="headline text-center py-6">
                         Sign Up
+                        <hr class="mt-2" />
                     </v-card-title>
+
+                    <v-row align="center" justify="center" class="mb-3">
+                        <v-col class="text-center" cols="5">
+                            <span class="font-weight-bold"
+                                >Already have an Account?</span
+                            ></v-col
+                        >
+                        <v-col class="text-center" cols="4">
+                            <v-btn
+                                color="primary"
+                                to="/login"
+                                dark
+                                rounded
+                                elevation="2"
+                                width="200"
+                            >
+                                Go to Login
+                            </v-btn></v-col
+                        >
+                    </v-row>
 
                     <v-card-text>
                         <v-form ref="form" v-model="valid" lazy-validation>
@@ -17,7 +38,6 @@
                                 :rules="[rules.required]"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-select>
 
                             <!-- First Name -->
@@ -27,7 +47,6 @@
                                 label="First Name"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-text-field>
 
                             <!-- Last Name -->
@@ -37,7 +56,6 @@
                                 label="Last Name"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-text-field>
 
                             <!-- Username -->
@@ -47,7 +65,6 @@
                                 label="Username"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-text-field>
 
                             <!-- Email -->
@@ -57,7 +74,6 @@
                                 label="Email"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-text-field>
 
                             <!-- Password -->
@@ -72,7 +88,6 @@
                                 label="Password"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-text-field>
 
                             <!-- Confirm Password -->
@@ -93,18 +108,15 @@
                                 label="Confirm Password"
                                 outlined
                                 required
-                                class="mb-4"
                             ></v-text-field>
                         </v-form>
                     </v-card-text>
 
-                    <v-card-actions class="justify-end py-4">
-                        <!-- Cancel Button -->
+                    <v-card-actions class="justify-end">
                         <v-btn text color="red" @click="cancel" class="mr-4">
                             Cancel
                         </v-btn>
 
-                        <!-- Sign Up Button -->
                         <v-btn
                             color="primary"
                             @click="submit"
