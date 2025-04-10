@@ -78,14 +78,14 @@ export default {
 
     methods: {
         viewProjectDetail(id) {
-            if (this.authStore.getUserLoggedIn) {
+            if (this.authStore.getIsAuthenticated) {
                 this.$router.push({ name: 'ProjectDetail', params: { id } })
             } else {
                 this.$router.push({ name: 'Login' })
             }
         },
         apply(id) {
-            if (this.authStore.getUserLoggedIn) {
+            if (this.authStore.getIsAuthenticated) {
                 this.$router.push({ name: 'Apply', params: { projectId: id } })
             } else {
                 this.$router.push({ name: 'Login' })

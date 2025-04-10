@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import apiClient from '../services/axios'
+import { initAuth } from '../services/axios'
 
 export const useProjectStore = defineStore('projectStore', {
     state: () => ({
@@ -19,6 +20,7 @@ export const useProjectStore = defineStore('projectStore', {
         // Publish project
         async actionPublishProject(projectData) {
             try {
+                await initAuth()
                 await apiClient.post('/project', projectData)
             } catch (error) {
                 this.error = error.response

@@ -261,7 +261,7 @@ export default {
                     skills: this.project.skills,
                     salary_range: this.project.salary,
                     duration: this.project.duration,
-                    startDate: this.project.start_date,
+                    start_date: this.project.start_date,
                     deadline: this.project.end_date,
                     application_start_date: this.application.start_date,
                     application_deadline: this.application.end_date,
