@@ -9,6 +9,9 @@
             <v-btn text to="/projects" class="nav-btn">
                 <v-icon left>mdi-briefcase</v-icon> Projects
             </v-btn>
+            <v-btn text to="/developers" class="nav-btn">
+                <v-icon left>mdi-head</v-icon> Developers
+            </v-btn>
             <v-btn text to="/about" class="nav-btn">
                 <v-icon left>mdi-information</v-icon> About
             </v-btn>
