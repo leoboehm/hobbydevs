@@ -34,6 +34,8 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 // applications
 Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationController::class, 'postApplication']);
 
+Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware('auth:sanctum');
+
 // project routes
 Route::apiResource('project', ProjectController::class);
 Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
