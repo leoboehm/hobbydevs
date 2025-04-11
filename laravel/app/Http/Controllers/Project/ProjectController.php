@@ -64,9 +64,31 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $project = Project::find($id);
+    
+        if (!$project) {
+            return response()->json(['message' => 'Project not found'], 404);
+        }
+    
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
+            'skills' => 'required|array',
+            'salary_range' => 'required|string',
+            'duration' => 'required|string',
+            'start_date' => 'required|date',
+            'deadline' => 'required|date',
+            'application_start_date' => 'required|date',
+            'application_deadline' => 'required|date',
+        ]);
+    
+        $project->update($validated);
+    
+        return response()->json(['message' => 'Project updated successfully'], 200);
     }
-
+    
+    
     /**
      * Route: DELETE /project/{id}
      * Remove the specified resource from storage.
