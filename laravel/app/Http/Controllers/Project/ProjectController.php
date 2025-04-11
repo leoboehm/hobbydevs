@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Project;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -26,17 +27,17 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         Project::create([
+            'owner_id' => $request->id,
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
             'skills' => json_encode($request->skills),
-            'salary_range' => $request->salaryRange,
+            'salary_range' => $request->salary_range,
             'duration' => $request->duration,
-            'start_date' => $request->startDate,
+            'start_date' => $request->start_date,
             'deadline' => $request->deadline,
-            'application_start_date' => $request->applicationStartDate,
-            'application_deadline' => $request->applicationDeadline,
-            'owner_id' => auth()->id(),
+            'application_start_date' => $request->application_start_date,
+            'application_deadline' => $request->application_deadline,
         ]);
 
         return response()->json(['message' => 'Project published successfully'], 201);

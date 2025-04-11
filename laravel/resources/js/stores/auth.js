@@ -5,11 +5,26 @@ export const useAuthStore = defineStore('authStore', {
     state: () => ({
         user: null,
         error: null,
+        isAuthenticated: false,
     }),
     getters: {
-        getUserLoggedIn: state => (state.user == null ? false : true),
+        getIsAuthenticated: state => state.isAuthenticated,
+        getUser: state => state.user,
     },
     actions: {
+        async fetchUser() {
+            try {
+                const response = await apiClient.get('/user')
+
+                if (response.status == 200) {
+                    this.user = response.data
+                    this.isAuthenticated = true
+                }
+            } catch (error) {
+                this.user = null
+                this.isAuthenticated = false
+            }
+        },
         // register new user
         async actionRegisterNewUser(userData) {
             try {
@@ -23,19 +38,29 @@ export const useAuthStore = defineStore('authStore', {
         // login user
         async actionLogin(credentials) {
             try {
-                await apiClient.post('/login', credentials)
-                this.user = credentials.email
+                const response = await apiClient.post('/login', credentials)
+
+                if (response.status == 200) {
+                    await this.fetchUser()
+
+                    
+                }
             } catch (error) {
-                console.error('Login failed', error)
+                console.error('Login-Error:', error)
             }
         },
         // logout user
         async actionLogout() {
             try {
-                await apiClient.post('/logout')
-                this.user = null
+                // Make POST request for logout
+                const response = await apiClient.post('/logout')
+
+                if (response.status === 200) {
+                    this.user = null
+                    this.isAuthenticated = false
+                }
             } catch (error) {
-                console.error('Logout failed', error)
+                console.error('Logout-Error:', error)
             }
         },
     },
