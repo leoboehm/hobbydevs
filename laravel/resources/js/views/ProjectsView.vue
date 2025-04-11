@@ -70,7 +70,6 @@ export default {
             if (fetchedProjects.length > 0) {
                 this.projectList = fetchedProjects
             }
-            console.log('Projects Loaded:', this.projectList)
         } catch (error) {
             console.error('Error loading projects:', error)
         }
@@ -78,14 +77,14 @@ export default {
 
     methods: {
         viewProjectDetail(id) {
-            if (this.authStore.getUserLoggedIn) {
+            if (this.authStore.getIsAuthenticated) {
                 this.$router.push({ name: 'ProjectDetail', params: { id } })
             } else {
                 this.$router.push({ name: 'Login' })
             }
         },
         apply(id) {
-            if (this.authStore.getUserLoggedIn) {
+            if (this.authStore.getIsAuthenticated) {
                 this.$router.push({ name: 'Apply', params: { projectId: id } })
             } else {
                 this.$router.push({ name: 'Login' })

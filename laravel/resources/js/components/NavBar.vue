@@ -14,7 +14,7 @@
             </v-btn>
             <v-btn
                 text
-                v-if="!authStore.getUserLoggedIn"
+                v-if="!authStore.getIsAuthenticated"
                 to="/login"
                 class="nav-btn"
                 color="blue-darken-4"
