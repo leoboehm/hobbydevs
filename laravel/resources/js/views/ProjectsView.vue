@@ -70,7 +70,6 @@ export default {
             if (fetchedProjects.length > 0) {
                 this.projectList = fetchedProjects
             }
-            console.log('Projects Loaded:', this.projectList)
         } catch (error) {
             console.error('Error loading projects:', error)
         }

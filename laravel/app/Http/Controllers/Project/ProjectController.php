@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Project;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -26,7 +27,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         Project::create([
-            'owner_id' => Auth::id(),
+            'owner_id' => $request->id,
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
