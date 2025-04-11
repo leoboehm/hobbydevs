@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const apiClient = axios.create({
     baseURL: '/api',
@@ -7,31 +8,31 @@ const apiClient = axios.create({
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
     },
-    withCredentials: true,
 })
 
-// Optional: CSRF Error Interception
-apiClient.interceptors.response.use(
-    response => response.data,
-    (config) => {
-        const token = localStorage.getItem('auth_token');
-        if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
-        }
-        return config;
-    },
-    error => {
-        if (error.response?.status === 419) {
-            console.warn('CSRF token expired or missing')
-            // Optional: Refresh page or retry logic
-        }
-        return Promise.reject(error)
-    }
-)
+apiClient.defaults.withCredentials = true // allow sending cookies
 
-export async function initAuth() {
-    // Muss aufgerufen werden, bevor POST/PUT/DELETE ausgeführt werden
-    await axios.get('/sanctum/csrf-cookie', { withCredentials: true })
-}
+// apiClient.interceptors.request.use(async config => {
+//     if (config.method.toLowerCase() !== 'get') {
+//         // await apiClient.get('/sanctum/csrf-cookie').then()
+//         // config.headers['X-XSRF-TOKEN'] = Cookies.get('XSRF-TOKEN')
+//         await apiClient.get('/sanctum/csrf-cookie', { withCredentials: true })
+//     }
+
+//     return config
+// })
+
+// apiClient.interceptors.response.use(error => {
+//     if (error.response?.status === 419) {
+//         console.warn('CSRF token expired or missing')
+//         // Optional: Refresh page or retry logic
+//     }
+//     return Promise.reject(error)
+// })
+
+// export async function initAuth() {
+//     // Muss aufgerufen werden, bevor POST/PUT/DELETE ausgeführt werden
+//     await apiClient.get('/sanctum/csrf-cookie', { withCredentials: true })
+// }
 
 export default apiClient
