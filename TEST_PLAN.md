@@ -115,7 +115,7 @@ To validate that core features of the HobbyDevs platform function as expected an
 - Component rendering and navigation
 
 **Backend:**
-- Laravel API tests (e.g., using PHPUnit)
+- Laravel API tests (using PHPUnit)
 - Authentication tests with Sanctum
 
 ### 4.2 Outline of Other Candidates for Potential Inclusion
@@ -148,19 +148,18 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 
 ### 6.2 Test Plan Exit Criteria
 - 100% of critical tests pass.
-- No blocker issues in Profile, Auth, and Application flows.
+- No blocker issues in Profile, Auth, and Project flows.
 
 ---
 
 ## 7. Deliverables
 
 - **Test Evaluation Summaries:**
-  - Jest test reports (frontend)
+  - Cypress test reports (frontend)
   - PHPUnit reports (backend)
 - **Test Coverage Reporting:**
-  - Reports via Jest and Laravel test coverage plugins
+  - Reports via Cypress and Laravel test coverage plugins
 - **Incident Logs:**
-  - GitHub issues
   - Development log entries in commits
 - **Smoke Test Scripts:**
   - Loading homepage, login, and profile edit as a base test
@@ -169,7 +168,7 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 
 ## 8. Testing Workflow
 - Use GitHub Actions for automated testing.
-- Run Jest and Laravel tests locally during development.
+- Run Cypress and Laravel tests locally during development.
 - Commit screenshots of test runs in IDE.
 
 ---
@@ -177,12 +176,12 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 ## 9. Environmental Needs
 
 ### 9.1 Hardware
-- Developer machine (MacBook Pro or equivalent)
+- Developer machine
 - Local Laravel development server
 
 ### 9.2 Software
 - Node.js, Vue 3, Laravel 10
-- Jest, Vitest (frontend)
+- Cypress + Cucumber plugin (frontend)
 - PHPUnit (backend)
 
 ---
@@ -192,15 +191,15 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 | Role               | Name            | Responsibility                       |
 |--------------------|-----------------|--------------------------------------|
 | Developer          | Yasi            | Implement test cases, run frontend   |
-| Backend Developer  | —               | Write PHPUnit tests for API          |
-| QA Reviewer        | (Professor)     | Review test plan, validate coverage    |
+| Backend Developer  | Leonie          | Write PHPUnit tests for API          |
+| QA Reviewer        | (Professor)     | Review test plan, validate coverage  |
 
 ---
 
 ## 11. Iteration Milestones
-- **Profile Edit Tests:** ✅ Done  
+- **Project Creation Tests:** ✅ Done  
 - **Application Flow Tests:** ⏳ In progress  
-- **Project Post Tests:** 🔜 Next  
+- **Prfile Editing Tests:** 🔜 Next  
 
 ---
 
@@ -208,10 +207,9 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 
 | Risk                         | Mitigation Plan                               |
 |------------------------------|-----------------------------------------------|
-| Missing backend data         | Add seeds or test user creation                |
-| Vue bug on re-render         | Use watch() and mounted lifecycle              |
+| tba         |                 |
 
 ---
 
 ## 13. Management Processes
-- Managed via GitHub project boards and issues.
+- Managed via YouTrack project board and issues.
