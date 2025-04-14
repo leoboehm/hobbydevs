@@ -17,7 +17,7 @@ class Authenticate extends Middleware
         return $request->expectsJson() ? null : route('login');
     }
     
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next, ...$guards)
     {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized'], 401);

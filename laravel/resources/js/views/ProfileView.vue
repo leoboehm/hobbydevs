@@ -2,7 +2,7 @@
     <div>
         <h1>Own Profile Page</h1>
 
-        <div v-if="authStore.getUserLoggedIn">
+        <div v-if="authStore.getIsAuthenticated">
             <p><strong>Name:</strong> {{ authStore.user.name }}</p>
             <p><strong>Email:</strong> {{ authStore.user.email }}</p>
             <p><strong>Username:</strong> {{ authStore.user.username }}</p>

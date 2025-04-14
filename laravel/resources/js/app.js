@@ -7,6 +7,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import { useAuthStore } from './stores/auth'
+
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -35,5 +37,8 @@ app.use(vuetify)
 
 app.use(createPinia())
 app.use(router)
+
+const authStore = useAuthStore()
+await authStore.fetchUser()
 
 app.mount('#app')

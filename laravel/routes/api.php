@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Project\ProjectApplicationController;
+use App\Http\Controllers\Project\ProjectCategoryController;
+use App\Http\Controllers\Project\ProjectSkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use App\Http\Controllers\Project\ProjectController;
 */
 
 // return user
-Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
+Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -28,15 +30,22 @@ Route::middleware(['auth', 'web'])->get('/user', function (Request $request) {
 // register new user
 Route::post('/register', [RegisterController::class, 'register']);
 // login user
-Route::post('/login', [AuthController::class, 'login'])->middleware('web');
+Route::middleware('web')->post('/login', [AuthController::class, 'login']);
 // logout user
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->middleware('web');
+Route::middleware(['auth:sanctum', 'web'])->post('/logout', [AuthController::class, 'logout']);
 // applications
 Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationController::class, 'postApplication']);
 
+// project
+Route::apiResource('project', ProjectController::class);
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware('auth:sanctum');
 
-// project routes
-Route::apiResource('project', ProjectController::class);
 Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
 Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);
+
+// project
+Route::apiResource('project', ProjectController::class);
+// category
+Route::apiResource('category', ProjectCategoryController::class);
+// skill
+Route::apiResource('skill', ProjectSkillController::class);

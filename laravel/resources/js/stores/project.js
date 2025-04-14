@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import apiClient from '../services/axios'
+import { useAuthStore } from './auth'
 
 export const useProjectStore = defineStore('projectStore', {
     state: () => ({
@@ -19,6 +20,9 @@ export const useProjectStore = defineStore('projectStore', {
         // Publish project
         async actionPublishProject(projectData) {
             try {
+                const authStore = useAuthStore()
+
+                projectData.id = authStore.getUser.id
                 await apiClient.post('/project', projectData)
             } catch (error) {
                 this.error = error.response
@@ -30,8 +34,9 @@ export const useProjectStore = defineStore('projectStore', {
         async actionGetAllProjects() {
             try {
                 let projects = await apiClient.get('/project')
-                return projects
+                return projects.data
             } catch (error) {
+                console.error(error)
                 this.error = error.response
                     ? error.response.data.message
                     : 'An error occurred during fetching of project list'

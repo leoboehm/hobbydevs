@@ -1,9 +1,5 @@
 import axios from 'axios'
-
-// Fetch and set the CSRF token as a default header for future requests
-async function fetchCsrfToken() {
-    await axios.get('/sanctum/csrf-cookie')
-}
+import Cookies from 'js-cookie'
 
 const apiClient = axios.create({
     baseURL: '/api',
@@ -12,26 +8,31 @@ const apiClient = axios.create({
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
     },
-    withCredentials: true,
 })
 
-apiClient.interceptors.response.use(
-    response => response.data, // Return response data as usual
-    error => {
-        if (error.response && error.response.status === 419) {
-            // If the CSRF token has expired (419 error), reload the page
-            window.location.reload()
-        }
-        return Promise.reject(error) // Reject the error as usual
-    },
-)
+apiClient.defaults.withCredentials = true // allow sending cookies
 
-// Fetch CSRF token before making requests
-fetchCsrfToken().then(() => {
-    // Once the CSRF token is fetched, set the header
-    apiClient.defaults.headers['X-CSRF-TOKEN'] = document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute('content')
-})
+// apiClient.interceptors.request.use(async config => {
+//     if (config.method.toLowerCase() !== 'get') {
+//         // await apiClient.get('/sanctum/csrf-cookie').then()
+//         // config.headers['X-XSRF-TOKEN'] = Cookies.get('XSRF-TOKEN')
+//         await apiClient.get('/sanctum/csrf-cookie', { withCredentials: true })
+//     }
+
+//     return config
+// })
+
+// apiClient.interceptors.response.use(error => {
+//     if (error.response?.status === 419) {
+//         console.warn('CSRF token expired or missing')
+//         // Optional: Refresh page or retry logic
+//     }
+//     return Promise.reject(error)
+// })
+
+// export async function initAuth() {
+//     // Muss aufgerufen werden, bevor POST/PUT/DELETE ausgeführt werden
+//     await apiClient.get('/sanctum/csrf-cookie', { withCredentials: true })
+// }
 
 export default apiClient
