@@ -30,27 +30,24 @@
                 <v-btn text to="/applications" class="nav-btn">
                     Applications
                 </v-btn>
-                <v-btn text @click="logout" class="nav-btn">Logout</v-btn>
+                <v-btn text class="logout-btn" @click="dialog = true"> 
+                    <v-icon left>mdi-logout</v-icon> Logout
+                </v-btn>
+
             </template>
         </v-container>
-        <v-dialog v-model="dialog" width="auto">
-            <v-card
-                max-width="400"
-                prepend-icon="mdi-update"
-                text="Are you sure you want to logout?."
-                title="Logging out"
-            >
-                <template v-slot:actions>
-                    <v-btn class="ms-auto" text="Yes" @click="logout"></v-btn>
-                    <v-btn
-                        class="ms-auto"
-                        text="No"
-                        @click="dialog = false"
-                    ></v-btn>
-                </template>
-            </v-card>
-        </v-dialog>
-    </v-app-bar>
+        <v-dialog v-model="dialog" width="400">
+      <v-card>
+        <v-card-title class="text-h6">Confirm Logout</v-card-title>
+        <v-card-text>Are you sure you want to log out?</v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text color="grey" @click="dialog = false">Cancel</v-btn>
+          <v-btn text color="red" @click="confirmLogout">Yes, Log out</v-btn> 
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-app-bar>
 </template>
 
 <script>
@@ -71,6 +68,10 @@ export default {
         this.authStore = useAuthStore()
     },
     methods: {
+        confirmLogout() { 
+      this.dialog = false
+      this.logout()
+    },
         logout() {
             if (this.authStore) {
                 this.authStore.actionLogout()
