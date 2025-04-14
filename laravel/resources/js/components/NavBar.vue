@@ -48,6 +48,7 @@
                 <v-btn text to="/applications" class="nav-btn">
                     Applications
                 </v-btn>
+            <v-btn text to="/profile" class="nav-btn">My Profile</v-btn>
                 <v-btn text @click="logout" class="nav-btn">Logout</v-btn>
             </template>
         </v-container>
