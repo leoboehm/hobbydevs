@@ -5,11 +5,23 @@
                 >HobbyDevs
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon to="/" class="home-btn"><v-icon>mdi-home</v-icon></v-btn>
-            <v-btn text to="/projects" class="nav-btn">
+            <v-btn icon to="/" class="home-btn"
+                ><v-icon>mdi-home</v-icon></v-btn
+            >
+            <v-btn
+                text
+                to="/projects"
+                class="nav-btn"
+                v-if="authStore.getUserIsDeveloper"
+            >
                 <v-icon left>mdi-briefcase</v-icon> Projects
             </v-btn>
-            <v-btn text to="/developers" class="nav-btn">
+            <v-btn
+                text
+                to="/developers"
+                class="nav-btn"
+                v-if="authStore.getUserIsProjectOwner"
+            >
                 <v-icon left>mdi-head</v-icon> Developers
             </v-btn>
             <v-btn text to="/about" class="nav-btn">
@@ -25,7 +37,12 @@
                 <v-icon left>mdi-login</v-icon> Login
             </v-btn>
             <template v-else>
-                <v-btn text to="/projects/post" class="nav-btn">
+                <v-btn
+                    text
+                    to="/projects/post"
+                    class="nav-btn"
+                    v-if="authStore.getUserIsProjectOwner"
+                >
                     Publish Project
                 </v-btn>
                 <v-btn text to="/applications" class="nav-btn">
@@ -62,15 +79,12 @@ export default {
 
     data() {
         return {
-            authStore: undefined,
+            authStore: useAuthStore(),
 
             dialog: false,
         }
     },
 
-    beforeMount() {
-        this.authStore = useAuthStore()
-    },
     methods: {
         logout() {
             if (this.authStore) {
