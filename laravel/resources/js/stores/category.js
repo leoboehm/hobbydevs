@@ -17,7 +17,10 @@ export const useCategoryStore = defineStore('category', {
             this.loading = true
             try {
                 const response = await apiClient.get('/category')
-                this.categories = response.data
+
+                if(response.data.length > 0) {
+                    response.data.forEach(category => this.categories.push(category.name))
+                }
             } catch (error) {
                 console.error('Error while loading categories: ', error)
             } finally {

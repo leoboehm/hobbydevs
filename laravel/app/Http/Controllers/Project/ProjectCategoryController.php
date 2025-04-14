@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Category;
 
-class ProjectCatgoryController extends Controller
+class ProjectCategoryController extends Controller
 {
     /**
      * Route: GET /category

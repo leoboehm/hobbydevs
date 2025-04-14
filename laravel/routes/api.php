@@ -36,10 +36,10 @@ Route::middleware(['auth:sanctum', 'web'])->post('/logout', [AuthController::cla
 Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationController::class, 'postApplication']);
 
 // resorce routes
-Route::apiResources([
-    'project', ProjectController::class,
-    'category', ProjectCategoryController::class
-]);
+Route::apiResource('project', ProjectController::class);
 
 Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
 Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);
+
+// category
+Route::apiResource('category', ProjectCategoryController::class);

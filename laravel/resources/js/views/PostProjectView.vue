@@ -244,7 +244,6 @@ export default {
         if (this.categoryStore.getCategoriesLoading == false) {
             this.categories = this.categoryStore.getCategories
         }
-        console.debug("categories", this.categories)
     },
     components: {},
     methods: {
