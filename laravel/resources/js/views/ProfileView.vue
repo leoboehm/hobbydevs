@@ -67,12 +67,31 @@
             <div v-if="authStore.user.type === 'developer'">
               <!-- Developer Applications View  -->
               <p><strong>Developer Applications</strong> — Show projects applied with status: pending, approved, rejected.</p>
-              <!-- TODO: Replace with actual component or data loop -->
+              <p><strong>Developer Applications</strong></p>
+          <v-list two-line>
+            <v-list-item v-for="app in applications" :key="app.id">
+              <v-list-item-content>
+                <v-list-item-title>{{ app.project.title }}</v-list-item-title>
+                <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
             </div>
             <div v-else-if="authStore.user.type === 'project_owner'">
               <!-- Project Owner View  -->
               <p><strong>Project Owner Dashboard</strong> — Show owned projects and related applications with Accept/Reject options.</p>
-              <!-- TODO: Replace with actual component or data loop -->
+              <p><strong>Received Applications</strong></p>
+            <v-list two-line>
+              <v-list-item v-for="app in applications" :key="app.id">
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ app.user.firstname }} {{ app.user.lastname }} applied to "{{ app.project.title }}"
+                  </v-list-item-title>
+                  <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
             </div>
             <div v-else>
               <p>No applications available for this user type.</p>
@@ -108,6 +127,7 @@ export default {
         username: '',
         email: '',
       },
+      applications: [],
       rules: {
         required: value => !!value || 'This field is required',
         email: value => /.+@.+\..+/.test(value) || 'Invalid email',
@@ -117,6 +137,7 @@ export default {
 
   mounted() {
     this.loadUser()
+    this.loadApplications()
   },
 
   methods: {
@@ -125,6 +146,20 @@ export default {
       this.originalUser = { ...user }
       this.userData = { ...user }
     },
+  async loadApplications() {
+    try {
+      if (this.authStore.user.type === 'developer') {
+        const res = await axios.get('/applications/sent') // get apps sent by this user
+        this.applications = res.data
+      } else if (this.authStore.user.type === 'project_owner') {
+        const res = await axios.get('/applications/received') // apps on owned projects
+        this.applications = res.data
+      }
+    } catch (error) {
+      console.error('Failed to load applications:', error)
+      alert('Could not load applications.')
+    }
+  },
 
     cancelEdit() {
       this.userData = { ...this.originalUser }
