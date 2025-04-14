@@ -56,66 +56,67 @@
   </template>
   
   <script>
-  import axios from '../services/axios'
-  import { useAuthStore } from '@/stores/auth'
- 
-    name: 'ProfileView',
-    data() {
-      return {
-        editMode: false,
-        valid: false,
-        originalUser: null,
-        userData: {
-          firstname: '',
-          lastname: '',
-          username: '',
-          email: '',
-        },
-        rules: {
-          required: value => !!value || 'This field is required',
-          email: value => /.+@.+\..+/.test(value) || 'Invalid email',
-        },
+
+import axios from '../services/axios'
+import { useAuthStore } from '@/stores/auth'
+
+export default {
+  name: 'ProfileView',
+
+  data() {
+    return {
+      editMode: false,
+      valid: false,
+      originalUser: null,
+      userData: {
+        firstname: '',
+        lastname: '',
+        username: '',
+        email: '',
+      },
+      rules: {
+        required: value => !!value || 'This field is required',
+        email: value => /.+@.+\..+/.test(value) || 'Invalid email',
+      },
+    }
+  },
+
+  setup() {
+    const authStore = useAuthStore()
+    return { authStore }
+  },
+
+  mounted() {
+    this.loadUser()
+  },
+
+  methods: {
+    loadUser() {
+      const user = this.authStore.user
+      this.originalUser = { ...user }
+      this.userData = { ...user }
+    },
+
+    cancelEdit() {
+      this.userData = { ...this.originalUser }
+      this.editMode = false
+      this.$refs.form.resetValidation()
+    },
+
+    async saveEdit() {
+      if (this.$refs.form.validate()) {
+        try {
+          const res = await axios.put('/user', this.userData)
+          this.authStore.setUser(res.data) // update store
+          this.originalUser = { ...res.data }
+          this.editMode = false
+          alert('Profile updated successfully!')
+        } catch (error) {
+          console.error('Failed to update profile:', error)
+          alert('Something went wrong while saving.')
+        }
       }
     },
-    setup() {
-      const authStore = useAuthStore()
-      return { authStore }
-    },
-    mounted() {
-      this.loadUser()
-    },
-    methods: {
-      loadUser() {
-        const user = this.authStore.user
-        this.originalUser = { ...user }
-        this.userData = { ...user }
-      },
-      cancelEdit() {
-        this.userData = { ...this.originalUser }
-        this.editMode = false
-        this.$refs.form.resetValidation()
-      },
-      async saveEdit() {
-        if (this.$refs.form.validate()) {
-          try {
-            const res = await axios.put('/user', this.userData)
-            this.authStore.setUser(res.data) // update store
-            this.originalUser = { ...res.data }
-            this.editMode = false
-            alert('Profile updated successfully!')
-          } catch (error) {
-            console.error('Failed to update profile:', error)
-            alert('Something went wrong while saving.')
-          }
-        }
-      },
-    },
-  }
-  </script>
-  
-  <style scoped>
-  .v-card-title {
-    align-items: center;
-  }
-  </style>
-  
+  },
+}
+</script>
