@@ -58,8 +58,7 @@
   <script>
   import axios from '../services/axios'
   import { useAuthStore } from '@/stores/auth'
-  
-  export default {
+ 
     name: 'ProfileView',
     data() {
       return {

@@ -19,5 +19,5 @@ Cypress.Commands.add('checkLoginState', () => {
         store = win.store;
     });    
 
-    cy.wait(500).then(() => { return store.authStore.getUserLoggedIn; })
+    cy.wait(500).then(() => { return store.authStore.getIsAuthenticated; })
 })

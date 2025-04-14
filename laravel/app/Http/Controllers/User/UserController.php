@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //
     public function update(Request $request)
 {
     $user = $request->user();
@@ -22,6 +21,4 @@ class UserController extends Controller
     $user->update($validated);
 
     return response()->json($user);
-}
-
 }
