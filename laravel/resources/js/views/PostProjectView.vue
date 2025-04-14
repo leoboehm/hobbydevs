@@ -182,6 +182,7 @@
 <script>
 import { useDate } from 'vuetify'
 import { useProjectStore } from '../stores/project'
+import { useCategoryStore } from '../stores/category'
 
 import DatePicker from '@/components/DatePicker.vue'
 
@@ -190,8 +191,9 @@ export default {
     data() {
         return {
             valid: false,
-            date: undefined,
-            projectStore: undefined,
+            date: useDate(),
+            projectStore: useProjectStore(),
+            categoryStore: useCategoryStore(),
 
             currentStep: 0,
 
@@ -213,17 +215,7 @@ export default {
                 start_date: '',
                 end_date: '',
             },
-            categories: [
-                'Web Development',
-                'Mobile Development',
-                'Desktop Development',
-                'Game Development',
-                'Data Science',
-                'Machine Learning',
-                'Artificial Intelligence',
-                'Cyber Security',
-                'Networking',
-            ],
+            categories: [],
             skills: [
                 'HTML',
                 'CSS',
@@ -246,9 +238,13 @@ export default {
         }
     },
 
-    beforeMount() {
-        this.date = useDate()
-        this.projectStore = useProjectStore()
+    async beforeMount() {
+        await this.categoryStore.fetchCategories()
+
+        if (this.categoryStore.getCategoriesLoading == false) {
+            this.categories = this.categoryStore.getCategories
+        }
+        console.debug("categories", this.categories)
     },
     components: {},
     methods: {

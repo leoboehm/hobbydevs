@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Project\ProjectCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +35,11 @@ Route::middleware(['auth:sanctum', 'web'])->post('/logout', [AuthController::cla
 // applications
 Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationController::class, 'postApplication']);
 
-// project routes
-Route::apiResource('project', ProjectController::class);
+// resorce routes
+Route::apiResources([
+    'project', ProjectController::class,
+    'category', ProjectCategoryController::class
+]);
 
 Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
 Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);
