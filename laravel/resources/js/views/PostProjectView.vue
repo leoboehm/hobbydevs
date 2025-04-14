@@ -182,6 +182,8 @@
 <script>
 import { useDate } from 'vuetify'
 import { useProjectStore } from '../stores/project'
+import { useCategoryStore } from '../stores/category'
+import { useSkillStore } from '../stores/skill'
 
 import DatePicker from '@/components/DatePicker.vue'
 
@@ -190,8 +192,10 @@ export default {
     data() {
         return {
             valid: false,
-            date: undefined,
-            projectStore: undefined,
+            date: useDate(),
+            projectStore: useProjectStore(),
+            categoryStore: useCategoryStore(),
+            skillStore: useSkillStore(),
 
             currentStep: 0,
 
@@ -213,42 +217,26 @@ export default {
                 start_date: '',
                 end_date: '',
             },
-            categories: [
-                'Web Development',
-                'Mobile Development',
-                'Desktop Development',
-                'Game Development',
-                'Data Science',
-                'Machine Learning',
-                'Artificial Intelligence',
-                'Cyber Security',
-                'Networking',
-            ],
-            skills: [
-                'HTML',
-                'CSS',
-                'JavaScript',
-                'PHP',
-                'Python',
-                'Java',
-                'C#',
-                'C++',
-                'Ruby',
-                'Swift',
-                'Kotlin',
-                'Dart',
-                'React',
-                'Vue',
-            ],
+            categories: [],
+            skills: [],
             rules: {
                 required: value => !!value || 'This field is required',
             },
         }
     },
 
-    beforeMount() {
-        this.date = useDate()
-        this.projectStore = useProjectStore()
+    async beforeMount() {
+        // load categories
+        await this.categoryStore.fetchCategories()
+        if (this.categoryStore.getCategoriesLoading == false) {
+            this.categories = this.categoryStore.getCategories
+        }
+
+        // load skills
+        await this.skillStore.fetchSkills()
+        if (this.skillStore.getSkillsLoading == false) {
+            this.skills = this.skillStore.getSkills
+        }
     },
     components: {},
     methods: {

@@ -28,5 +28,35 @@ class DatabaseSeeder extends Seeder
             'duration' => '2 Semesters',
         ]);
         \App\Models\Project::factory(10)->create();
+
+        \App\Models\Category::insert([
+            ['name' => 'Web Development'],
+            ['name' => 'Mobile Development'],
+            ['name' => 'Desktop Development'],
+            ['name' => 'Game Development'],
+            ['name' => 'Data Science'],
+            ['name' => 'Machine Learning'],
+            ['name' => 'Artificial Intelligence'],
+            ['name' => 'Cyber Security'],
+            ['name' => 'Networking'],
+        ]);
+
+        
+        \App\Models\Skill::insert([
+            ['name' => 'HTML'],
+            ['name' => 'CSS'],
+            ['name' => 'JavaScript'],
+            ['name' => 'PHP'],
+            ['name' => 'Python'],
+            ['name' => 'Java'],
+            ['name' => 'C#'],
+            ['name' => 'C++'],
+            ['name' => 'Ruby'],
+            ['name' => 'Swift'],
+            ['name' => 'Kotlin'],
+            ['name' => 'Dart'],
+            ['name' => 'React'],
+            ['name' => 'Vue'],
+        ]);
     }
 }
