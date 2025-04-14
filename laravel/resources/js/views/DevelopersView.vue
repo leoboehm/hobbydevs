@@ -22,6 +22,16 @@
                   <p><strong>Email:</strong> {{ dev.email }}</p>
                   <p><strong>Experience:</strong> {{ dev.experience }} years</p>
                   <p>{{ dev.bio }}</p>
+                  
+                  <!-- Rating Section -->
+                  <v-rating
+                    v-model="dev.rating"
+                    :max="5"
+                    color="amber"
+                    size="20"
+                    class="mt-3"
+                  ></v-rating>
+                  <p><strong>Rating:</strong> {{ dev.rating }} / 5</p>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -44,6 +54,7 @@
             skill: 'Frontend',
             experience: 2,
             bio: 'I love working with Vue and Material Design.',
+            rating: 4, // Initial rating
           },
           {
             id: 2,
@@ -52,6 +63,7 @@
             skill: 'Backend',
             experience: 3,
             bio: 'Specialized in Node.js and REST APIs.',
+            rating: 5, // Initial rating
           },
         ],
       }

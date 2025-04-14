@@ -19,13 +19,14 @@ const router = createRouter({
             path: '/developers',
             name: 'Developers',
             component: () => import('../views/DevelopersView.vue'),
+            meta: { projectOwnersOnly: true }
         },
         {
             path: '/apply/:projectId',
             name: 'Apply',
             component: () => import('../views/ApplicationsView.vue'),
             props: true,
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true, developersOnly: true }
         },
         // {
         //     path: '/applications',
@@ -43,29 +44,31 @@ const router = createRouter({
             path: '/projects',
             name: 'Projects',
             component: () => import('../views/ProjectsView.vue'),
+            meta: { developersOnly: true }
         },
         {
             path: '/projects/owned',
             name: 'OwnedProjects',
             component: () => import('../views/OwnedProjectsView.vue'),
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true, projectOwnersOnly: true }
         },
         {
             path: '/projects/post',
             name: 'PostProject',
             component: () => import('../views/PostProjectView.vue'),
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true, projectOwnersOnly: true }
         },
         {
             path: '/projects/:id',
             name: 'ProjectDetail',
             component: () => import('../views/ProjectDetailView.vue'),
+            meta: { requiresAuth: true, developersOnly: true }
         },
         {
             path: '/projects/:id/edit',
             name: 'EditProject',
             component: () => import('../views/EditProjectView.vue'),
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true, projectOwnersOnly: true }
         },
         {
             path: '/edit-personal-data',
@@ -89,18 +92,34 @@ const router = createRouter({
             component: () => import('../views/ApplicationsListView.vue'),
           },
           {
+          project-detail
             path: '/projects/:id',
             name: 'ProjectDetail',
             component: () => import('../views/ProjectDetailView.vue'),
         },
+
+            path: '/:catchAll(.*)',
+            name: 'page-not-found',
+            component: () => import('../views/Error404View.vue'),
+          }
+          
+          
+main
     ],
 })
 
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
+    const userType = authStore.getUserType;
 
     if (to.meta.requiresAuth && !authStore.getIsAuthenticated) {
         next('/login');
+    }
+    else if (to.meta.developersOnly && userType != 'Developer') {
+        next('/page-not-found');
+    } 
+    else if (to.meta.projectOwnersOnly && userType != 'Project Owner') {
+        next('/page-not-found');
     } else {
         next();
     }
