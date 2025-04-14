@@ -92,12 +92,19 @@ const router = createRouter({
             component: () => import('../views/ApplicationsListView.vue'),
           },
           {
+          project-detail
+            path: '/projects/:id',
+            name: 'ProjectDetail',
+            component: () => import('../views/ProjectDetailView.vue'),
+        },
+
             path: '/:catchAll(.*)',
             name: 'page-not-found',
             component: () => import('../views/Error404View.vue'),
           }
           
           
+main
     ],
 })
 
