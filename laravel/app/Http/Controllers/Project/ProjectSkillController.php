@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Category;
+use App\Models\Skill;
 
-class ProjectCategoryController extends Controller
+class ProjectSkillController extends Controller
 {
     /**
-     * Route: GET /category
+     * Route: GET /skill
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(Category::all());
+        return response()->json(Skill::all());
     }
 
     /**

@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectCategoryController;
+use App\Http\Controllers\Project\ProjectSkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,11 +36,15 @@ Route::middleware(['auth:sanctum', 'web'])->post('/logout', [AuthController::cla
 // applications
 Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationController::class, 'postApplication']);
 
-// resorce routes
+// project
 Route::apiResource('project', ProjectController::class);
 
 Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
 Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);
 
+// project
+Route::apiResource('project', ProjectController::class);
 // category
 Route::apiResource('category', ProjectCategoryController::class);
+// skill
+Route::apiResource('skill', ProjectSkillController::class);

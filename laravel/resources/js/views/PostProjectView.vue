@@ -183,6 +183,7 @@
 import { useDate } from 'vuetify'
 import { useProjectStore } from '../stores/project'
 import { useCategoryStore } from '../stores/category'
+import { useSkillStore } from '../stores/skill'
 
 import DatePicker from '@/components/DatePicker.vue'
 
@@ -194,6 +195,7 @@ export default {
             date: useDate(),
             projectStore: useProjectStore(),
             categoryStore: useCategoryStore(),
+            skillStore: useSkillStore(),
 
             currentStep: 0,
 
@@ -216,22 +218,7 @@ export default {
                 end_date: '',
             },
             categories: [],
-            skills: [
-                'HTML',
-                'CSS',
-                'JavaScript',
-                'PHP',
-                'Python',
-                'Java',
-                'C#',
-                'C++',
-                'Ruby',
-                'Swift',
-                'Kotlin',
-                'Dart',
-                'React',
-                'Vue',
-            ],
+            skills: [],
             rules: {
                 required: value => !!value || 'This field is required',
             },
@@ -239,10 +226,16 @@ export default {
     },
 
     async beforeMount() {
+        // load categories
         await this.categoryStore.fetchCategories()
-
         if (this.categoryStore.getCategoriesLoading == false) {
             this.categories = this.categoryStore.getCategories
+        }
+
+        // load skills
+        await this.skillStore.fetchSkills()
+        if (this.skillStore.getSkillsLoading == false) {
+            this.skills = this.skillStore.getSkills
         }
     },
     components: {},

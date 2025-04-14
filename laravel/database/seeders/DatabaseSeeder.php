@@ -40,5 +40,23 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Cyber Security'],
             ['name' => 'Networking'],
         ]);
+
+        
+        \App\Models\Skill::insert([
+            ['name' => 'HTML'],
+            ['name' => 'CSS'],
+            ['name' => 'JavaScript'],
+            ['name' => 'PHP'],
+            ['name' => 'Python'],
+            ['name' => 'Java'],
+            ['name' => 'C#'],
+            ['name' => 'C++'],
+            ['name' => 'Ruby'],
+            ['name' => 'Swift'],
+            ['name' => 'Kotlin'],
+            ['name' => 'Dart'],
+            ['name' => 'React'],
+            ['name' => 'Vue'],
+        ]);
     }
 }
