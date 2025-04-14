@@ -38,3 +38,4 @@ Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationCont
 Route::apiResource('project', ProjectController::class);
 Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
 Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);
+Route::middleware('auth:sanctum')->put('/user', [UserController::class, 'update']);
