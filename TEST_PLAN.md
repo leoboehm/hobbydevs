@@ -190,8 +190,8 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 
 | Role               | Name            | Responsibility                       |
 |--------------------|-----------------|--------------------------------------|
-| Developer          | Yasi            | Implement test cases, run frontend   |
-| Backend Developer  | Leonie          | Write PHPUnit tests for API          |
+| Tester          | Yasi            | Implement test cases, run frontend   |
+| Backend Tester  | Leonie          | Write PHPUnit tests for API          |
 | QA Reviewer        | (Professor)     | Review test plan, validate coverage  |
 
 ---
