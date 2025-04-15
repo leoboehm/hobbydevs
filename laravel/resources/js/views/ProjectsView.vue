@@ -41,6 +41,14 @@
                             >Read more
                             <v-icon class="ml-2">mdi-arrow-right</v-icon>
                         </v-btn>
+                        <v-spacer />
+                        <v-btn
+                            @click="goToEditPage(project.id)"
+                            class="text-warning"
+                            outlined
+                        >
+                            <v-icon class="mr-2">mdi-pencil</v-icon> Edit Project
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -89,6 +97,9 @@ export default {
             } else {
                 this.$router.push({ name: 'Login' })
             }
+        },
+        goToEditPage(projectId) {
+            this.$router.push(`/projects/${projectId}/edit`)
         },
     },
 }

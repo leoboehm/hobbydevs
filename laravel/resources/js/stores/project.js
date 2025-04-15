@@ -46,15 +46,16 @@ export const useProjectStore = defineStore('projectStore', {
         // Get project by ID
         async actionGetProjectByID(id) {
             try {
-                let project = await apiClient.get('/project/' + id)
-                return project
+              const project = await apiClient.get(`/project/${id}`)
+              console.log('Project data:', project) // Log project data
+              return project
             } catch (error) {
-                this.error = error.response
-                    ? error.response.data.message
-                    : 'An error occurred during fetching of project with id: ' +
-                      id
-                return null
+              console.error('Error fetching project by ID:', error) // Log error
+              this.error = error.response
+                ? error.response.data.message
+                : `An error occurred during fetching of project with ID: ${id}`
+              return null
             }
-        },
+          },                   
     },
 })
