@@ -10,6 +10,9 @@ export const useAuthStore = defineStore('authStore', {
     getters: {
         getIsAuthenticated: state => state.isAuthenticated,
         getUser: state => state.user,
+        getUserType: state => state.user ? state.user.type : null,
+        getUserIsDeveloper: state => state.user ? state.user.type == "Developer" : null,
+        getUserIsProjectOwner: state => state.user ? state.user.type == "Project Owner" : null,
     },
     actions: {
         async fetchUser() {
