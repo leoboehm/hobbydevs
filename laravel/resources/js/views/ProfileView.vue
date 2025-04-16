@@ -112,6 +112,7 @@ export default {
   setup() {
     const authStore = useAuthStore()
     const applicationStore = useApplicationStore()
+    const userType = computed(() => authStore.getUserType)
 
     const loadApplications = async () => {
       if (userType.value === 'developer') {
