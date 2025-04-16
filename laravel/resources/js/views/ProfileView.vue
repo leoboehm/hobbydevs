@@ -13,6 +13,7 @@
         <v-tab>Profile Info</v-tab>
         <v-tab>Applications</v-tab>
       </v-tabs>
+      <v-btn color="primary" to="/profile">Edit My Profile</v-btn>
 
       <v-tabs-items v-model="activeTab">
         <!-- Profile Edit Tab -->
@@ -64,34 +65,29 @@
         <!-- Applications Tab -->
         <v-tab-item>
           <v-card-text>
-            <div v-if="authStore.user.type === 'developer'">
-              <!-- Developer Applications View  -->
-              <p><strong>Developer Applications</strong> — Show projects applied with status: pending, approved, rejected.</p>
+            <div v-if="userType === 'developer'">
               <p><strong>Developer Applications</strong></p>
-          <v-list two-line>
-            <v-list-item v-for="app in applications" :key="app.id">
-              <v-list-item-content>
-                <v-list-item-title>{{ app.project.title }}</v-list-item-title>
-                <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+              <v-list two-line>
+                <v-list-item v-for="app in applicationStore.applications" :key="app.id">
+                  <v-list-item-content>
+                    <v-list-item-title>{{ app.project.title }}</v-list-item-title>
+                    <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
             </div>
-            <div v-else-if="authStore.user.type === 'project_owner'">
-              <!-- Project Owner View  -->
-              <p><strong>Project Owner Dashboard</strong> — Show owned projects and related applications with Accept/Reject options.</p>
+            <div v-else-if="userType === 'project_owner'">
               <p><strong>Received Applications</strong></p>
-            <v-list two-line>
-              <v-list-item v-for="app in applications" :key="app.id">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ app.user.firstname }} {{ app.user.lastname }} applied to "{{ app.project.title }}"
-                  </v-list-item-title>
-                  <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-
+              <v-list two-line>
+                <v-list-item v-for="app in applicationStore.applications" :key="app.id">
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{ app.user.firstname }} {{ app.user.lastname }} applied to "{{ app.project.title }}"
+                    </v-list-item-title>
+                    <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
             </div>
             <div v-else>
               <p>No applications available for this user type.</p>
@@ -106,13 +102,36 @@
 <script>
 import axios from '../services/axios'
 import { useAuthStore } from '@/stores/auth'
+import { useApplicationStore } from '@/stores/applicationStore'
+import { computed, onMounted } from 'vue'
 
 export default {
   name: 'ProfileView',
 
   setup() {
     const authStore = useAuthStore()
-    return { authStore }
+    const applicationStore = useApplicationStore()
+
+    const userType = computed(() => authStore.getUserType) 
+
+    const loadApplications = async () => {
+      if (userType.value === 'developer') {
+        await applicationStore.fetchSentApplications()
+      } else if (userType.value === 'project_owner') {
+        await applicationStore.fetchReceivedApplications()
+      }
+    }
+
+    onMounted(() => {
+      loadApplications()
+    })
+
+    return {
+      authStore,
+      applicationStore,
+      userType,
+      loadApplications
+    }
   },
 
   data() {
@@ -127,7 +146,6 @@ export default {
         username: '',
         email: '',
       },
-      applications: [],
       rules: {
         required: value => !!value || 'This field is required',
         email: value => /.+@.+\..+/.test(value) || 'Invalid email',
@@ -137,7 +155,6 @@ export default {
 
   mounted() {
     this.loadUser()
-    this.loadApplications()
   },
 
   methods: {
@@ -146,20 +163,6 @@ export default {
       this.originalUser = { ...user }
       this.userData = { ...user }
     },
-  async loadApplications() {
-    try {
-      if (this.authStore.user.type === 'developer') {
-        const res = await axios.get('/applications/sent') // get apps sent by this user
-        this.applications = res.data
-      } else if (this.authStore.user.type === 'project_owner') {
-        const res = await axios.get('/applications/received') // apps on owned projects
-        this.applications = res.data
-      }
-    } catch (error) {
-      console.error('Failed to load applications:', error)
-      alert('Could not load applications.')
-    }
-  },
 
     cancelEdit() {
       this.userData = { ...this.originalUser }
