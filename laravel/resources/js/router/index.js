@@ -21,6 +21,11 @@ const router = createRouter({
             component: () => import('../views/DevelopersView.vue'),
             meta: { projectOwnersOnly: true }
         },
+            path: '/developers/:id',
+            name: 'DeveloperDetail',
+            component: () => import('../views/DeveloperDetail.vue'),
+            props: true,
+        },          
         {
             path: '/apply/:projectId',
             name: 'Apply',
