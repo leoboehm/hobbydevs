@@ -61,8 +61,7 @@ const router = createRouter({
         {
             path: '/projects/:id/edit',
             name: 'EditProject',
-            component: () => import('../views/EditProjectView.vue'),
-            meta: { requiresAuth: true, projectOwnersOnly: true }
+            component: () => import('@/views/EditProjectView.vue') // adjust path as needed
         },
         {
             path: '/edit-personal-data',
