@@ -1,22 +1,23 @@
 <template>
     <v-container class="py-12">
       <v-row>
-        <!-- Profile Summary Card (shown when logged in) -->
-    <div v-if="authStore.user" class="mt-8">
-    <v-card elevation="2" class="pa-6">
-        <v-card-title class="text-h6">
-        Welcome back, {{ authStore.user.firstname }}!
-        </v-card-title>
-        <v-card-text>
-        <p><strong>Name:</strong> {{ authStore.user.firstname }} {{ authStore.user.lastname }}</p>
-        <p><strong>Email:</strong> {{ authStore.user.email }}</p>
-        <p><strong>Role:</strong> {{ authStore.user.type }}</p>
-        </v-card-text>
-        <v-card-actions>
-        <v-btn color="primary" to="/profile">Edit My Profile</v-btn>
-        </v-card-actions>
-    </v-card>
-    </div>
+     <!-- Profile Summary Card (shown when logged in) -->
+<div v-if="authStore.getUser" class="mt-8">
+  <v-card elevation="2" class="pa-6">
+    <v-card-title class="text-h6">
+      Welcome back, {{ authStore.getUser.firstname }}!
+    </v-card-title>
+    <v-card-text>
+      <p><strong>Name:</strong> {{ authStore.getUser.firstname }} {{ authStore.getUser.lastname }}</p>
+      <p><strong>Email:</strong> {{ authStore.getUser.email }}</p>
+      <p><strong>Role:</strong> {{ authStore.getUser.type }}</p>
+    </v-card-text>
+    <v-card-actions>
+      <v-btn color="primary" to="/profile">Edit My Profile</v-btn>
+    </v-card-actions>
+  </v-card>
+</div>
+
         <v-col cols="12">
           <v-sheet elevation="2" rounded class="pa-10 text-center">
             <h1 class="text-h3 font-weight-bold mb-4">Bring Your Ideas to Life</h1>

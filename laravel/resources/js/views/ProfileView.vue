@@ -65,7 +65,8 @@
         <!-- Applications Tab -->
         <v-tab-item>
           <v-card-text>
-            <div v-if="userType === 'developer'">
+            <div v-if="authStore.getUserType === 'developer'">
+
               <p><strong>Developer Applications</strong></p>
               <v-list two-line>
                 <v-list-item v-for="app in applicationStore.applications" :key="app.id">
@@ -76,7 +77,7 @@
                 </v-list-item>
               </v-list>
             </div>
-            <div v-else-if="userType === 'project_owner'">
+            <div v-else-if="authStore.getUserType === 'project_owner'">
               <p><strong>Received Applications</strong></p>
               <v-list two-line>
                 <v-list-item v-for="app in applicationStore.applications" :key="app.id">
@@ -112,8 +113,6 @@ export default {
     const authStore = useAuthStore()
     const applicationStore = useApplicationStore()
 
-    const userType = computed(() => authStore.getUserType) 
-
     const loadApplications = async () => {
       if (userType.value === 'developer') {
         await applicationStore.fetchSentApplications()
@@ -130,7 +129,7 @@ export default {
       authStore,
       applicationStore,
       userType,
-      loadApplications
+
     }
   },
 
