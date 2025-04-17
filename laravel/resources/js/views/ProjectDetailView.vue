@@ -39,6 +39,7 @@
         color="primary" 
         @click="editProject"
       >
+      <v-icon class="mr-2">mdi-pencil</v-icon>
         Edit Project
       </v-btn>
 
