@@ -13,32 +13,31 @@
             md="6"
             lg="4"
           >
-            <!-- Router Link Wrapping the Card -->
-            <router-link
-              :to="`/developers/${dev.id}`"
-              class="text-decoration-none"
-              style="text-decoration: none; color: inherit;"
+            <!-- Clickable Card -->
+            <v-card
+              outlined
+              class="mb-4"
+              @click="goToDeveloper(dev.id)"
+              style="cursor: pointer;"
             >
-              <v-card outlined class="mb-4">
-                <v-card-title class="d-flex justify-space-between">
-                  {{ dev.name }}
-                  <v-chip color="primary" small>{{ dev.skill }}</v-chip>
-                </v-card-title>
-                <v-card-text>
-                  <p><strong>Email:</strong> {{ dev.email }}</p>
-                  <p><strong>Experience:</strong> {{ dev.experience }} years</p>
-                  <p>{{ dev.bio }}</p>
-                  <v-rating
-                    v-model="dev.rating"
-                    :max="5"
-                    color="amber"
-                    size="20"
-                    class="mt-3"
-                  ></v-rating>
-                  <p><strong>Rating:</strong> {{ dev.rating }} / 5</p>
-                </v-card-text>
-              </v-card>
-            </router-link>
+              <v-card-title class="d-flex justify-space-between">
+                {{ dev.name }}
+                <v-chip color="primary" small>{{ dev.skill }}</v-chip>
+              </v-card-title>
+              <v-card-text>
+                <p><strong>Email:</strong> {{ dev.email }}</p>
+                <p><strong>Experience:</strong> {{ dev.experience }} years</p>
+                <p>{{ dev.bio }}</p>
+                <v-rating
+                  v-model="dev.rating"
+                  :max="5"
+                  color="amber"
+                  size="20"
+                  class="mt-3"
+                ></v-rating>
+                <p><strong>Rating:</strong> {{ dev.rating }} / 5</p>
+              </v-card-text>
+            </v-card>
           </v-col>
         </v-row>
       </v-card-text>
@@ -72,6 +71,11 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    goToDeveloper(id) {
+      this.$router.push(`/developers/${id}`);
+    },
   },
 }
 </script>
