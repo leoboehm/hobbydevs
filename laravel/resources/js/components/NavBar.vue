@@ -2,9 +2,9 @@
     <v-app-bar app color="blue-darken-2" dark flat>
         <v-container class="d-flex justify-space-between align-center">
             <v-toolbar-title class="text-h6 font-weight-bold">
-            <router-link to="/" class="text-white text-decoration-none">
-                HobbyDevs
-                </router-link>
+             <router-link to="/" class="text-white text-decoration-none">
+                 HobbyDevs
+                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon to="/" class="home-btn"
