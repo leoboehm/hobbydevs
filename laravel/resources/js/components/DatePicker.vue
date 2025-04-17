@@ -6,6 +6,7 @@
         readonly
         outlined
         dense
+        @click="menu = true"
     >
         <template v-slot:prepend>
             <v-menu
@@ -17,10 +18,10 @@
                     <v-icon v-bind="props" icon="mdi-calendar" />
                 </template>
                 <v-date-picker
-                    v-model="internalDate"
+                    v-model="proxyDate"
                     :min="min"
                     hide-header
-                    @update:modelValue="handleDateChange"
+                    @update:modelValue="menu = false"
                 />
             </v-menu>
         </template>
@@ -31,9 +32,13 @@
 import { useDate } from 'vuetify'
 
 export default {
-    name: 'DatePickerField',
+    name: 'DatePicker',
+
     props: {
-        modelValue: Date,
+        modelValue: {
+            type: [String, Date],
+            required: true,
+        },
         label: String,
         id: String,
         min: {
@@ -41,32 +46,30 @@ export default {
             default: undefined,
         },
     },
+
+    emits: ['update:modelValue'],
+
     data() {
         return {
             menu: false,
-            internalDate: this.modelValue,
+            date: useDate(),
         }
     },
-    watch: {
-        modelValue(newVal) {
-            this.internalDate = newVal
-        },
-    },
+
     computed: {
+        proxyDate: {
+            get() {
+                return this.modelValue
+            },
+            set(newVal) {
+                this.$emit('update:modelValue', this.date.format(newVal, 'fullDate'))
+            },
+        },
         formattedDate() {
-            return this.internalDate
-                ? this.date.format(this.internalDate, 'fullDate')
+            return this.modelValue
+                ? this.date.format(this.modelValue, 'fullDate')
                 : ''
         },
-    },
-    methods: {
-        handleDateChange(newVal) {
-            this.menu = false
-            this.$emit('update:modelValue', newVal)
-        },
-    },
-    created() {
-        this.date = useDate()
     },
 }
 </script>
