@@ -32,46 +32,77 @@
 
       <strong>Description:</strong>
       <p>{{ project.description }}</p>
+
+      <!-- Edit Button visible only to the project owner -->
+      <v-btn 
+        v-if="isOwner" 
+        color="primary" 
+        @click="editProject"
+      >
+        Edit Project
+      </v-btn>
+
     </v-card-text>
   </div>
+
   <div v-else>
     <p>Loading...</p>
   </div>
-</template>
 
+  <!-- Error Handling -->
+  <v-alert v-if="errorMessage" type="error" class="mt-4">
+    {{ errorMessage }}
+  </v-alert>
+</template>
 
 <script>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
   setup() {
     const route = useRoute(); 
+    const router = useRouter();
     const projectId = ref(route.params.id);  
-
     const project = ref(null);
+    const isOwner = ref(false);
+    const errorMessage = ref(null);
 
     onMounted(async () => {
       try {
-        // Ensure projectId is defined
+        // Fetch project data
         if (projectId.value) {
           const response = await fetch(`http://127.0.0.1:8000/api/project/${projectId.value}`);
           if (response.ok) {
             project.value = await response.json();  // Store project data
+
+            // Check if the current user is the project owner (Assuming user is fetched from a global state or store)
+            const currentUserId = 1; // Replace with actual logic to get the current user ID
+            isOwner.value = project.value.owner_id === currentUserId; // Check if project owner matches the current user
           } else {
-            console.error('Project not found');
+            errorMessage.value = 'Project not found.';
           }
         } else {
-          console.error('No project ID provided');
+          errorMessage.value = 'No project ID provided.';
         }
       } catch (error) {
         console.error('Error fetching project:', error);
+        errorMessage.value = 'Error fetching project data.';
       }
     });
 
+    // Edit project function
+    const editProject = () => {
+      router.push(`/projects/${projectId.value}/edit`)
+    }
+
     return {
-      project, 
+      project,
+      isOwner,
+      errorMessage,
+      editProject,
     };
   },
 };
 </script>
+
