@@ -56,6 +56,17 @@ export const useProjectStore = defineStore('projectStore', {
                 : `An error occurred during fetching of project with ID: ${id}`
               return null
             }
-          },                   
+          },
+              // Update project
+        async actionUpdateProject(projectId, updatedData) {
+        try {
+          const response = await apiClient.put(`/project/${projectId}`, updatedData)
+          return response
+        } catch (error) {
+          console.error('Error updating project:', error)
+          this.error = error.response?.data?.message || 'Failed to update project.'
+          throw error
+        }
+      },                 
     },
 })
