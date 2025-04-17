@@ -28,12 +28,6 @@ const router = createRouter({
             props: true,
             meta: { requiresAuth: true, developersOnly: true }
         },
-        // {
-        //     path: '/applications',
-        //     name: 'Applications',
-        //     component: () => import('../views/ApplicationsView.vue'),
-        //     meta: { requiresAuth: true }
-        // },
         {
             path: '/profile',
             name: 'Profile',
@@ -90,14 +84,12 @@ const router = createRouter({
             path: '/applications',
             name: 'Applications',
             component: () => import('../views/ApplicationsListView.vue'),
-          },
-          {
+        },
+        {
             path: '/:catchAll(.*)',
             name: 'page-not-found',
             component: () => import('../views/Error404View.vue'),
-          }
-          
-          
+        }
     ],
 })
 
@@ -108,14 +100,14 @@ router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAuth && !authStore.getIsAuthenticated) {
         next('/login');
     }
-    else if (to.meta.developersOnly && userType != 'Developer') {
+    else if (to.meta.developersOnly && userType !== 'Developer') {
         next('/page-not-found');
     } 
-    else if (to.meta.projectOwnersOnly && userType != 'Project Owner') {
+    else if (to.meta.projectOwnersOnly && userType !== 'Project Owner') {
         next('/page-not-found');
     } else {
         next();
     }
 });
 
-export default router
+export default router;
