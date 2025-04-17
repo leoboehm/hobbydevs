@@ -42,14 +42,15 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test --testsuite=Unit --log-junit reports/report.xml --coverage-html coverage --coverage-clover coverage/clover.xml
+      run: php artisan test --testsuite=Unit --log-junit reports/report.xml --coverage-clover coverage/clover.xml
     - name: Upload PHPUnit JUnit Report
       uses: actions/upload-artifact@v4
       with:
         name: junit-report
         path: ./laravel/reports/report.xml
-    - name: Upload Coverage Report
-      uses: actions/upload-artifact@v4
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
       with:
-        name: coverage-report
-        path: ./laravel/coverage
+        files: ./laravel/coverage/clover.xml
+        flags: unittests
+        name: codecov-coverage
