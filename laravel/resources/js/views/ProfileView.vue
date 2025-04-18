@@ -65,7 +65,8 @@
         <!-- Applications Tab -->
         <v-tab-item>
           <v-card-text>
-            <div v-if="authStore.getUserType === 'developer'">
+            <!-- since we already created it properly in  setup() -->
+            <div v-if="userType === 'developer'">
 
               <p><strong>Developer Applications</strong></p>
               <v-list two-line>
@@ -77,7 +78,7 @@
                 </v-list-item>
               </v-list>
             </div>
-            <div v-else-if="authStore.getUserType === 'project_owner'">
+            <div v-else-if="userType === 'project_owner'">
               <p><strong>Received Applications</strong></p>
               <v-list two-line>
                 <v-list-item v-for="app in applicationStore.applications" :key="app.id">
@@ -104,6 +105,8 @@
 import axios from '../services/axios'
 import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/applicationStore'
+import { useProfileStore } from '@/stores/profileStore'
+
 import { computed, onMounted } from 'vue'
 
 export default {
@@ -113,6 +116,7 @@ export default {
     const authStore = useAuthStore()
     const applicationStore = useApplicationStore()
     const userType = computed(() => authStore.getUserType)
+    const profileStore = useProfileStore()
 
     const loadApplications = async () => {
       if (userType.value === 'developer') {
@@ -130,7 +134,7 @@ export default {
       authStore,
       applicationStore,
       userType,
-
+      profileStore,
     }
   },
 
@@ -172,16 +176,15 @@ export default {
 
     async saveEdit() {
       if (this.$refs.form.validate()) {
-        try {
-          const res = await axios.put('/user', this.userData)
-          this.authStore.setUser(res.data)
-          this.originalUser = { ...res.data }
-          this.editMode = false
-          alert('Profile updated successfully!')
-        } catch (error) {
-          console.error('Failed to update profile:', error)
-          alert('Something went wrong while saving.')
-        }
+    try {
+      const updatedUser = await this.profileStore.updateUser(this.userData)
+      this.authStore.setUser(updatedUser)
+      this.originalUser = { ...updatedUser }
+      this.editMode = false
+      alert('Profile updated successfully!')
+    } catch (error) {
+      alert('Something went wrong while saving.')
+    }
       }
     },
   },

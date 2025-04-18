@@ -7,9 +7,7 @@ export const useApplicationStore = defineStore('applicationStore', {
   }),
 
   getters: {
-    getApplications(state) {
-      return state.applications
-    },
+    getApplications: (state) => state.applications,
   },
 
   actions: {
