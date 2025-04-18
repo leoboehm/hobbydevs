@@ -110,7 +110,7 @@
                                 <v-col cols="5" class="mr-8">
                                     <DatePicker
                                         id="project-start-date"
-                                        v-model="unformatted_project_start_date"
+                                        v-model="project.start_date"
                                         label="Start Date"
                                         :min="today"
                                     />
@@ -118,7 +118,7 @@
                                 <v-col cols="5">
                                     <DatePicker
                                         id="project-end-date"
-                                        v-model="unformatted_project_end_date"
+                                        v-model="project.end_date"
                                         label="Deadline"
                                         :min="project.start_date"
                                     />
@@ -146,7 +146,7 @@
                                     <DatePicker
                                         id="application-start-date"
                                         v-model="
-                                            unformatted_application_start_date
+                                            application.start_date
                                         "
                                         label="Start Date"
                                         :min="project.start_date"
@@ -156,7 +156,7 @@
                                     <DatePicker
                                         id="application-end-date"
                                         v-model="
-                                            unformatted_application_end_date
+                                            application.end_date
                                         "
                                         label="End Date"
                                         :min="application.start_date"
@@ -185,7 +185,7 @@ import { useProjectStore } from '../stores/project'
 import { useCategoryStore } from '../stores/category'
 import { useSkillStore } from '../stores/skill'
 
-import DatePicker from '@/components/DatePicker.vue'
+import DatePicker from '../components/DatePicker.vue'
 
 export default {
     components: { DatePicker },
@@ -198,11 +198,6 @@ export default {
             skillStore: useSkillStore(),
 
             currentStep: 0,
-
-            unformatted_project_start_date: null,
-            unformatted_project_end_date: null,
-            unformatted_application_start_date: null,
-            unformatted_application_end_date: null,
 
             project: {
                 title: '',
@@ -238,7 +233,6 @@ export default {
             this.skills = this.skillStore.getSkills
         }
     },
-    components: {},
     methods: {
         async postProject() {
             if (this.$refs.form.validate()) {
@@ -249,38 +243,18 @@ export default {
                     skills: this.project.skills,
                     salary_range: this.project.salary,
                     duration: this.project.duration,
-                    start_date: this.project.start_date,
-                    deadline: this.project.end_date,
-                    application_start_date: this.application.start_date,
-                    application_deadline: this.application.end_date,
+                    start_date: this.date.formatByString(this.project.start_date, "YYYY-MM-DD hh:mm:ss"),
+                    deadline: this.date.formatByString(this.project.end_date, "YYYY-MM-DD hh:mm:ss"),
+                    application_start_date: this.date.formatByString(this.application.start_date, "YYYY-MM-DD hh:mm:ss"),
+                    application_deadline: this.date.formatByString(this.application.end_date, "YYYY-MM-DD hh:mm:ss"),
                 }
                 await this.projectStore.actionPublishProject(projectData)
                 this.$router.push({ name: 'Home' })
             }
         },
-
-        formatStartDate(date) {
-            this.project.start_date = this.date.format(date, 'fullDate')
-        },
-        formatEndDate(date) {
-            this.project.end_date = this.date.format(date, 'fullDate')
-        },
-        formatApplicationStartDate(date) {
-            this.application.start_date = this.date.format(date, 'fullDate')
-        },
-        formatApplicationEndDate(date) {
-            this.application.end_date = this.date.format(date, 'fullDate')
-        },
     },
     computed: {
         today: () => new Date(),
-    },
-
-    watch: {
-        unformatted_project_start_date: 'formatStartDate',
-        unformatted_project_end_date: 'formatEndDate',
-        unformatted_application_start_date: 'formatApplicationStartDate',
-        unformatted_application_end_date: 'formatApplicationEndDate',
     },
 }
 </script>

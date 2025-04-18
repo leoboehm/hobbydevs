@@ -47,7 +47,6 @@
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/stores/project'
-import apiClient from '@/services/axios'
 
 const router = useRouter()
 const route = useRoute()
@@ -63,43 +62,62 @@ const project = ref({
 })
 
 const errorMessage = ref(null)
+const successMessage = ref(null)
+const isLoading = ref(false)
 
 const rules = {
   required: value => !!value || 'This field is required',
 }
 
+// Fetch project data on mount
 const fetchProject = async () => {
   const id = route.params.id
   try {
     const res = await store.actionGetProjectByID(id)
-    console.log('Fetched project:', res) // Log the response to inspect the data
+    console.log('Fetched project:', res.data)
+
     if (res && res.data) {
-      project.value = res.data
+      project.value = res.data.project || res.data
     } else {
-      errorMessage.value = 'Failed to load project data. No data returned.'
+      errorMessage.value = 'No project data found.'
     }
   } catch (error) {
-    console.error('Error fetching project:', error) // Log the error
+    console.error('Error fetching project:', error)
     errorMessage.value = 'Error fetching project data.'
   }
-}
-
-
-
-const updateProject = async () => {
-  try {
-    await apiClient.put(`/project/${project.value.id}`, project.value)
-    router.push(`/projects/${project.value.id}`)
-  } catch (error) {
-    errorMessage.value = error.response?.data?.message || 'Failed to update project.'
-  }
-}
-
-const cancelEdit = () => {
-  router.push('/projects')
 }
 
 onMounted(() => {
   fetchProject()
 })
+
+// Submit updated project
+const updateProject = async () => {
+  isLoading.value = true
+
+  const payload = {
+    title: project.value.title,
+    description: project.value.description,
+    category: project.value.category,
+    salary_range: project.value.salary_range,
+    duration: project.value.duration
+  }
+
+  try {
+    const response = await store.actionUpdateProject(project.value.id, payload)
+    console.log('Update success:', response)
+    successMessage.value = 'Project updated successfully!'
+    router.push(`/projects/${project.value.id}`)
+  } catch (error) {
+    console.error('Update failed:', error)
+    errorMessage.value = error.response?.data?.message || 'Failed to update project.'
+  } finally {
+    isLoading.value = false
+  }
+}
+
+// Cancel and go back
+const cancelEdit = () => {
+  router.back()
+}
 </script>

@@ -22,6 +22,13 @@ const router = createRouter({
             meta: { projectOwnersOnly: true }
         },
         {
+        path: '/developers/:id',
+             name: 'DeveloperDetail',
+             component: () => import('../views/DeveloperDetail.vue'),
+             props: true,
+             meta: { requiresAuth: true, projectOwnersOnly: true }
+        },
+        {
             path: '/apply/:projectId',
             name: 'Apply',
             component: () => import('../views/ApplicationsView.vue'),
@@ -61,7 +68,7 @@ const router = createRouter({
         {
             path: '/projects/:id/edit',
             name: 'EditProject',
-            component: () => import('../views/EditProjectView.vue'),
+            component: () => import('@/views/EditProjectView.vue'),
             meta: { requiresAuth: true, projectOwnersOnly: true }
         },
         {

@@ -1,4 +1,5 @@
 <template>
+
   <v-container class="py-10">
     <v-card elevation="2" class="pa-6" max-width="800" mx-auto>
       <v-card-title>
@@ -102,6 +103,7 @@
 </template>
 
 <script>
+
 import axios from '../services/axios'
 import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/applicationStore'

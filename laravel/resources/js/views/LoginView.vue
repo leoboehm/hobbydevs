@@ -40,10 +40,12 @@
                     </v-row>
                     <v-card-text>
                         <v-form ref="form" v-model="valid" lazy-validation>
+
                             <!-- Show error message if login fails -->
                             <v-alert v-if="errorMessage" type="error" class="mb-4">
                             {{ errorMessage }}
                             </v-alert>
+
                             <!-- Email -->
                             <v-text-field
                                 v-model="email"
@@ -117,26 +119,35 @@ export default {
     computed: {},
 
     methods: {
-      async submit() {
-        this.errorMessage = ''
-            if (this.$refs.form.validate()) {
-                try {
+
+  async submit() {
+    this.errorMessage = ''
+    if (this.$refs.form.validate()) {
+      if (this.authStore) {
+        try {
+          //  Await the async function
+
           await this.authStore.actionLogin({
             email: this.email,
             password: this.password,
           })
 
-                    this.$router.push({ name: 'Profile' })
-                } catch(err){ 
-                    this.errorMessage = err?.response?.data?.message || 'Login failed. Please check your credentials.'
-                }
-            }
-        },
+          this.$router.push({ name: 'Profile' })
+        } catch (err) {
+          // ✅Show error from backend or fallback
+          this.errorMessage =
+            err?.response?.data?.message || 'Login failed. Please check your credentials.'
+        }
+      }
+    }
+  },
+
         cancel() {
             this.email = ''
             this.password = ''
             this.errorMessage = ''
             this.$refs.form.resetValidation()
+            this.errorMessage = '' 
         },
     },
 }
