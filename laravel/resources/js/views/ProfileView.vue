@@ -103,8 +103,6 @@
 </template>
 
 <script>
-
-import axios from '../services/axios'
 import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useProfileStore } from '@/stores/profileStore'
@@ -185,6 +183,7 @@ export default {
       this.editMode = false
       alert('Profile updated successfully!')
     } catch (error) {
+      console.error('Failed to update profile:', error)
       alert('Something went wrong while saving.')
     }
       }
