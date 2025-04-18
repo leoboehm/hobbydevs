@@ -130,7 +130,7 @@ export default {
 
           this.$router.push({ name: 'Profile' })
         } catch (err) {
-          // ✅Show error from backend or fallback
+          // Show error from backend or fallback
           this.errorMessage =
             err?.response?.data?.message || 'Login failed. Please check your credentials.'
         }
