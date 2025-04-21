@@ -40,10 +40,12 @@
                     </v-row>
                     <v-card-text>
                         <v-form ref="form" v-model="valid" lazy-validation>
-                        <!-- added error message alert -->
-                        <v-alert v-if="errorMessage" type="error" class="mb-4">
-                        {{ errorMessage }}
-                        </v-alert>
+
+                            <!-- Show error message if login fails -->
+                            <v-alert v-if="errorMessage" type="error" class="mb-4">
+                            {{ errorMessage }}
+                            </v-alert>
+
                             <!-- Email -->
                             <v-text-field
                                 v-model="email"
@@ -117,12 +119,14 @@ export default {
     computed: {},
 
     methods: {
+
   async submit() {
     this.errorMessage = ''
     if (this.$refs.form.validate()) {
       if (this.authStore) {
         try {
           //  Await the async function
+
           await this.authStore.actionLogin({
             email: this.email,
             password: this.password,
@@ -137,9 +141,11 @@ export default {
       }
     }
   },
+
         cancel() {
             this.email = ''
             this.password = ''
+            this.errorMessage = ''
             this.$refs.form.resetValidation()
             this.errorMessage = '' 
         },
