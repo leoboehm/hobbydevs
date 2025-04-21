@@ -13,6 +13,8 @@
             md="6"
             lg="4"
           >
+            <!-- Clickable Card -->
+
             <v-card
               outlined
               class="mb-4"
@@ -24,9 +26,10 @@
                 <v-chip color="primary" small>{{ dev.skill }}</v-chip>
               </v-card-title>
               <v-card-text>
-                <p><strong>Experience:</strong> {{ dev.experience }} years</p>
                 <p><strong>Bio:</strong>{{ dev.bio }}</p>
                 <p><strong>Skills:</strong> {{ dev.skills.slice(0, 2).join(', ') }}</p>
+                <p><strong>Email:</strong> {{ dev.email }}</p>
+                <p><strong>Experience:</strong> {{ dev.experience }} years</p>
                 <v-rating
                   v-model="dev.rating"
                   :max="5"
@@ -82,6 +85,7 @@ export default {
   },
   methods: {
     goToDeveloper(id) {
+
       this.$router.push(`/developers/${id}`)
     },
   },
