@@ -186,7 +186,7 @@ import { useCategoryStore } from '../stores/category'
 import { useSkillStore } from '../stores/skill'
 
 import DatePicker from '../components/DatePicker.vue'
-
+import PostProjectCommand from '@/commands/PostProjectCommand'
 export default {
     components: { DatePicker },
     data() {
@@ -248,8 +248,13 @@ export default {
                     application_start_date: this.date.formatByString(this.application.start_date, "YYYY-MM-DD hh:mm:ss"),
                     application_deadline: this.date.formatByString(this.application.end_date, "YYYY-MM-DD hh:mm:ss"),
                 }
-                await this.projectStore.actionPublishProject(projectData)
-                this.$router.push({ name: 'Home' })
+                const command = new PostProjectCommand(
+                    this.projectStore,
+                    projectData,
+                    () => this.$router.push({ name: 'Home' }),
+                    (error) => alert('Something went wrong while posting.')
+                )
+                await command.execute()
             }
         },
     },
