@@ -15,7 +15,7 @@
     - [Overview](#51-overview)
     - [Architecturally Significant Design Packages](#52-architecturally-significant-design-packages)
     - [Pattern](#53-Pattern)
-    - [Before & After Class Diagrams](#54-Before & After Class Diagrams)
+    - [Before & After Class Diagrams](#54-Before-&-After-Class-Diagrams)
 - [Process View](#6-process-view)
 - [Deployment View](#7-deployment-view)
 - [Implementation View](#8-implementation-view)
