@@ -15,6 +15,7 @@
     - [Overview](#51-overview)
     - [Architecturally Significant Design Packages](#52-architecturally-significant-design-packages)
     - [Pattern](#53-Pattern)
+    - [Before & After Class Diagrams](#54-Before-&-After-Class-Diagrams)
 - [Process View](#6-process-view)
 - [Deployment View](#7-deployment-view)
 - [Implementation View](#8-implementation-view)
@@ -79,7 +80,39 @@ Laravel packages used include:
 - **Laravel Mix** for asset management
 
 ### 5.3 Pattern
-Laravel follows the MVC (Model-View-Controller) pattern, which helps in organizing the application structure and makes the application more maintainable and scalable.
+
+Our project follows multiple design patterns to achieve clean architecture and maintainability:
+
+- **MVC (Model-View-Controller)**: Core architectural pattern provided by Laravel, separating concerns across models (data), views (presentation), and controllers (logic).
+- **MVVM (Model-View-ViewModel)**: Utilized within the Vue.js frontend to keep the UI reactive and modular.
+- **Command Pattern**: Applied to encapsulate the logic for submitting a new project in the `PostProjectView.vue` component. This separates UI concerns from business logic and makes the action reusable and testable.
+
+**Why the Command Pattern?**
+
+The logic in `postProject()` included multiple steps: form validation, data formatting, API calls, and routing. Instead of tightly coupling all of this to the Vue component, we moved the logic into a dedicated `PostProjectCommand` class, allowing for:
+- Decoupling UI from logic
+- Easier unit testing
+- Reusability (e.g., admin tools, batch submissions)
+- Potential for future enhancements like retry logic or logging
+
+This pattern appears in the command class `PostProjectCommand.js` located in `resources/js/commands/`.
+
+### 5.4 Before & After Class Diagrams
+
+Below are the visual class diagrams showing the `PostProjectView.vue` before and after refactoring with the Command Pattern:
+
+#### Before:
+- All logic is in `postProject()` inside the Vue component.
+![Before Command Pattern](https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/before_clas_diagram.JPG))
+
+#### After:
+- The logic has been moved into a separate `PostProjectCommand` class.
+- `PostProjectView.vue` now simply creates and executes the command.
+![After Command Pattern]((https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/after_class_diagram.JPG))
+
+#### Full Class Diagram (with Highlight):
+This diagram shows where the `PostProjectCommand` class sits within the larger architecture. It is highlighted in **orange**.
+![Full Class Diagram](https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/class_diagram.pdf)](https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/class_diagram.png)
 
 ## 6. Process View
 n/a
@@ -107,7 +140,14 @@ The diagram below shows the deployment architecture, with the client (frontend) 
 ## 8. Implementation View
 
 ### 8.1 Overview
-n/a
+
+To improve maintainability and readability, we moved submission logic from the Vue component `PostProjectView.vue` into a dedicated command class.
+
+#### Affected File:
+- `resources/js/views/PostProjectView.vue`: Now only handles user interactions and delegates the action to the command.
+- `resources/js/commands/PostProjectCommand.js`: Encapsulates all logic related to project posting.
+
+This pattern implementation is visually represented and highlighted in the class diagram above.
 
 ### 8.2 Layers
 n/a
