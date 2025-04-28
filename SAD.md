@@ -103,16 +103,16 @@ Below are the visual class diagrams showing the `PostProjectView.vue` before and
 
 #### Before:
 - All logic is in `postProject()` inside the Vue component.
-![Before Command Pattern](https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/before_clas_diagram.JPG))
+![Before Command Pattern](https://github.com/leoboehm/hobbydevs/blob/main/screenshots/before_clas_diagram.JPG)
 
 #### After:
 - The logic has been moved into a separate `PostProjectCommand` class.
 - `PostProjectView.vue` now simply creates and executes the command.
-![After Command Pattern]((https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/after_class_diagram.JPG))
+![After Command Pattern](https://github.com/leoboehm/hobbydevs/blob/main/screenshots/after_class_diagram.JPG)
 
 #### Full Class Diagram (with Highlight):
 This diagram shows where the `PostProjectCommand` class sits within the larger architecture. It is highlighted in **orange**.
-![Full Class Diagram](https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/class_diagram.pdf)](https://github.com/leoboehm/hobbydevs/blob/azzraa-patch-1/screenshots/class_diagram.png)
+![Full Class Diagram](https://github.com/leoboehm/hobbydevs/blob/main/screenshots/class_diagram.png)
 
 ## 6. Process View
 n/a
