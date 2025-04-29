@@ -110,10 +110,6 @@ Below are the visual class diagrams showing the `PostProjectView.vue` before and
 - `PostProjectView.vue` now simply creates and executes the command.
 ![After Command Pattern](https://github.com/leoboehm/hobbydevs/blob/main/screenshots/after_class_diagram.JPG)
 
-#### Full Class Diagram (with Highlight):
-This diagram shows where the `PostProjectCommand` class sits within the larger architecture. It is highlighted in **orange**.
-![Full Class Diagram](https://github.com/leoboehm/hobbydevs/blob/main/screenshots/class_diagram.png)
-
 ## 6. Process View
 n/a
 
