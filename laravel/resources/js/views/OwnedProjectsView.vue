@@ -22,53 +22,6 @@
       </div>
     </div>
   </template>
-
-
-  <script>
-  /*
-  export default {
-    name: 'OwnedProjectsView',
-    data() {
-      return {
-        projects: [
-          {
-            id: 1,
-            title: "AI-Powered Resume Analyzer",
-            description: "A web-based tool that helps job seekers optimize resumes using AI.",
-            applications: [
-              { id: 1, applicantName: "John Doe", message: "Interested in AI projects!", status: "Pending" },
-              { id: 2, applicantName: "Jane Smith", message: "I have experience in Vue.js!", status: "Pending" },
-            ]
-          },
-          {
-            id: 2,
-            title: "E-Learning Platform",
-            description: "An interactive platform for gamified learning experiences.",
-            applications: [
-              { id: 3, applicantName: "Alice Johnson", message: "Experienced in EdTech platforms!", status: "Pending" },
-            ]
-          }
-        ]
-      };
-    },
-
-    methods: {
-      acceptApplication(projectId, applicationId) {
-        const project = this.projects.find(p => p.id === projectId);
-        const application = project.applications.find(a => a.id === applicationId);
-        application.status = "Accepted";
-        console.log(`Accepted application ${applicationId} for project ${projectId}`);
-      },
-      declineApplication(projectId, applicationId) {
-        const project = this.projects.find(p => p.id === projectId);
-        const application = project.applications.find(a => a.id === applicationId);
-        application.status = "Declined";
-        console.log(`Declined application ${applicationId} for project ${projectId}`);
-      }
-    }
-  };
-  */
-  </script>
   
   <style scoped>
   .project-card {
