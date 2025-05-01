@@ -30,7 +30,7 @@ jobs:
         restore-keys: composer-
     - name: Install Dependencies
       working-directory: ./laravel
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --verbose
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
       working-directory: ./laravel
       run: php artisan key:generate
@@ -47,7 +47,7 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test --testsuite=Unit --coverage-clover coverage/clover.xml
+      run: php artisan test --testsuite=Unit --coverage-clover=clover.xml
    
   sonarqube:
     name: SonarQube Analysis
