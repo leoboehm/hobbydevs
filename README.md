@@ -16,7 +16,6 @@ We plan and brainstorm everything on Miro. You can find our board here:
 
 <br><hr><br>
 # Badges
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=coverage)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
