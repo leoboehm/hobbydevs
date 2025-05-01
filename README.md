@@ -16,4 +16,11 @@ We plan and brainstorm everything on Miro. You can find our board here:
 
 <br><hr><br>
 # Badges
-[![codecov](https://codecov.io/gh/<leoboehm>/<hobbydevs>/branch/main/graph/badge.svg)](https://codecov.io/gh/<leoboehm>/<hobbydevs>)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=coverage)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
