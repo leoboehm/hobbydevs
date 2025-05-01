@@ -10,7 +10,7 @@ permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
-  laravel-tests:
+  test-and-report:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +19,8 @@ jobs:
         php-version: '8.1'
         coverage: xdebug
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     - name: Copy .env
       working-directory: ./laravel
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -48,17 +50,9 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan test --testsuite=Unit --coverage-clover=clover.xml
-   
-  sonarqube:
-    name: SonarQube Analysis
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: ./laravel
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v5
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        projectBaseDir: ./laravel
