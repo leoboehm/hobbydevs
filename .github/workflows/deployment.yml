@@ -50,8 +50,13 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan test --testsuite=Unit --coverage-clover=clover.xml
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-coverage-report
+        path: clover.xml
     - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v5
+      uses: SonarSource/sonarqube-scan-action@v4
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
