@@ -10,16 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectApplicationController extends Controller
 {
+    private const REQUIRED_STRING = 'required|string';
+    
     public function postApplication(Request $request)
     {
         $validatedData = $request->validate([
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
+            'firstName' => self::REQUIRED_STRING . '|max:255',
+            'lastName' => self::REQUIRED_STRING . '|max:255',
             'skills' => 'required|array',
-            'availability' => 'required|string',
-            'pastExperience' => 'required|string',
-            'motivation' => 'required|string',
-            'contactInfo' => 'required|string',
+            'availability' => self::REQUIRED_STRING,
+            'pastExperience' => self::REQUIRED_STRING,
+            'motivation' => self::REQUIRED_STRING,
+            'contactInfo' => self::REQUIRED_STRING,
         ]);
 
         $application = Application::create([
