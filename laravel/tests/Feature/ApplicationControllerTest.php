@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Project;
 use App\Models\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ApplicationControllerTest extends TestCase
