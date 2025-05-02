@@ -82,7 +82,7 @@ Hobby Devs is about creating a collaborative space, where ideas meet development
 | **IDE**             | Visual Studio Code          |
 | **Project Management** | YouTrack, GitHub, Discord |
 | **Deployment**      | tbd                         |
-| **Testing**         | SonarCloud, tbd                         |
+| **Testing**         | SonarCloud                         |
 
 ## 3. Specific Requirements
 
