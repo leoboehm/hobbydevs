@@ -9,6 +9,7 @@ use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectCategoryController;
 use App\Http\Controllers\Project\ProjectSkillController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------

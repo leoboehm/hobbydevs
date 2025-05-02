@@ -49,7 +49,7 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test --testsuite=Unit --coverage-clover 'reports/clover.xml'
+      run: php artisan test --coverage-clover 'reports/clover.xml'
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v4
       env:
