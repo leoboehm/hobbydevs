@@ -96,6 +96,11 @@ const router = createRouter({
             path: '/:catchAll(.*)',
             name: 'page-not-found',
             component: () => import('../views/Error404View.vue'),
+        },
+        {
+            path: '/payment',
+            name: 'Payment',
+            component: () => import('../views/PaymentView.vue'),
         }
     ],
 })

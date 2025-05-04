@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('password');
+            $table->integer('credit')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

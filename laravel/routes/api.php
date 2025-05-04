@@ -52,3 +52,6 @@ Route::apiResource('project', ProjectController::class);
 Route::apiResource('category', ProjectCategoryController::class);
 // skill
 Route::apiResource('skill', ProjectSkillController::class);
+
+// credittransfer
+Route::post('/payment',[TransferController::class,'transfer']);
