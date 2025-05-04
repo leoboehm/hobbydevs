@@ -20,6 +20,7 @@ class UserController extends Controller
 
         $user->update($validated);
 
+
         return response()->json($user);
     }
 }

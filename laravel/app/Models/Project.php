@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,4 +46,9 @@ class Project extends Model
         'application_start_date',
         'application_deadline'
     ];
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }
