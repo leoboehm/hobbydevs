@@ -134,6 +134,7 @@ export default {
                     pastExperience: this.pastExperience,
                     motivation: this.motivation,
                     contactInfo: this.contactInfo,
+                    project_id: this.$route.params.projectId,
                 }
 
                 const projectStore = useProjectStore()
