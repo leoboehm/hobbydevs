@@ -223,13 +223,13 @@ export default {
     async beforeMount() {
         // load categories
         await this.categoryStore.fetchCategories()
-        if (this.categoryStore.getCategoriesLoading == false) {
+        if (!this.categoryStore.getCategoriesLoading) {
             this.categories = this.categoryStore.getCategories
         }
 
         // load skills
         await this.skillStore.fetchSkills()
-        if (this.skillStore.getSkillsLoading == false) {
+        if (!this.skillStore.getSkillsLoading) {
             this.skills = this.skillStore.getSkills
         }
     },
@@ -263,5 +263,3 @@ export default {
     },
 }
 </script>
-
-<style scoped></style>
