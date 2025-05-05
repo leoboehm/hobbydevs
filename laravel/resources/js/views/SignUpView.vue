@@ -124,6 +124,15 @@
                         >
                             Sign Up
                         </v-btn>
+                        <!-- Error Message -->
+                        <v-row v-if="authStore.error">
+                            <v-col>
+                                <v-alert type="error" dismissible>
+                                    {{ authStore.error }}
+        </v-alert>
+    </v-col>
+</v-row>
+
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -172,31 +181,29 @@ export default {
 
     methods: {
         submit() {
-            if (this.$refs.form.validate()) {
-                if (this.authStore != undefined) {
-                    this.authStore.actionRegisterNewUser({
-                        email: this.email,
-                        firstname: this.firstname,
-                        lastname: this.lastname,
-                        password: this.password,
-                        type: this.accountType,
-                        username: this.username,
-                    })
-
-                    this.$router.push({ name: 'Login' })
-                    // if (response.error == null) {
-                    //     console.log(
-                    //         'Error during registration: ' + response.error,
-                    //     )
-                    //     alert('An error has occurred during registration...')
-                    // } else {
-                    //     this.$router.push({ name: 'login' })
-                    // }
-                } else {
-                    alert('Registration not possible. Try again later...')
+    if (this.$refs.form.validate()) {
+        if (this.authStore != undefined) {
+            this.authStore.actionRegisterNewUser({
+                email: this.email,
+                firstname: this.firstname,
+                lastname: this.lastname,
+                password: this.password,
+                type: this.accountType,
+                username: this.username,
+            }).then(() => {
+                // Check if there is any error after registration
+                if (this.authStore.error) {
+                    // If there's an error, you don't proceed with the navigation
+                    return;
                 }
-            }
-        },
+                // Navigate to login if no errors
+                this.$router.push({ name: 'Login' });
+            });
+        } else {
+            alert('Registration not possible. Try again later...')
+        }
+    }
+},
         cancel() {
             this.accountType = ''
             this.firstname = ''
