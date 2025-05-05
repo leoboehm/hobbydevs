@@ -18,10 +18,13 @@ class ProjectApplicationController extends Controller
             'firstName' => self::REQUIRED_STRING . '|max:255',
             'lastName' => self::REQUIRED_STRING . '|max:255',
             'skills' => 'required|array',
-            'availability' => self::REQUIRED_STRING,
-            'pastExperience' => self::REQUIRED_STRING,
-            'motivation' => self::REQUIRED_STRING,
-            'contactInfo' => self::REQUIRED_STRING,
+
+            'availability' => 'required|string',
+            'pastExperience' => 'required|string',
+            'motivation' => 'required|string',
+            'contactInfo' => 'required|string',
+            'project_id' => 'required|exists:projects,id',
+
         ]);
 
         $application = Application::create([
@@ -32,26 +35,29 @@ class ProjectApplicationController extends Controller
             'past_experience' => $validatedData['pastExperience'],
             'motivation' => $validatedData['motivation'],
             'contact_info' => $validatedData['contactInfo'],
-            'user_id'         => Auth::id(),
+            'user_id' => Auth::id(),
+            'project_id' => $validatedData['project_id'],
         ]);
 
         return response()->json($application, 201);
     }
     public function getSentApplications(Request $request)
-{
-    $user = Auth::user();
-    $applications = Application::where('user_id', $user->id)->get();
-    return response()->json($applications);
+    {
+        $user = Auth::user();
+        $applications = Application::where('user_id', $user->id)->get();
+        return response()->json($applications);
+    }
+
+
+    public function getReceivedApplications(Request $request)
+    {
+        $user = Auth::user();
+        $applications = Application::with('project')
+            ->whereHas('project', function ($query) use ($user) {
+                $query->where('owner_id', $user->id);
+            })
+            ->get();
+        return response()->json($applications);
+    }
 }
 
-public function getReceivedApplications(Request $request)
-{
-    $user = Auth::user();
-    $applications = Application::with('project')
-        ->whereHas('project', function ($query) use ($user) {
-            $query->where('owner_id', $user->id);
-        })
-        ->get();
-    return response()->json($applications);
-}
-}
