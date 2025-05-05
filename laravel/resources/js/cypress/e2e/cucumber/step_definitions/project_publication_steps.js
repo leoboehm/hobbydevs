@@ -4,9 +4,6 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('the Project Owner is logged in', () => {
   cy.visit('http://localhost:8000');
-  // cy.login().then(() => {
-  //   cy.checkLoginState().should('eq', true);
-  // });
 });
 
 When('the Project Owner clicks on the "Publish Project" button', () => {
