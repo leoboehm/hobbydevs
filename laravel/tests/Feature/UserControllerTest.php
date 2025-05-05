@@ -102,31 +102,4 @@ class UserControllerTest extends TestCase
         // Assert that the response status is 401 (Unauthorized)
         $response->assertStatus(401);
     }
-
-    // Currently not working, new user can be created with email that is used by different user
-    // /**
-    //  * Test that a user cannot update other users' information.
-    //  *
-    //  * @return void
-    //  */
-    // public function test_user_cannot_update_other_users_information()
-    // {
-    //     // Create two users
-    //     $user1 = User::factory()->create();
-    //     $user2 = User::factory()->create();
-
-    //     // Act as the first user
-    //     Sanctum::actingAs($user1, ['*']); // Authenticate as user1
-
-    //     // Attempt to update user2's information
-    //     $response = $this->putJson('/api/user', [
-    //         'firstname' => 'UpdatedFirstName',
-    //         'lastname' => 'UpdatedLastName',
-    //         'username' => 'updatedusername',
-    //         'email' => 'updatedemail@example.com',
-    //     ]);
-
-    //     // Assert that the response status is 403 (Forbidden)
-    //     $response->assertStatus(403);
-    // }
 }

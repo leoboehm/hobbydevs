@@ -11,39 +11,37 @@ use Tests\TestCase;
 class ApplicationControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    // Not workin rn because of missing project_id in ApplicationController
     
-    // /** @test */
-    // public function user_can_post_application()
-    // {
-    //     $user = User::factory()->create();
-    //     $project = Project::factory()->create([
-    //         "owner_id" => $user->id,
-    //     ]);
+    /** @test */
+    public function user_can_post_application()
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create([
+            "owner_id" => $user->id,
+        ]);
 
-    //     $this->actingAs($user);
+        $this->actingAs($user);
 
-    //     $payload = [
-    //         'firstName' => 'Max',
-    //         'lastName' => 'Mustermann',
-    //         'skills' => ['PHP', 'Laravel'],
-    //         'availability' => 'Full-time',
-    //         'pastExperience' => '2 years of web development',
-    //         'motivation' => 'Looking for new challenges',
-    //         'contactInfo' => 'max@example.com',
-    //         'project_id' => $project->id,
-    //     ];
+        $payload = [
+            'firstName' => 'Max',
+            'lastName' => 'Mustermann',
+            'skills' => ['PHP', 'Laravel'],
+            'availability' => 'Full-time',
+            'pastExperience' => '2 years of web development',
+            'motivation' => 'Looking for new challenges',
+            'contactInfo' => 'max@example.com',
+            'project_id' => $project->id,
+        ];
 
-    //     $response = $this->postJson('/api/applications', $payload);
+        $response = $this->postJson('/api/applications', $payload);
 
-    //     $response->assertStatus(201);
-    //     $this->assertDatabaseHas('applications', [
-    //         'first_name' => 'Max',
-    //         'last_name' => 'Mustermann',
-    //         'user_id' => $user->id,
-    //     ]);
-    // }
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('applications', [
+            'first_name' => 'Max',
+            'last_name' => 'Mustermann',
+            'user_id' => $user->id,
+        ]);
+    }
 
     /** @test */
     public function post_application_requires_all_fields()
