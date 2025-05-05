@@ -19,10 +19,10 @@ class ProjectApplicationController extends Controller
             'lastName' => self::REQUIRED_STRING . '|max:255',
             'skills' => 'required|array',
 
-            'availability' => 'required|string',
-            'pastExperience' => 'required|string',
-            'motivation' => 'required|string',
-            'contactInfo' => 'required|string',
+            'availability' => self::REQUIRED_STRING,
+            'pastExperience' => self::REQUIRED_STRING,
+            'motivation' => self::REQUIRED_STRING,
+            'contactInfo' => self::REQUIRED_STRING,
             'project_id' => 'required|exists:projects,id',
 
         ]);
