@@ -156,9 +156,93 @@ const userData = ref({
     email: '',
 })
 
+
 const rules = {
     required: value => !!value || 'This field is required',
     email: value => /.+@.+\..+/.test(value) || 'Invalid email',
+  setup() {
+    const authStore = useAuthStore()
+    const applicationStore = useApplicationStore()
+    const userType = computed(() => authStore.getUserType)
+    const profileStore = useProfileStore()
+
+    const loadApplications = async () => {
+      if (userType.value === 'developer') {
+        await applicationStore.fetchSentApplications()
+      } else if (userType.value === 'project_owner') {
+        await applicationStore.fetchReceivedApplications()
+      }
+    }
+    const loadUser = () => {
+    const user = authStore.user
+    originalUser.value = { ...user }
+    userData.value = { ...user }
+}
+    onMounted(() => {
+      loadApplications()
+      loadUser()
+    })
+
+    return {
+      authStore,
+      applicationStore,
+      userType,
+      profileStore,
+    }
+  },
+
+  data() {
+    return {
+      activeTab: 0,
+      editMode: false,
+      valid: false,
+      originalUser: null,
+      userData: {
+        firstname: '',
+        lastname: '',
+        username: '',
+        email: '',
+      },
+      rules: {
+        required: value => !!value || 'This field is required',
+        email: value => /.+@.+\..+/.test(value) || 'Invalid email',
+      },
+    }
+  },
+
+  mounted() {
+    this.loadUser()
+  },
+
+  methods: {
+    loadUser() {
+      const user = this.authStore.user
+      this.originalUser = { ...user }
+      this.userData = { ...user }
+    },
+
+    cancelEdit() {
+      this.userData = { ...this.originalUser }
+      this.editMode = false
+      this.$refs.form.resetValidation()
+    },
+
+    async saveEdit() {
+      if (this.$refs.form.validate()) {
+    try {
+      const updatedUser = await this.profileStore.updateUser(this.userData)
+      this.authStore.setUser(updatedUser)
+      this.originalUser = { ...updatedUser }
+      this.editMode = false
+      alert('Profile updated successfully!')
+    } catch (error) {
+      console.error('Response error:', error.response?.data || error.message);
+      alert('Something went wrong while saving.')
+    }
+      }
+    },
+  },
+
 }
 
 // Template reference for the form
