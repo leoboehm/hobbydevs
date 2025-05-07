@@ -55,7 +55,7 @@
   
     computed: {
       isOwner() {
-        return this.user?.type === 'owner'
+        return this.user?.type === 'Project Owner'
       },
     },
   
