@@ -44,8 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { defineProps } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
 
 // Props
 const props = defineProps({
