@@ -10,7 +10,7 @@ use App\Models\Application;
 class ProjectApplicationController extends Controller
 {
     private const REQUIRED_STRING = 'required|string';
-    
+
     public function postApplication(Request $request)
     {
         $validatedData = $request->validate([
@@ -40,15 +40,19 @@ class ProjectApplicationController extends Controller
     }
     public function getSentApplications(string $userId)
     {
-        $applications = Application::where('user_id', $userId)->get();
+        $user = Auth::user();
+        $applications = Application::with('project')
+            ->where('user_id', $user->id)
+            ->get();
         return response()->json($applications);
     }
 
     public function getReceivedApplications(string $userId)
     {
-        $applications = Application::with('project')
-            ->whereHas('project', function ($query) use ($userId) {
-                $query->where('owner_id', $userId);
+        $user = Auth::user();
+        $applications = Application::with(['project', 'user'])
+            ->whereHas('project', function ($query) use ($user) {
+                $query->where('owner_id', $user->id);
             })
             ->get();
         return response()->json($applications);
