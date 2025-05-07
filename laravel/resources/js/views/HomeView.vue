@@ -1,34 +1,52 @@
 <template>
     <v-container class="py-12">
-      <v-row>
-     <!-- Profile Summary Card (shown when logged in) -->
-<div v-if="authStore.getUser" class="mt-8">
-  <v-card elevation="2" class="pa-6">
-    <v-card-title class="text-h6">
-      Welcome back, {{ authStore.getUser.firstname }}!
-    </v-card-title>
-    <v-card-text>
-      <p><strong>Name:</strong> {{ authStore.getUser.firstname }} {{ authStore.getUser.lastname }}</p>
-      <p><strong>Email:</strong> {{ authStore.getUser.email }}</p>
-      <p><strong>Role:</strong> {{ authStore.getUser.type }}</p>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn color="primary" to="/profile">Edit My Profile</v-btn>
-    </v-card-actions>
-  </v-card>
-</div>
+        <v-row>
+            <!-- Profile Summary Card (shown when logged in) -->
+            <div v-if="authStore.getUser" class="mt-8">
+                <v-card elevation="2" class="pa-6">
+                    <v-card-title class="text-h6">
+                        Welcome back, {{ authStore.getUser.firstname }}!
+                    </v-card-title>
+                    <v-card-text>
+                        <p>
+                            <strong>Name:</strong>
+                            {{ authStore.getUser.firstname }}
+                            {{ authStore.getUser.lastname }}
+                        </p>
+                        <p>
+                            <strong>Email:</strong>
+                            {{ authStore.getUser.email }}
+                        </p>
+                        <p>
+                            <strong>Role:</strong> {{ authStore.getUserType }}
+                        </p>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn color="primary" to="/profile"
+                            >Edit My Profile</v-btn
+                        >
+                    </v-card-actions>
+                </v-card>
+            </div>
 
-        <v-col cols="12">
-          <v-sheet elevation="2" rounded class="pa-10 text-center">
-            <h1 class="text-h3 font-weight-bold mb-4">Bring Your Ideas to Life</h1>
-            <p class="text-subtitle-1 mb-6">
-              Connect with hobby developers and turn your vision into reality.
-            </p>
-            <v-btn color="primary" class="ma-2" to="/signup">Get Started</v-btn>
-            <v-btn color="secondary" class="ma-2" to="/projects">View Projects</v-btn>
-          </v-sheet>
-        </v-col>
-      </v-row>
+            <v-col cols="12">
+                <v-sheet elevation="2" rounded class="pa-10 text-center">
+                    <h1 class="text-h3 font-weight-bold mb-4">
+                        Bring Your Ideas to Life
+                    </h1>
+                    <p class="text-subtitle-1 mb-6">
+                        Connect with hobby developers and turn your vision into
+                        reality.
+                    </p>
+                    <v-btn color="primary" class="ma-2" to="/signup"
+                        >Get Started</v-btn
+                    >
+                    <v-btn color="secondary" class="ma-2" to="/projects"
+                        >View Projects</v-btn
+                    >
+                </v-sheet>
+            </v-col>
+        </v-row>
 
         <v-container class="mt-12">
             <v-row>
@@ -101,16 +119,8 @@
     </v-container>
 </template>
 
-<script>
-import ProjectsView from './ProjectsView.vue'
+<script setup>
 import { useAuthStore } from '@/stores/auth'
-export default {
-    name: 'HomeView',
 
-    components: { ProjectsView },
-    setup() {
-    const authStore = useAuthStore()
-    return { authStore }
-    },
-}
+const authStore = useAuthStore()
 </script>
