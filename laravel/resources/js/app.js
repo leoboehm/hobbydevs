@@ -37,9 +37,6 @@ app.use(vuetify)
 
 app.use(createPinia())
 
-const authStore = useAuthStore()
-await authStore.fetchUser()
-
 app.use(router)
 
 app.mount('#app')
