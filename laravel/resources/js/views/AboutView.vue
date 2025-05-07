@@ -37,9 +37,8 @@
             </v-expansion-panel-text>
           </v-expansion-panel>
 
-          <!-- Scope for This Semester Panel -->
           <v-expansion-panel>
-            <v-expansion-panel-title>Scope for This Semester</v-expansion-panel-title>
+            <v-expansion-panel-title>Functions</v-expansion-panel-title>
             <v-expansion-panel-text>
               <ul class="pl-4">
                 <li>Review and rating system</li>
@@ -49,7 +48,6 @@
             </v-expansion-panel-text>
           </v-expansion-panel>
 
-          <!-- Tech Stack Panel -->
           <v-expansion-panel>
             <v-expansion-panel-title>Tech Stack</v-expansion-panel-title>
             <v-expansion-panel-text>
@@ -60,7 +58,6 @@
             </v-expansion-panel-text>
           </v-expansion-panel>
 
-          <!-- Team Roles Panel -->
           <v-expansion-panel>
             <v-expansion-panel-title>Team Roles</v-expansion-panel-title>
             <v-expansion-panel-text>
@@ -77,20 +74,11 @@
           <v-expansion-panel>
             <v-expansion-panel-title>Need More Help?</v-expansion-panel-title>
             <v-expansion-panel-text>
-              Feel free to contact our team at
-              <a href="mailto:teamhobbydev@gmail.com">teamhobbydev@gmail.com</a> if you need any help or support.
+              Feel free to contact our team at <a href="mailto:teamhobbydev@gmail.com">teamhobbydev@gmail.com</a> if you need any help or support.
             </v-expansion-panel-text>
           </v-expansion-panel>
-
-          
         </v-expansion-panels>
       </v-card-text>
     </v-card>
   </v-container>
 </template>
-
-<script>
-export default {
-  name: 'HelpView',
-}
-</script>

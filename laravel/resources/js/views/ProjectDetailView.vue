@@ -1,109 +1,96 @@
 <template>
-  <div v-if="project">
-    <v-card-text>
-      <v-row>
-        <v-col cols="12" sm="6">
-          <strong>Category:</strong>
-          <div>{{ project.category }}</div>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <strong>Required Skills:</strong>
-          <div>{{ project.skills }}</div>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <strong>Salary:</strong>
-          <div>{{ project.salary_range }}</div>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <strong>Duration:</strong>
-          <div>{{ project.duration }}</div>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <strong>Start Date:</strong>
-          <div>{{ project.start_date }}</div>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <strong>Deadline:</strong>
-          <div>{{ project.deadline }}</div>
-        </v-col>
-      </v-row>
+    <div v-if="project">
+        <v-card-text>
+            <v-row>
+                <v-col cols="12" sm="6">
+                    <strong>Category:</strong>
+                    <div>{{ project.category }}</div>
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <strong>Required Skills:</strong>
+                    <div>{{ project.skills }}</div>
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <strong>Salary:</strong>
+                    <div>{{ project.salary_range }}</div>
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <strong>Duration:</strong>
+                    <div>{{ project.duration }}</div>
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <strong>Start Date:</strong>
+                    <div>{{ project.start_date }}</div>
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <strong>Deadline:</strong>
+                    <div>{{ project.deadline }}</div>
+                </v-col>
+            </v-row>
 
-      <v-divider class="my-4"></v-divider>
+            <v-divider class="my-4"></v-divider>
 
-      <strong>Description:</strong>
-      <p>{{ project.description }}</p>
+            <strong>Description:</strong>
+            <p>{{ project.description }}</p>
 
-      <!-- Edit Button visible only to the project owner -->
-      <v-btn 
-        v-if="isOwner" 
-        color="primary" 
-        @click="editProject"
-      >
-      <v-icon class="mr-2">mdi-pencil</v-icon>
-        Edit Project
-      </v-btn>
+            <!-- Edit Button visible only to the project owner -->
+            <v-btn v-if="isOwner" color="primary" @click="editProject">
+                <v-icon class="mr-2">mdi-pencil</v-icon>
+                Edit Project
+            </v-btn>
+        </v-card-text>
+    </div>
 
-    </v-card-text>
-  </div>
+    <div v-else>
+        <p>Loading...</p>
+    </div>
 
-  <div v-else>
-    <p>Loading...</p>
-  </div>
-
-  <!-- Error Handling -->
-  <v-alert v-if="errorMessage" type="error" class="mt-4">
-    {{ errorMessage }}
-  </v-alert>
+    <!-- Error Handling -->
+    <v-alert v-if="errorMessage" type="error" class="mt-4">
+        {{ errorMessage }}
+    </v-alert>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-export default {
-  setup() {
-    const route = useRoute(); 
-    const router = useRouter();
-    const projectId = ref(route.params.id);  
-    const project = ref(null);
-    const isOwner = ref(false);
-    const errorMessage = ref(null);
+const route = useRoute()
+const router = useRouter()
 
-    onMounted(async () => {
-      try {
-        // Fetch project data
+// Reactive references
+const projectId = ref(route.params.id)
+const project = ref(null)
+const isOwner = ref(false)
+const errorMessage = ref(null)
+
+// Fetch project data on mount
+onMounted(async () => {
+    try {
         if (projectId.value) {
-          const response = await fetch(`http://127.0.0.1:8000/api/project/${projectId.value}`);
-          if (response.ok) {
-            project.value = await response.json();  // Store project data
+            const response = await fetch(
+                `http://127.0.0.1:8000/api/project/${projectId.value}`,
+            )
+            if (response.ok) {
+                project.value = await response.json() // Store project data
 
-            // Check if the current user is the project owner (Assuming user is fetched from a global state or store)
-            const currentUserId = 1; // Replace with actual logic to get the current user ID
-            isOwner.value = project.value.owner_id === currentUserId; // Check if project owner matches the current user
-          } else {
-            errorMessage.value = 'Project not found.';
-          }
+                // Check if the current user is the project owner
+                const currentUserId = 1 // Replace with actual logic to get the current user ID
+                isOwner.value = project.value.owner_id === currentUserId
+            } else {
+                errorMessage.value = 'Project not found.'
+            }
         } else {
-          errorMessage.value = 'No project ID provided.';
+            errorMessage.value = 'No project ID provided.'
         }
-      } catch (error) {
-        console.error('Error fetching project:', error);
-        errorMessage.value = 'Error fetching project data.';
-      }
-    });
-
-    // Edit project function
-    const editProject = () => {
-      router.push(`/projects/${projectId.value}/edit`)
+    } catch (error) {
+        console.error('Error fetching project:', error)
+        errorMessage.value = 'Error fetching project data.'
     }
+})
 
-    return {
-      project,
-      isOwner,
-      errorMessage,
-      editProject,
-    };
-  },
-};
+// Edit project function
+const editProject = () => {
+    router.push(`/projects/${projectId.value}/edit`)
+}
 </script>
-
