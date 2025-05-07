@@ -12,13 +12,13 @@
       <v-divider class="my-4"></v-divider>
 
       <v-tabs v-model="activeTab" background-color="grey lighten-4" centered>
-        <v-tab>Profile Info</v-tab>
-        <v-tab>Applications</v-tab>
+        <v-tab value="one">Profile Info</v-tab>
+        <v-tab value="two">Applications</v-tab>
       </v-tabs>
 
-      <v-tab-items v-model="activeTab">
+      <v-tabs-window v-model="activeTab">
         <!-- Profile Edit Tab -->
-        <v-tab-item>
+        <v-tabs-window-item value="one">
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
@@ -61,10 +61,10 @@
             <v-btn text color="red" @click="cancelEdit">Cancel</v-btn>
             <v-btn color="green" @click="saveEdit" :disabled="!valid">Save</v-btn>
           </v-card-actions>
-        </v-tab-item>
+        </v-tabs-window-item>
 
         <!-- Applications Tab -->
-        <v-tab-item>
+        <v-tabs-window-item value="two">
           <v-card-text>
             <div v-if="authStore.getUserIsDeveloper">
 
@@ -95,18 +95,19 @@
               <p>No applications available for this user.</p>
             </div>
           </v-card-text>
-        </v-tab-item>
-      </v-tab-items>
+        </v-tabs-window-item>
+      </v-tabs-window>
     </v-card>
   </v-container>
 </template>
 
-<script>
+<script setup>
 import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useProfileStore } from '@/stores/profileStore'
 
 import { onMounted } from 'vue'
+import { ref } from 'vue'
 
 export default {
   name: 'ProfileView',
@@ -137,7 +138,7 @@ export default {
 
   data() {
     return {
-      activeTab: 0,
+      activeTab: null,
       editMode: false,
       valid: false,
       originalUser: null,
