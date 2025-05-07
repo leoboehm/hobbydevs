@@ -5,7 +5,8 @@
       <v-card-title>
         <span class="text-h5 font-weight-medium">My Profile</span>
         <v-spacer />
-        <v-btn color="primary" @click="editMode = true" v-if="!editMode">Edit</v-btn>
+        <v-btn color="primary" @click="editMode = true" v-if="!editMode">
+          <v-icon left class="mr-2">mdi-pencil</v-icon>Edit</v-btn>
       </v-card-title>
 
       <v-divider class="my-4"></v-divider>
