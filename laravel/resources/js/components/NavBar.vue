@@ -47,8 +47,9 @@
                 >
                     Publish Project
                 </v-btn>
-                <v-btn text to="/applications" class="nav-btn">
-                    Applications
+                <v-btn text to="/profile" class="nav-btn">
+                    <v-icon left>mdi-account</v-icon>
+                    Profile
                 </v-btn>
 
                 <v-btn text class="logout-btn" @click="dialog = true"> 
