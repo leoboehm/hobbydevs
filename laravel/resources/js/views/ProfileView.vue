@@ -9,17 +9,13 @@
                     @click="editMode = true"
                     v-if="!editMode"
                 >
-                    <v-icon left class="mr-2">mdi-pencil</v-icon>Edit</v-btn
-                >
+                    <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
+                </v-btn>
             </v-card-title>
 
             <v-divider class="my-4"></v-divider>
 
-            <v-tabs
-                v-model="activeTab"
-                background-color="grey lighten-4"
-                centered
-            >
+            <v-tabs v-model="activeTab" background-color="grey lighten-4" centered>
                 <v-tab value="one">Profile Info</v-tab>
                 <v-tab value="two">Applications</v-tab>
             </v-tabs>
@@ -28,7 +24,7 @@
                 <!-- Profile Edit Tab -->
                 <v-tabs-window-item value="one">
                     <v-card-text>
-                        <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-form ref="formRef" v-model="valid" lazy-validation>
                             <v-text-field
                                 v-model="userData.firstname"
                                 label="First Name"
@@ -66,15 +62,12 @@
 
                     <v-card-actions v-if="editMode">
                         <v-spacer />
-                        <v-btn text color="red" @click="cancelEdit"
-                            >Cancel</v-btn
-                        >
+                        <v-btn text color="red" @click="cancelEdit">Cancel</v-btn>
                         <v-btn
                             color="green"
                             @click="saveEdit"
                             :disabled="!valid"
-                            >Save</v-btn
-                        >
+                        >Save</v-btn>
                     </v-card-actions>
                 </v-tabs-window-item>
 
@@ -89,15 +82,8 @@
                                     :key="app.id"
                                 >
                                     <v-list-item-content>
-                                        <v-list-item-title>{{
-                                            app.project.title
-                                        }}</v-list-item-title>
-                                        <v-list-item-subtitle
-                                            >Status:
-                                            {{
-                                                app.status
-                                            }}</v-list-item-subtitle
-                                        >
+                                        <v-list-item-title>{{ app.project.title }}</v-list-item-title>
+                                        <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
@@ -111,16 +97,9 @@
                                 >
                                     <v-list-item-content>
                                         <v-list-item-title>
-                                            {{ app.user.firstname }}
-                                            {{ app.user.lastname }} applied to
-                                            "{{ app.project.title }}"
+                                            {{ app.user.firstname }} {{ app.user.lastname }} applied to "{{ app.project.title }}"
                                         </v-list-item-title>
-                                        <v-list-item-subtitle
-                                            >Status:
-                                            {{
-                                                app.status
-                                            }}</v-list-item-subtitle
-                                        >
+                                        <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
@@ -145,10 +124,12 @@ const authStore = useAuthStore()
 const applicationStore = useApplicationStore()
 const profileStore = useProfileStore()
 
-const activeTab = ref(null)
+const activeTab = ref('one')
 const editMode = ref(false)
 const valid = ref(false)
 const originalUser = ref(null)
+const formRef = ref(null)
+
 const userData = ref({
     firstname: '',
     lastname: '',
@@ -161,8 +142,14 @@ const rules = {
     email: value => /.+@.+\..+/.test(value) || 'Invalid email',
 }
 
-// Template reference for the form
-const formRef = ref(null)
+const loadUser = () => {
+    const user = authStore.user
+    if (user) {
+        originalUser.value = { ...user }
+        userData.value = { ...user }
+        valid.value = true  // Mark the form as valid if data is loaded
+    }
+}
 
 const loadApplications = async () => {
     if (authStore.getUserIsDeveloper) {
@@ -172,12 +159,6 @@ const loadApplications = async () => {
     }
 }
 
-const loadUser = () => {
-    const user = authStore.user
-    originalUser.value = { ...user }
-    userData.value = { ...user }
-}
-
 const cancelEdit = () => {
     userData.value = { ...originalUser.value }
     editMode.value = false
@@ -185,21 +166,44 @@ const cancelEdit = () => {
 }
 
 const saveEdit = async () => {
+  try {
     if (formRef.value?.validate()) {
-        try {
-            const updatedUser = await profileStore.updateUser(userData.value)
-            authStore.setUser(updatedUser)
-            originalUser.value = { ...updatedUser }
-            editMode.value = false
-            alert('Profile updated successfully!')
-        } catch (error) {
-            console.error('Failed to update profile:', error)
-            alert('Something went wrong while saving.')
-        }
+      // Call the updateUser method from profileStore
+      const updatedUser = await profileStore.updateUser(userData.value)
+      authStore.setUser(updatedUser)  // Update the auth store with the new user data
+      originalUser.value = { ...updatedUser }
+      editMode.value = false
+      alert('Profile updated successfully!')
+    } else {
+      alert('Please correct the errors before saving.')
     }
+  } catch (error) {
+    console.error('Failed to update profile:', error)
+
+    // Check if the error has a response property, meaning it was from the Axios call
+    if (error.response) {
+      // Log detailed response error data
+      console.error('Response error:', error.response)
+
+      // Handle Unauthorized Error (401)
+      if (error.response.status === 401) {
+        console.error('Unauthorized access: Token may have expired.')
+        alert('Session expired. Please log in again.')
+        window.location.href = '/login'  // Redirect to login page if token is invalid
+      } else if (error.response.status === 400) {
+        // Handle Bad Request (400) - Invalid data sent to the server
+        alert('Invalid data. Please check the entered information.')
+      } else {
+        alert(`Something went wrong while updating your profile: ${error.response.data.message || error.message}`)
+      }
+    } else {
+      // Network-related or other errors that don't come from a response
+      alert('Network error or no response from the server. Please try again later.')
+    }
+  }
 }
 
-// Lifecycle hooks
+
 onMounted(() => {
     loadUser()
     loadApplications()
