@@ -92,74 +92,70 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/project'
-export default {
-    name: 'ApplicationsView',
 
-    data() {
-        return {
-            valid: false,
-            firstName: '',
-            lastName: '',
-            skills: [], // Array to store skills as tags
-            availableSkills: [
-                'Java',
-                'Python',
-                'JavaScript',
-                'C++',
-                'HTML',
-                'CSS',
-            ], // Initial skill options
-            availability: '',
-            pastExperience: '',
-            motivation: '',
-            contactInfo: '',
-            rules: {
-                required: value => !!value || 'This field is required',
-                email: value =>
-                    /.+@.+\..+/.test(value) || 'E-mail must be valid',
-            },
+// Store & router
+const projectStore = useProjectStore()
+const route = useRoute()
+const router = useRouter()
+
+// Form state
+const valid = ref(false)
+const firstName = ref('')
+const lastName = ref('')
+const skills = ref([])
+const availability = ref('')
+const pastExperience = ref('')
+const motivation = ref('')
+const contactInfo = ref('')
+const form = ref(null) // for template ref
+
+const availableSkills = ['Java', 'Python', 'JavaScript', 'C++', 'HTML', 'CSS']
+
+// Validation rules
+const rules = {
+    required: value => !!value || 'This field is required',
+    email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
+}
+
+// Submit method
+const submit = async () => {
+    if (form.value.validate()) {
+        const applicationData = {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            skills: skills.value,
+            availability: availability.value,
+            pastExperience: pastExperience.value,
+            motivation: motivation.value,
+            contactInfo: contactInfo.value,
+            project_id: route.params.projectId,
         }
-    },
 
-    methods: {
-        async submit() {
-            if (this.$refs.form.validate()) {
-                const applicationData = {
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    skills: this.skills,
-                    availability: this.availability,
-                    pastExperience: this.pastExperience,
-                    motivation: this.motivation,
-                    contactInfo: this.contactInfo,
-                    project_id: this.$route.params.projectId,
-                }
+        try {
+            await projectStore.actionApplyForProject(applicationData)
+            alert('Application submitted successfully!')
+            router.push({ name: 'Home' })
+        } catch (error) {
+            console.error('Failed to submit application:', error)
+            alert('There was an error submitting your application.')
+        }
+    }
+}
 
-                const projectStore = useProjectStore()
-                try {
-                    await projectStore.actionApplyForProject(applicationData)
-                    alert('Application submitted successfully!')
-                    this.$router.push({ name: 'Home' })
-                } catch (error) {
-                    console.error('Failed to submit application:', error)
-                    alert('There was an error submitting your application.')
-                }
-            }
-        },
-
-        cancel() {
-            this.firstName = ''
-            this.lastName = ''
-            this.skills = []
-            this.availability = ''
-            this.pastExperience = ''
-            this.motivation = ''
-            this.contactInfo = ''
-            this.$refs.form.resetValidation()
-        },
-    },
+// Cancel method
+const cancel = () => {
+    firstName.value = ''
+    lastName.value = ''
+    skills.value = []
+    availability.value = ''
+    pastExperience.value = ''
+    motivation.value = ''
+    contactInfo.value = ''
+    form.value.resetValidation()
 }
 </script>
 

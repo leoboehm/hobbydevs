@@ -2,9 +2,9 @@
     <v-app-bar app color="blue-darken-2" dark flat>
         <v-container class="d-flex justify-space-between align-center">
             <v-toolbar-title class="text-h6 font-weight-bold">
-             <router-link to="/" class="text-white text-decoration-none">
-                 HobbyDevs
-                 </router-link>
+                <router-link to="/" class="text-white text-decoration-none">
+                    HobbyDevs
+                </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon to="/" class="home-btn"
@@ -52,54 +52,56 @@
                     Profile
                 </v-btn>
 
-                <v-btn text class="logout-btn" @click="dialog = true"> 
+                <v-btn text class="logout-btn" @click="dialog = true">
                     <v-icon left>mdi-logout</v-icon> Logout
                 </v-btn>
             </template>
         </v-container>
         <v-dialog v-model="dialog" width="400">
-      <v-card>
-        <v-card-title class="text-h6">Confirm Logout</v-card-title>
-        <v-card-text>Are you sure you want to log out?</v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn text color="grey" @click="dialog = false">Cancel</v-btn>
-          <v-btn text color="red" @click="confirmLogout">Yes, Log out</v-btn> 
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-app-bar>
+            <v-card>
+                <v-card-title class="text-h6">Confirm Logout</v-card-title>
+                <v-card-text>Are you sure you want to log out?</v-card-text>
+                <v-card-actions>
+                    <v-spacer />
+                    <v-btn text color="grey" @click="dialog = false"
+                        >Cancel</v-btn
+                    >
+                    <v-btn text color="red" @click="confirmLogout"
+                        >Yes, Log out</v-btn
+                    >
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-app-bar>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
-export default {
-    name: 'NavBar',
+// Access router
+const router = useRouter()
 
-    data() {
-        return {
-            authStore: useAuthStore(),
+// Access auth store
+const authStore = useAuthStore()
 
-            dialog: false,
-        }
-    },
+// Local reactive state
+const dialog = ref(false)
 
-    methods: {
-        confirmLogout() { 
-      this.dialog = false
-      this.logout()
-    },
-        logout() {
-            if (this.authStore) {
-                this.authStore.actionLogout()
+// Methods
+const confirmLogout = () => {
+    dialog.value = false
+    logout()
+}
 
-                this.$router.push({ name: 'Home' })
-            } else {
-                alert('Error during logout. Try again later...')
-            }
-        },
-    },
+const logout = () => {
+    if (authStore) {
+        authStore.actionLogout()
+        router.push({ name: 'Home' })
+    } else {
+        alert('Error during logout. Try again later...')
+    }
 }
 </script>
 
