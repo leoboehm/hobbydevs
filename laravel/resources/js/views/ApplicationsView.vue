@@ -126,6 +126,7 @@ export default {
     methods: {
         async submit() {
             if (this.$refs.form.validate()) {
+                const projectId = this.$route.params.projectId;
                 const applicationData = {
                     firstName: this.firstName,
                     lastName: this.lastName,
@@ -134,7 +135,7 @@ export default {
                     pastExperience: this.pastExperience,
                     motivation: this.motivation,
                     contactInfo: this.contactInfo,
-                    project_id: this.$route.params.projectId,
+                    project_id: projectId,
                 }
 
                 const projectStore = useProjectStore()
