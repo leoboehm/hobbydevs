@@ -14,9 +14,8 @@
         <v-tab>Profile Info</v-tab>
         <v-tab>Applications</v-tab>
       </v-tabs>
-      <v-btn color="primary" to="/profile">Edit My Profile</v-btn>
 
-      <v-tabs-items v-model="activeTab">
+      <v-tab-items v-model="activeTab">
         <!-- Profile Edit Tab -->
         <v-tab-item>
           <v-card-text>
@@ -66,8 +65,7 @@
         <!-- Applications Tab -->
         <v-tab-item>
           <v-card-text>
-            <!-- since we already created it properly in  setup() -->
-            <div v-if="userType === 'developer'">
+            <div v-if="authStore.getUserIsDeveloper">
 
               <p><strong>Developer Applications</strong></p>
               <v-list two-line>
@@ -79,7 +77,7 @@
                 </v-list-item>
               </v-list>
             </div>
-            <div v-else-if="userType === 'project_owner'">
+            <div v-else-if="authStore.getUserIsProjectOwner">
               <p><strong>Received Applications</strong></p>
               <v-list two-line>
                 <v-list-item v-for="app in applicationStore.applications" :key="app.id">
@@ -93,11 +91,11 @@
               </v-list>
             </div>
             <div v-else>
-              <p>No applications available for this user type.</p>
+              <p>No applications available for this user.</p>
             </div>
           </v-card-text>
         </v-tab-item>
-      </v-tabs-items>
+      </v-tab-items>
     </v-card>
   </v-container>
 </template>
@@ -107,7 +105,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useProfileStore } from '@/stores/profileStore'
 
-import { computed, onMounted } from 'vue'
+import { onMounted } from 'vue'
 
 export default {
   name: 'ProfileView',
@@ -115,13 +113,12 @@ export default {
   setup() {
     const authStore = useAuthStore()
     const applicationStore = useApplicationStore()
-    const userType = computed(() => authStore.getUserType)
     const profileStore = useProfileStore()
 
     const loadApplications = async () => {
-      if (userType.value === 'developer') {
+      if (authStore.getUserIsDeveloper) {
         await applicationStore.fetchSentApplications()
-      } else if (userType.value === 'project_owner') {
+      } else if (authStore.getUserIsProjectOwner) {
         await applicationStore.fetchReceivedApplications()
       }
     }
@@ -133,7 +130,6 @@ export default {
     return {
       authStore,
       applicationStore,
-      userType,
       profileStore,
     }
   },
