@@ -100,8 +100,14 @@ const updateProject = async () => {
     description: project.value.description,
     category: project.value.category,
     salary_range: project.value.salary_range,
-    duration: project.value.duration
+    duration: project.value.duration,
+    skills: project.value.skills || [],
+    start_date: project.value.start_date,
+    deadline: project.value.deadline,
+    application_start_date: project.value.application_start_date,
+    application_deadline: project.value.application_deadline
   }
+  console.log('Sending payload:', payload)
 
   try {
     const response = await store.actionUpdateProject(project.value.id, payload)

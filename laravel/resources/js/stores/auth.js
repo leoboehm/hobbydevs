@@ -28,6 +28,9 @@ export const useAuthStore = defineStore('authStore', {
                 this.isAuthenticated = false
             }
         },
+        setUser(updatedUser) {
+            this.user = updatedUser
+          },
         // register new user
         async actionRegisterNewUser(userData) {
             try {

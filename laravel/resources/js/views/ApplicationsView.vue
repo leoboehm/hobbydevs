@@ -93,15 +93,16 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/project'
-
+import { useAuthStore } from '@/stores/auth'
 // Store & router
 const projectStore = useProjectStore()
 const route = useRoute()
 const router = useRouter()
-
+const authStore = useAuthStore()
 // Form state
 const valid = ref(false)
 const firstName = ref('')
@@ -121,6 +122,7 @@ const rules = {
     email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
 }
 
+
 // Submit method
 const submit = async () => {
     if (form.value.validate()) {
@@ -134,6 +136,7 @@ const submit = async () => {
             contactInfo: contactInfo.value,
             project_id: route.params.projectId,
         }
+
 
         try {
             await projectStore.actionApplyForProject(applicationData)
@@ -157,6 +160,14 @@ const cancel = () => {
     contactInfo.value = ''
     form.value.resetValidation()
 }
+onMounted(() => {
+  const user = authStore.user
+  if (user) {
+    firstName.value = user.firstname
+    lastName.value = user.lastname
+    contactInfo.value = user.email
+  }
+})
 </script>
 
 <style scoped>
