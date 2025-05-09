@@ -175,7 +175,8 @@ const router = useRouter()
 
 // Submit method for form submission
 const submit = async () => {
-    if (formRef.value?.validate()) {
+    const isValid = await formRef.value?.validate()
+    if (isValid) {
         if (authStore) {
             try {
                 await authStore.actionRegisterNewUser({
@@ -187,9 +188,7 @@ const submit = async () => {
                     username: username.value,
                 })
 
-                if (authStore.error) {
-                    return
-                }
+                if (authStore.error) return
 
                 router.push({ name: 'Login' })
             } catch (err) {
