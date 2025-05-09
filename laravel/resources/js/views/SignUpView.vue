@@ -29,7 +29,7 @@
                     </v-row>
 
                     <v-card-text>
-                        <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-form ref="formRef" v-model="valid" lazy-validation>
                             <!-- Account Type -->
                             <v-select
                                 v-model="accountType"
@@ -145,6 +145,7 @@ import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 
 // Reactive state variables
+const formRef = ref(null)
 const valid = ref(false)
 const accountType = ref('')
 const firstname = ref('')
@@ -174,7 +175,7 @@ const router = useRouter()
 
 // Submit method for form submission
 const submit = async () => {
-    if ($refs.form.validate()) {
+    if (formRef.value?.validate()) {
         if (authStore) {
             try {
                 await authStore.actionRegisterNewUser({
@@ -209,6 +210,6 @@ const cancel = () => {
     email.value = ''
     password.value = ''
     confirmPassword.value = ''
-    $refs.form.resetValidation()
+    formRef.value?.resetValidation()
 }
 </script>
