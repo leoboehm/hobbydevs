@@ -127,7 +127,7 @@
   }
   
   const loadUser = () => {
-    const user = authStore.user
+    const user = authStore.getUser
     originalUser.value = { ...user }
     userData.value = { ...user }
   }
@@ -164,8 +164,6 @@
   onMounted(async () => {
     loadUser()
     await loadApplications()
-
-    console.log(profileStore.applications)
   })
   </script>
   

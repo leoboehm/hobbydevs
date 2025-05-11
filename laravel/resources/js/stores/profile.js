@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import apiClient from '@/services/axios'
 
+import { useAuthStore } from './auth'
+
 export const useProfileStore = defineStore('profileStore', {
     state: () => ({
         applications: [],
@@ -23,7 +25,8 @@ export const useProfileStore = defineStore('profileStore', {
 
         async fetchSentApplications() {
             try {
-                const response = await apiClient.get('/applications/sent')
+                const authStore = useAuthStore()
+                const response = await apiClient.get('/sent-applications/' + authStore.getUser.id)
                 this.applications = response.data
             } catch (err) {
                 console.error('Failed to fetch sent applications', err)
@@ -32,7 +35,8 @@ export const useProfileStore = defineStore('profileStore', {
 
         async fetchReceivedApplications() {
             try {
-                const response = await apiClient.get('/applications/received')
+                const authStore = useAuthStore()
+                const response = await apiClient.get('/received-applications/' + authStore.getUser.id)
                 this.applications = response.data
             } catch (err) {
                 console.error('Failed to fetch received applications', err)

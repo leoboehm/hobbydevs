@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Application;
-use Illuminate\Support\Facades\Auth;
 
 
 class ProjectApplicationController extends Controller
@@ -24,7 +23,6 @@ class ProjectApplicationController extends Controller
             'motivation' => self::REQUIRED_STRING,
             'contactInfo' => self::REQUIRED_STRING,
             'project_id' => 'required|exists:projects,id',
-
         ]);
 
         $application = Application::create([
@@ -35,26 +33,23 @@ class ProjectApplicationController extends Controller
             'past_experience' => $validatedData['pastExperience'],
             'motivation' => $validatedData['motivation'],
             'contact_info' => $validatedData['contactInfo'],
-            'user_id' => Auth::id(),
+            'user_id' => $request->id,
             'project_id' => $validatedData['project_id'],
         ]);
 
         return response()->json($application, 201);
     }
-    public function getSentApplications(Request $request)
+    public function getSentApplications(string $userId)
     {
-        $user = Auth::user();
-        $applications = Application::where('user_id', $user->id)->get();
+        $applications = Application::where('user_id', $userId)->get();
         return response()->json($applications);
     }
 
-
-    public function getReceivedApplications(Request $request)
+    public function getReceivedApplications(string $userId)
     {
-        $user = Auth::user();
         $applications = Application::with('project')
-            ->whereHas('project', function ($query) use ($user) {
-                $query->where('owner_id', $user->id);
+            ->whereHas('project', function ($query) use ($userId) {
+                $query->where('owner_id', $userId);
             })
             ->get();
         return response()->json($applications);

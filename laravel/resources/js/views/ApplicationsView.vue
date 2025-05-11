@@ -127,6 +127,7 @@ const rules = {
 const submit = async () => {
     if (form.value.validate()) {
         const applicationData = {
+            id: authStore.getUser.id,
             firstName: firstName.value,
             lastName: lastName.value,
             skills: skills.value,
