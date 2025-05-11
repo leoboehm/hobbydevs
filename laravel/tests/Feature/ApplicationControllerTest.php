@@ -33,7 +33,7 @@ class ApplicationControllerTest extends TestCase
             'project_id' => $project->id,
         ];
 
-        $response = $this->postJson('/api/applications', $payload);
+        $response = $this->postJson('/api/apply', $payload);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('applications', [
@@ -49,7 +49,7 @@ class ApplicationControllerTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->postJson('/api/applications', []);
+        $response = $this->postJson('/api/apply', []);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors([
@@ -94,7 +94,7 @@ class ApplicationControllerTest extends TestCase
             'project_id' => $project->id,
         ]);
 
-        $response = $this->getJson('/api/sent-applications');
+        $response = $this->getJson('/api/sent-applications/' + $user->id);
         $response->assertStatus(200);
         $response->assertJsonCount(1);
         $response->assertJsonFragment(['first_name' => 'Anna']);
@@ -110,7 +110,7 @@ class ApplicationControllerTest extends TestCase
             'owner_id' => $owner->id,
         ]);
 
-        $application = Application::create([
+        Application::create([
             'first_name' => 'Lisa',
             'last_name' => 'Applicant',
             'skills' => json_encode(['Python']),
@@ -124,7 +124,7 @@ class ApplicationControllerTest extends TestCase
 
         $this->actingAs($owner);
 
-        $response = $this->getJson('/api/received-applications');
+        $response = $this->getJson('/api/received-applications/' + $owner->id);
         $response->assertStatus(200);
         $response->assertJsonFragment(['first_name' => 'Lisa']);
     }
