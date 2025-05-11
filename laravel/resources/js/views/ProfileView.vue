@@ -9,8 +9,8 @@
                     @click="editMode = true"
                     v-if="!editMode"
                 >
-                    <v-icon left class="mr-2">mdi-pencil</v-icon>Edit</v-btn
-                >
+                    <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
+                </v-btn>
             </v-card-title>
 
             <v-divider class="my-4"></v-divider>
@@ -25,10 +25,10 @@
             </v-tabs>
 
             <v-tabs-window v-model="activeTab">
-                <!-- Profile Edit Tab -->
+                <!-- Profile Info Tab -->
                 <v-tabs-window-item value="one">
                     <v-card-text>
-                        <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-form ref="formRef" v-model="valid" lazy-validation>
                             <v-text-field
                                 v-model="userData.firstname"
                                 label="First Name"
@@ -81,53 +81,38 @@
                 <!-- Applications Tab -->
                 <v-tabs-window-item value="two">
                     <v-card-text>
-                        <div v-if="authStore.getUserIsDeveloper">
-                            <p><strong>Developer Applications</strong></p>
-                            <v-list two-line>
-                                <v-list-item
-                                    v-for="app in applicationStore.applications"
-                                    :key="app.id"
+                        <div v-if="!profileStore.getApplications.length">
+                            No applications found.
+                        </div>
+                        <v-list two-line v-else>
+                            <v-list-item
+                                v-for="app in profileStore.getApplications"
+                                :key="app.id"
+                            >
+                                <div v-if="authStore.getUserIsDeveloper">
+                                    <v-list-item-title>{{
+                                        app.project.title
+                                    }}</v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        Status: {{ app.status }}
+                                    </v-list-item-subtitle>
+                                </div>
+                                <div
+                                    v-else-if="authStore.getUserIsProjectOwner"
                                 >
-                                    <v-list-item-content>
-                                        <v-list-item-title>{{
+                                    <v-list-item-title>
+                                        {{ app.user.firstname }}
+                                        {{ app.user.lastname }} applied to "{{
                                             app.project.title
-                                        }}</v-list-item-title>
-                                        <v-list-item-subtitle
-                                            >Status:
-                                            {{
-                                                app.status
-                                            }}</v-list-item-subtitle
-                                        >
-                                    </v-list-item-content>
-                                </v-list-item>
-                            </v-list>
-                        </div>
-                        <div v-else-if="authStore.getUserIsProjectOwner">
-                            <p><strong>Received Applications</strong></p>
-                            <v-list two-line>
-                                <v-list-item
-                                    v-for="app in applicationStore.applications"
-                                    :key="app.id"
-                                >
-                                    <v-list-item-content>
-                                        <v-list-item-title>
-                                            {{ app.user.firstname }}
-                                            {{ app.user.lastname }} applied to
-                                            "{{ app.project.title }}"
-                                        </v-list-item-title>
-                                        <v-list-item-subtitle
-                                            >Status:
-                                            {{
-                                                app.status
-                                            }}</v-list-item-subtitle
-                                        >
-                                    </v-list-item-content>
-                                </v-list-item>
-                            </v-list>
-                        </div>
-                        <div v-else>
-                            <p>No applications available for this user.</p>
-                        </div>
+                                        }}"
+                                    </v-list-item-title>
+                                    <v-list-item-subtitle
+                                        >Status:
+                                        {{ app.status }}</v-list-item-subtitle
+                                    >
+                                </div>
+                            </v-list-item>
+                        </v-list>
                     </v-card-text>
                 </v-tabs-window-item>
             </v-tabs-window>
@@ -138,16 +123,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { useApplicationStore } from '@/stores/applicationStore'
-import { useProfileStore } from '@/stores/profileStore'
+import { useProfileStore } from '@/stores/profile'
 
 const authStore = useAuthStore()
-const applicationStore = useApplicationStore()
 const profileStore = useProfileStore()
 
-const activeTab = ref(null)
+const activeTab = ref('one')
 const editMode = ref(false)
 const valid = ref(false)
+const formRef = ref(null)
+
 const originalUser = ref(null)
 const userData = ref({
     firstname: '',
@@ -157,23 +142,12 @@ const userData = ref({
 })
 
 const rules = {
-    required: value => !!value || 'This field is required',
-    email: value => /.+@.+\..+/.test(value) || 'Invalid email',
-}
-
-// Template reference for the form
-const formRef = ref(null)
-
-const loadApplications = async () => {
-    if (authStore.getUserIsDeveloper) {
-        await applicationStore.fetchSentApplications()
-    } else if (authStore.getUserIsProjectOwner) {
-        await applicationStore.fetchReceivedApplications()
-    }
+    required: v => !!v || 'This field is required',
+    email: v => /.+@.+\..+/.test(v) || 'Invalid email',
 }
 
 const loadUser = () => {
-    const user = authStore.user
+    const user = authStore.getUser
     originalUser.value = { ...user }
     userData.value = { ...user }
 }
@@ -199,10 +173,9 @@ const saveEdit = async () => {
     }
 }
 
-// Lifecycle hooks
-onMounted(() => {
+onMounted(async () => {
     loadUser()
-    loadApplications()
+    await profileStore.loadApplications()
 })
 </script>
 

@@ -35,16 +35,16 @@ Route::middleware('web')->post('/login', [AuthController::class, 'login']);
 // logout user
 Route::middleware(['auth:sanctum', 'web'])->post('/logout', [AuthController::class, 'logout']);
 // applications
-Route::middleware('auth:sanctum')->post('/applications', [ProjectApplicationController::class, 'postApplication']);
+Route::post('/apply', [ProjectApplicationController::class, 'postApplication']);
 
 // project
 Route::apiResource('project', ProjectController::class);
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware('auth:sanctum');
 
-Route::middleware('auth:sanctum')->get('/sent-applications', [ProjectApplicationController::class, 'getSentApplications']);
-Route::middleware('auth:sanctum')->get('/received-applications', [ProjectApplicationController::class, 'getReceivedApplications']);
+Route::get('/sent-applications/{userId}', [ProjectApplicationController::class, 'getSentApplications']);
+Route::get('/received-applications/{userId}', [ProjectApplicationController::class, 'getReceivedApplications']);
 
-Route::middleware('auth:sanctum')->put('/user', [UserController::class, 'update']);
+Route::put('/user', [UserController::class, 'update']);
 
 // project
 Route::apiResource('project', ProjectController::class);
