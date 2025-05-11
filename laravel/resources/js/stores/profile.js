@@ -23,23 +23,27 @@ export const useProfileStore = defineStore('profileStore', {
             }
         },
 
-        async fetchSentApplications() {
-            try {
-                const authStore = useAuthStore()
-                const response = await apiClient.get('/sent-applications/' + authStore.getUser.id)
-                this.applications = response.data
-            } catch (err) {
-                console.error('Failed to fetch sent applications', err)
-            }
-        },
+        async loadApplications() {
+            const authStore = useAuthStore()
 
-        async fetchReceivedApplications() {
-            try {
-                const authStore = useAuthStore()
-                const response = await apiClient.get('/received-applications/' + authStore.getUser.id)
-                this.applications = response.data
-            } catch (err) {
-                console.error('Failed to fetch received applications', err)
+            if (authStore.getUserIsDeveloper) {
+                try {
+                    const response = await apiClient.get(
+                        '/sent-applications/' + authStore.getUser.id,
+                    )
+                    this.applications = response.data
+                } catch (err) {
+                    console.error('Failed to fetch sent applications', err)
+                }
+            } else if (authStore.getUserIsProjectOwner) {
+                try {
+                    const response = await apiClient.get(
+                        '/received-applications/' + authStore.getUser.id,
+                    )
+                    this.applications = response.data
+                } catch (err) {
+                    console.error('Failed to fetch received applications', err)
+                }
             }
         },
     },

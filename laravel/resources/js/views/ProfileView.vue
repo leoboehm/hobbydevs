@@ -153,17 +153,9 @@
     }
   }
   
-  const loadApplications = async () => {
-    if (authStore.getUserIsDeveloper) {
-      await profileStore.fetchSentApplications()
-    } else if (authStore.getUserIsProjectOwner) {
-      await profileStore.fetchReceivedApplications()
-    }
-  }
-  
   onMounted(async () => {
     loadUser()
-    await loadApplications()
+    await profileStore.loadApplications()
   })
   </script>
   
