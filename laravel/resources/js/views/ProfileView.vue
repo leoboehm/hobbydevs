@@ -81,29 +81,24 @@
                 <!-- Applications Tab -->
                 <v-tabs-window-item value="two">
                     <v-card-text>
-                        <div v-if="authStore.getUserIsDeveloper">
-                            <p><strong>Developer Applications</strong></p>
-                            <v-list two-line>
-                                <v-list-item
-                                    v-for="app in profileStore.getApplications"
-                                    :key="app.id"
-                                >
+                        <div v-if="!profileStore.getApplications.length">
+                            No applications found.
+                        </div>
+                        <v-list two-line v-else>
+                            <v-list-item
+                                v-for="app in profileStore.getApplications"
+                                :key="app.id"
+                            >
+                                <div v-if="authStore.getUserIsDeveloper">
                                     <v-list-item-title>{{
                                         app.project.title
                                     }}</v-list-item-title>
-                                    <v-list-item-subtitle
-                                        >Status:
-                                        {{ app.status }}</v-list-item-subtitle
-                                    >
-                                </v-list-item>
-                            </v-list>
-                        </div>
-                        <div v-else-if="authStore.getUserIsProjectOwner">
-                            <p><strong>Received Applications</strong></p>
-                            <v-list two-line>
-                                <v-list-item
-                                    v-for="app in profileStore.getApplications"
-                                    :key="app.id"
+                                    <v-list-item-subtitle>
+                                        Status: {{ app.status }}
+                                    </v-list-item-subtitle>
+                                </div>
+                                <div
+                                    v-else-if="authStore.getUserIsProjectOwner"
                                 >
                                     <v-list-item-title>
                                         {{ app.user.firstname }}
@@ -115,12 +110,9 @@
                                         >Status:
                                         {{ app.status }}</v-list-item-subtitle
                                     >
-                                </v-list-item>
-                            </v-list>
-                        </div>
-                        <div v-else>
-                            <p>No applications available for this user.</p>
-                        </div>
+                                </div>
+                            </v-list-item>
+                        </v-list>
                     </v-card-text>
                 </v-tabs-window-item>
             </v-tabs-window>
