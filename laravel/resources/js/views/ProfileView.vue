@@ -69,7 +69,7 @@
               <div v-if="authStore.getUserIsDeveloper">
                 <p><strong>Developer Applications</strong></p>
                 <v-list two-line>
-                  <v-list-item v-for="app in applicationStore.applications" :key="app.id">
+                  <v-list-item v-for="app in profileStore.getApplications" :key="app.id">
                     <v-list-item-content>
                       <v-list-item-title>{{ app.project.title }}</v-list-item-title>
                       <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
@@ -80,7 +80,7 @@
               <div v-else-if="authStore.getUserIsProjectOwner">
                 <p><strong>Received Applications</strong></p>
                 <v-list two-line>
-                  <v-list-item v-for="app in applicationStore.applications" :key="app.id">
+                  <v-list-item v-for="app in profileStore.getApplications" :key="app.id">
                     <v-list-item-content>
                       <v-list-item-title>
                         {{ app.user.firstname }} {{ app.user.lastname }} applied to "{{ app.project.title }}"
@@ -103,11 +103,9 @@
   <script setup>
   import { ref, onMounted } from 'vue'
   import { useAuthStore } from '@/stores/auth'
-  import { useApplicationStore } from '@/stores/applicationStore'
-  import { useProfileStore } from '@/stores/profileStore'
+  import { useProfileStore } from '@/stores/profile'
   
   const authStore = useAuthStore()
-  const applicationStore = useApplicationStore()
   const profileStore = useProfileStore()
   
   const activeTab = ref('one')
@@ -157,15 +155,17 @@
   
   const loadApplications = async () => {
     if (authStore.getUserIsDeveloper) {
-      await applicationStore.fetchSentApplications()
+      await profileStore.fetchSentApplications()
     } else if (authStore.getUserIsProjectOwner) {
-      await applicationStore.fetchReceivedApplications()
+      await profileStore.fetchReceivedApplications()
     }
   }
   
-  onMounted(() => {
+  onMounted(async () => {
     loadUser()
-    loadApplications()
+    await loadApplications()
+
+    console.log(profileStore.applications)
   })
   </script>
   
