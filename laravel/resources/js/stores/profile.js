@@ -30,7 +30,7 @@ export const useProfileStore = defineStore('profileStore', {
 
             if (authStore.getUserIsDeveloper) {
                 try {
-                    var response = await apiClient.get(
+                    let response = await apiClient.get(
                         '/sent-applications/' + authStore.getUser.id,
                     )
 
@@ -45,7 +45,7 @@ export const useProfileStore = defineStore('profileStore', {
                 }
             } else if (authStore.getUserIsProjectOwner) {
                 try {
-                    var response = await apiClient.get(
+                    let response = await apiClient.get(
                         '/received-applications/' + authStore.getUser.id,
                     )
                     
