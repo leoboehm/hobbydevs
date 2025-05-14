@@ -40,10 +40,13 @@
                     </v-row>
                     <v-card-text>
                         <v-form ref="form" v-model="valid" lazy-validation>
-
                             <!-- Show error message if login fails -->
-                            <v-alert v-if="errorMessage" type="error" class="mb-4">
-                            {{ errorMessage }}
+                            <v-alert
+                                v-if="errorMessage"
+                                type="error"
+                                class="mb-4"
+                            >
+                                {{ errorMessage }}
                             </v-alert>
 
                             <!-- Email -->
@@ -90,66 +93,56 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
-export default {
-    name: 'LoginView',
+// State variables
+const valid = ref(false)
+const email = ref('')
+const password = ref('')
+const showPassword = ref(false)
+const errorMessage = ref('')
 
-    data() {
-        return {
-            valid: false,
-            email: '',
-            password: '',
-            showPassword: false,
-            errorMessage: '',
-            rules: {
-                required: value => !!value || 'This field is required',
-                email: value =>
-                    /.+@.+\..+/.test(value) || 'E-mail must be valid',
-            },
-            authStore: undefined,
-        }
-    },
+// Form ref
+const form = ref(null)
 
-    beforeMount() {
-        this.authStore = useAuthStore()
-    },
+// Auth store
+const authStore = useAuthStore()
 
-    computed: {},
+// Router
+const router = useRouter()
 
-    methods: {
+// Validation rules
+const rules = {
+    required: value => !!value || 'This field is required',
+    email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
+}
 
-  async submit() {
-    this.errorMessage = ''
-    if (this.$refs.form.validate()) {
-      if (this.authStore) {
+// Methods
+async function submit() {
+    errorMessage.value = ''
+    if (form.value?.validate()) {
         try {
-          //  Await the async function
-
-          await this.authStore.actionLogin({
-            email: this.email,
-            password: this.password,
-          })
-
-          this.$router.push({ name: 'Profile' })
+            await authStore.actionLogin({
+                email: email.value,
+                password: password.value,
+            })
+            router.push({ name: 'Profile' })
         } catch (err) {
-          // Show error from backend or fallback
-          this.errorMessage =
-            err?.response?.data?.message || 'Login failed. Please check your credentials.'
+            errorMessage.value =
+                err?.response?.data?.message ||
+                'Login failed. Please check your credentials.'
         }
-      }
     }
-  },
+}
 
-        cancel() {
-            this.email = ''
-            this.password = ''
-            this.errorMessage = ''
-            this.$refs.form.resetValidation()
-            this.errorMessage = '' 
-        },
-    },
+function cancel() {
+    email.value = ''
+    password.value = ''
+    errorMessage.value = ''
+    form.value?.resetValidation()
 }
 </script>
 

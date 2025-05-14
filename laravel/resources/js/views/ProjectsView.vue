@@ -47,7 +47,8 @@
                             class="text-warning"
                             outlined
                         >
-                            <v-icon class="mr-2">mdi-pencil</v-icon> Edit Project
+                            <v-icon class="mr-2">mdi-pencil</v-icon> Edit
+                            Project
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -56,51 +57,52 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
 import { useProjectStore } from '../stores/project'
 import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
-export default {
-    name: 'ProjectsView',
+// Initialize stores and router
+const projectStore = useProjectStore()
+const authStore = useAuthStore()
+const router = useRouter()
 
-    data() {
-        return {
-            projectStore: useProjectStore(),
-            authStore: useAuthStore(),
-            projectList: [],
+// Reactive state
+const projectList = ref([])
+
+// Fetch projects on mounted
+onMounted(async () => {
+    try {
+        const fetchedProjects = await projectStore.actionGetAllProjects()
+        if (fetchedProjects.length > 0) {
+            projectList.value = fetchedProjects
         }
-    },
+    } catch (error) {
+        console.error('Error loading projects:', error)
+    }
+})
 
-    async created() {
-        try {
-            const fetchedProjects =
-                await this.projectStore.actionGetAllProjects()
-            if (fetchedProjects.length > 0) {
-                this.projectList = fetchedProjects
-            }
-        } catch (error) {
-            console.error('Error loading projects:', error)
-        }
-    },
+// Method to navigate to project details
+const viewProjectDetail = id => {
+    if (authStore.getIsAuthenticated) {
+        router.push({ name: 'ProjectDetail', params: { id } })
+    } else {
+        router.push({ name: 'Login' })
+    }
+}
 
-    methods: {
-        viewProjectDetail(id) {
-            if (this.authStore.getIsAuthenticated) {
-                this.$router.push({ name: 'ProjectDetail', params: { id } })
-            } else {
-                this.$router.push({ name: 'Login' })
-            }
-        },
-        apply(id) {
-            if (this.authStore.getIsAuthenticated) {
-                this.$router.push({ name: 'Apply', params: { projectId: id } })
-            } else {
-                this.$router.push({ name: 'Login' })
-            }
-        },
-        goToEditPage(projectId) {
-            this.$router.push(`/projects/${projectId}/edit`)
-        },
-    },
+// Method to navigate to apply page
+const apply = id => {
+    if (authStore.getIsAuthenticated) {
+        router.push({ name: 'Apply', params: { projectId: id } })
+    } else {
+        router.push({ name: 'Login' })
+    }
+}
+
+// Method to navigate to edit project page
+const goToEditPage = projectId => {
+    router.push(`/projects/${projectId}/edit`)
 }
 </script>

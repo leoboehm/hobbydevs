@@ -28,48 +28,43 @@
     </v-text-field>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue'
 import { useDate } from 'vuetify'
 
-export default {
-    name: 'DatePicker',
+// Props
+defineProps({
+  modelValue: {
+    type: [String, Date],
+    required: true,
+  },
+  label: String,
+  id: String,
+  min: {
+    type: [String, Date],
+    default: undefined,
+  },
+})
 
-    props: {
-        modelValue: {
-            type: [String, Date],
-            required: true,
-        },
-        label: String,
-        id: String,
-        min: {
-            type: [String, Date],
-            default: undefined,
-        },
-    },
+// Emits
+const emit = defineEmits(['update:modelValue'])
 
-    emits: ['update:modelValue'],
+// Vuetify's date utility
+const date = useDate()
 
-    data() {
-        return {
-            menu: false,
-            date: useDate(),
-        }
-    },
+// Local state
+const menu = ref(false)
 
-    computed: {
-        proxyDate: {
-            get() {
-                return this.modelValue
-            },
-            set(newVal) {
-                this.$emit('update:modelValue', this.date.format(newVal, 'fullDate'))
-            },
-        },
-        formattedDate() {
-            return this.modelValue
-                ? this.date.format(this.modelValue, 'fullDate')
-                : ''
-        },
-    },
-}
+// Computed: formatted date display
+const formattedDate = computed(() =>
+  modelValue ? date.format(modelValue, 'fullDate') : ''
+)
+
+// Computed: two-way binding proxy
+const proxyDate = computed({
+  get: () => modelValue,
+  set: (newVal) => {
+    emit('update:modelValue', date.format(newVal, 'fullDate'))
+  },
+})
 </script>

@@ -145,9 +145,7 @@
                                 <v-col cols="5" class="mr-8">
                                     <DatePicker
                                         id="application-start-date"
-                                        v-model="
-                                            application.start_date
-                                        "
+                                        v-model="application.start_date"
                                         label="Start Date"
                                         :min="project.start_date"
                                     />
@@ -155,9 +153,7 @@
                                 <v-col cols="5">
                                     <DatePicker
                                         id="application-end-date"
-                                        v-model="
-                                            application.end_date
-                                        "
+                                        v-model="application.end_date"
                                         label="End Date"
                                         :min="application.start_date"
                                     />
@@ -179,84 +175,95 @@
     </v-form>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useDate } from 'vuetify'
 import { useProjectStore } from '../stores/project'
 import { useCategoryStore } from '../stores/category'
 import { useSkillStore } from '../stores/skill'
-
 import DatePicker from '../components/DatePicker.vue'
 
-export default {
-    components: { DatePicker },
-    data() {
-        return {
-            valid: false,
-            date: useDate(),
-            projectStore: useProjectStore(),
-            categoryStore: useCategoryStore(),
-            skillStore: useSkillStore(),
+// Refs
+const valid = ref(false)
+const date = useDate()
+const currentStep = ref(0)
 
-            currentStep: 0,
+const projectStore = useProjectStore()
+const categoryStore = useCategoryStore()
+const skillStore = useSkillStore()
 
-            project: {
-                title: '',
-                description: '',
-                category: '',
-                skills: [],
-                start_date: '',
-                end_date: '',
-            },
-            application: {
-                salary: '',
-                start_date: '',
-                end_date: '',
-            },
-            categories: [],
-            skills: [],
-            rules: {
-                required: value => !!value || 'This field is required',
-            },
-        }
-    },
+const project = ref({
+    title: '',
+    description: '',
+    category: '',
+    skills: [],
+    start_date: '',
+    end_date: '',
+})
 
-    async beforeMount() {
-        // load categories
-        await this.categoryStore.fetchCategories()
-        if (this.categoryStore.getCategoriesLoading == false) {
-            this.categories = this.categoryStore.getCategories
-        }
+const application = ref({
+    salary: '',
+    start_date: '',
+    end_date: '',
+})
 
-        // load skills
-        await this.skillStore.fetchSkills()
-        if (this.skillStore.getSkillsLoading == false) {
-            this.skills = this.skillStore.getSkills
-        }
-    },
-    methods: {
-        async postProject() {
-            if (this.$refs.form.validate()) {
-                let projectData = {
-                    title: this.project.title,
-                    description: this.project.description,
-                    category: this.project.category,
-                    skills: this.project.skills,
-                    salary_range: this.project.salary,
-                    duration: this.project.duration,
-                    start_date: this.date.formatByString(this.project.start_date, "YYYY-MM-DD hh:mm:ss"),
-                    deadline: this.date.formatByString(this.project.end_date, "YYYY-MM-DD hh:mm:ss"),
-                    application_start_date: this.date.formatByString(this.application.start_date, "YYYY-MM-DD hh:mm:ss"),
-                    application_deadline: this.date.formatByString(this.application.end_date, "YYYY-MM-DD hh:mm:ss"),
-                }
-                await this.projectStore.actionPublishProject(projectData)
-                this.$router.push({ name: 'Home' })
-            }
-        },
-    },
-    computed: {
-        today: () => new Date(),
-    },
+const categories = ref([])
+const skills = ref([])
+
+const rules = {
+    required: value => !!value || 'This field is required',
 }
-</script>
 
-<style scoped></style>
+// Router
+const router = useRouter()
+
+// Methods
+const postProject = async () => {
+    if (valid.value) {
+        let projectData = {
+            title: project.value.title,
+            description: project.value.description,
+            category: project.value.category,
+            skills: project.value.skills,
+            salary_range: application.value.salary,
+            duration: project.value.duration,
+            start_date: date.formatByString(
+                project.value.start_date,
+                'YYYY-MM-DD hh:mm:ss',
+            ),
+            deadline: date.formatByString(
+                project.value.end_date,
+                'YYYY-MM-DD hh:mm:ss',
+            ),
+            application_start_date: date.formatByString(
+                application.value.start_date,
+                'YYYY-MM-DD hh:mm:ss',
+            ),
+            application_deadline: date.formatByString(
+                application.value.end_date,
+                'YYYY-MM-DD hh:mm:ss',
+            ),
+        }
+
+        await projectStore.actionPublishProject(projectData)
+        router.push({ name: 'Home' })
+    }
+}
+
+// Fetch categories and skills on mount
+onMounted(async () => {
+    await categoryStore.fetchCategories()
+    if (!categoryStore.getCategoriesLoading) {
+        categories.value = categoryStore.getCategories
+    }
+
+    await skillStore.fetchSkills()
+    if (!skillStore.getSkillsLoading) {
+        skills.value = skillStore.getSkills
+    }
+})
+
+// Computed
+const today = new Date()
+</script>

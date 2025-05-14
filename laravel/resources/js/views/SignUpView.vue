@@ -29,7 +29,7 @@
                     </v-row>
 
                     <v-card-text>
-                        <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-form ref="formRef" v-model="valid" lazy-validation>
                             <!-- Account Type -->
                             <v-select
                                 v-model="accountType"
@@ -124,6 +124,14 @@
                         >
                             Sign Up
                         </v-btn>
+                        <!-- Error Message -->
+                        <v-row v-if="authStore.error">
+                            <v-col>
+                                <v-alert type="error" dismissible>
+                                    {{ authStore.error }}
+                                </v-alert>
+                            </v-col>
+                        </v-row>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -131,86 +139,76 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import { useAuthStore } from '../stores/auth'
+import { useRouter } from 'vue-router'
 
-export default {
-    name: 'SignUpView',
+// Reactive state variables
+const formRef = ref(null)
+const valid = ref(false)
+const accountType = ref('')
+const firstname = ref('')
+const lastname = ref('')
+const username = ref('')
+const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
+const accountTypes = ref(['Developer', 'Project Owner'])
 
-    data() {
-        return {
-            valid: false,
-            accountType: '',
-            firstname: '',
-            lastname: '',
-            username: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            showPassword: false,
-            showConfirmPassword: false,
-            accountTypes: ['Developer', 'Project Owner'],
-            rules: {
-                required: value => !!value || 'This field is required',
-                email: value =>
-                    /.+@.+\..+/.test(value) || 'E-mail must be valid',
-                minLength: min => value =>
-                    value.length >= min || `Must be at least ${min} characters`,
-                matchPassword: value =>
-                    value === this.password || 'Passwords must match',
-            },
+// Store for validation rules
+const rules = {
+    required: value => !!value || 'This field is required',
+    email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
+    minLength: min => value =>
+        value.length >= min || `Must be at least ${min} characters`,
+    matchPassword: value => value === password.value || 'Passwords must match',
+}
 
-            // authentification store
-            authStore: undefined,
-        }
-    },
+// Authentication store
+const authStore = useAuthStore()
 
-    beforeMount() {
-        // init auth store
-        this.authStore = useAuthStore()
-    },
+// Router instance
+const router = useRouter()
 
-    methods: {
-        submit() {
-            if (this.$refs.form.validate()) {
-                if (this.authStore != undefined) {
-                    this.authStore.actionRegisterNewUser({
-                        email: this.email,
-                        firstname: this.firstname,
-                        lastname: this.lastname,
-                        password: this.password,
-                        type: this.accountType,
-                        username: this.username,
-                    })
+// Submit method for form submission
+const submit = async () => {
+    const isValid = await formRef.value?.validate()
+    if (isValid) {
+        if (authStore) {
+            try {
+                await authStore.actionRegisterNewUser({
+                    email: email.value,
+                    firstname: firstname.value,
+                    lastname: lastname.value,
+                    password: password.value,
+                    type: accountType.value,
+                    username: username.value,
+                })
 
-                    this.$router.push({ name: 'Login' })
-                    // if (response.error == null) {
-                    //     console.log(
-                    //         'Error during registration: ' + response.error,
-                    //     )
-                    //     alert('An error has occurred during registration...')
-                    // } else {
-                    //     this.$router.push({ name: 'login' })
-                    // }
-                } else {
-                    alert('Registration not possible. Try again later...')
-                }
+                if (authStore.error) return
+
+                router.push({ name: 'Login' })
+            } catch (err) {
+                console.error('Registration failed:', err)
             }
-        },
-        cancel() {
-            this.accountType = ''
-            this.firstname = ''
-            this.lastname = ''
-            this.username = ''
-            this.email = ''
-            this.password = ''
-            this.confirmPassword = ''
-            this.$refs.form.resetValidation()
-        },
-    },
+        } else {
+            alert('Registration not possible. Try again later...')
+        }
+    }
+}
+
+// Cancel method to reset the form
+const cancel = () => {
+    accountType.value = ''
+    firstname.value = ''
+    lastname.value = ''
+    username.value = ''
+    email.value = ''
+    password.value = ''
+    confirmPassword.value = ''
+    formRef.value?.resetValidation()
 }
 </script>
-
-<style scoped>
-
-</style>

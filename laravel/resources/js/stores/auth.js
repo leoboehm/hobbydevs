@@ -28,16 +28,23 @@ export const useAuthStore = defineStore('authStore', {
                 this.isAuthenticated = false
             }
         },
+        setUser(updatedUser) {
+            this.user = updatedUser
+          },
         // register new user
         async actionRegisterNewUser(userData) {
             try {
                 await apiClient.post('/register', userData)
             } catch (error) {
-                this.error = error.response
-                    ? error.response.data.message
-                    : 'An error occurred'
+                if (error.response && error.response.data.message) {
+                    // If there's a message from the backend, set it to error
+                    this.error = error.response.data.message;
+                } else {
+                    // Default error message if no specific message exists
+                    this.error = 'An error occurred while registering. Please try again.';
+                }
             }
-        },
+        },        
         // login user
         async actionLogin(credentials) {
             try {

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-// use PHPUnit\Framework\TestCase;
-
 use App\Models\Project;
+use App\Models\Application;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 
 use Tests\TestCase;
 
@@ -29,10 +29,6 @@ class ProjectTest extends TestCase
             'owner_id' => $user->id,
             'title' => $project->title,
         ]);
-
-        // return true if date casts are working correctly
-        $this->assertInstanceOf(\Illuminate\Support\Carbon::class, $project->start_date);
-        $this->assertInstanceOf(\Illuminate\Support\Carbon::class, $project->deadline);
     }
 
     public function test_it_uses_mass_assignment_correctly()
@@ -57,5 +53,45 @@ class ProjectTest extends TestCase
 
         $this->assertEquals('Test Project', $project->title); // return true if title is set correctly
         $this->assertEquals('Web Development', $project->category); // return true if category is set correctly
+    }
+    
+    /** @test */
+    public function it_casts_date_attributes_to_datetime()
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create([
+            'owner_id' => $user->id,
+            'start_date' => now(),
+            'deadline' => now()->addDays(10),
+            'application_start_date' => now()->subWeek(),
+            'application_deadline' => now()->addWeek(),
+        ]);
+
+        $this->assertInstanceOf(Carbon::class, $project->start_date);
+        $this->assertInstanceOf(Carbon::class, $project->deadline);
+        $this->assertInstanceOf(Carbon::class, $project->application_start_date);
+        $this->assertInstanceOf(Carbon::class, $project->application_deadline);
+    }
+
+    /** @test */
+    public function it_has_many_applications()
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create([
+            'owner_id' => $user->id,
+        ]);
+        Application::factory()->count(3)->create(['project_id' => $project->id]);
+
+        $this->assertInstanceOf(Application::class, $project->applications->first());
+        $this->assertCount(3, $project->applications);
+    }
+
+    /** @test */
+    public function it_belongs_to_an_owner()
+    {
+        $user = User::factory()->create();
+        $project = Project::factory()->create(['owner_id' => $user->id]);
+
+        $this->assertEquals($user->id, $project->owner_id);
     }
 }

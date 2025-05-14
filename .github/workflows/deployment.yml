@@ -1,19 +1,26 @@
-name: Laravel
+name: Deployment
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-jobs:
-  laravel-tests:
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
+jobs:
+  test-and-report:
     runs-on: ubuntu-latest
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.1'
+        coverage: xdebug
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     - name: Copy .env
       working-directory: ./laravel
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -25,7 +32,7 @@ jobs:
         restore-keys: composer-
     - name: Install Dependencies
       working-directory: ./laravel
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --verbose
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
       working-directory: ./laravel
       run: php artisan key:generate
@@ -42,15 +49,10 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test --testsuite=Unit --log-junit reports/report.xml --coverage-clover coverage/clover.xml
-    - name: Upload PHPUnit JUnit Report
-      uses: actions/upload-artifact@v4
+      run: php artisan test --coverage-clover 'reports/clover.xml'
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v4
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        name: junit-report
-        path: ./laravel/reports/report.xml
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
-      with:
-        files: ./laravel/coverage/clover.xml
-        flags: unittests
-        name: codecov-coverage
+        projectBaseDir: ./laravel
