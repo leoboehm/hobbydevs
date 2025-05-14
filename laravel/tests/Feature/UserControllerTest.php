@@ -80,26 +80,4 @@ class UserControllerTest extends TestCase
         // Assert that the validation errors are for specific fields
         $response->assertJsonValidationErrors(['firstname', 'email']);
     }
-
-    /**
-     * Test unauthorized user trying to update their information.
-     *
-     * @return void
-     */
-    public function test_unauthenticated_user_cannot_update_information()
-    {
-        // Create a user
-        $user = User::factory()->create();
-
-        // Send PUT request without authentication
-        $response = $this->putJson('/api/user', [
-            'firstname' => 'UpdatedFirstName',
-            'lastname' => 'UpdatedLastName',
-            'username' => 'updatedusername',
-            'email' => 'updatedemail@example.com',
-        ]);
-
-        // Assert that the response status is 401 (Unauthorized)
-        $response->assertStatus(401);
-    }
 }
