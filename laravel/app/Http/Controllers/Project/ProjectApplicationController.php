@@ -22,7 +22,6 @@ class ProjectApplicationController extends Controller
             'pastExperience' => self::REQUIRED_STRING,
             'motivation' => self::REQUIRED_STRING,
             'contactInfo' => self::REQUIRED_STRING,
-            'project_id' => 'required|exists:projects,id',
         ]);
 
         $application = Application::create([
@@ -34,7 +33,7 @@ class ProjectApplicationController extends Controller
             'motivation' => $validatedData['motivation'],
             'contact_info' => $validatedData['contactInfo'],
             'user_id' => $request->id,
-            'project_id' => $validatedData['project_id'],
+            'project_id' => $request->project_id,
         ]);
 
         return response()->json($application, 201);

@@ -102,7 +102,7 @@
                                 >
                                     <v-list-item-title>
                                         {{ app.user.firstname }}
-                                        {{ app.user.lastname }} applied to "{{
+                                        {{ app.user.lastname }} applied to your project "{{
                                             app.project.title
                                         }}"
                                     </v-list-item-title>
