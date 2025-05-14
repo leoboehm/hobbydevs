@@ -35,7 +35,7 @@ export const useProfileStore = defineStore('profileStore', {
                     )
 
                     for(let item in response.data) {
-                        const project = await apiClient.get('/project/' + response.data[item].project_id)
+                        const project = await projectStore.actionGetProjectByID(response.data[item].project_id)
                         response.data[item].project = project.data
                     }
 
@@ -50,7 +50,7 @@ export const useProfileStore = defineStore('profileStore', {
                     )
                     
                     for(let item in response.data) {
-                        const project = await apiClient.get('/project/' + response.data[item].project_id)
+                        const project = await projectStore.actionGetProjectByID(response.data[item].project_id)
                         response.data[item].project = project.data
                     }
 
