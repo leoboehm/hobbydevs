@@ -30,6 +30,7 @@ class ApplicationControllerTest extends TestCase
             'pastExperience' => '2 years of web development',
             'motivation' => 'Looking for new challenges',
             'contactInfo' => 'max@example.com',
+            'id' => $user->id,
             'project_id' => $project->id,
         ];
 
@@ -94,7 +95,7 @@ class ApplicationControllerTest extends TestCase
             'project_id' => $project->id,
         ]);
 
-        $response = $this->getJson('/api/sent-applications/' + $user->id);
+        $response = $this->getJson('/api/sent-applications/' . $user->id);
         $response->assertStatus(200);
         $response->assertJsonCount(1);
         $response->assertJsonFragment(['first_name' => 'Anna']);
@@ -124,7 +125,7 @@ class ApplicationControllerTest extends TestCase
 
         $this->actingAs($owner);
 
-        $response = $this->getJson('/api/received-applications/' + $owner->id);
+        $response = $this->getJson('/api/received-applications/' . $owner->id);
         $response->assertStatus(200);
         $response->assertJsonFragment(['first_name' => 'Lisa']);
     }
