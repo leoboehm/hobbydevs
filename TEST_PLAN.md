@@ -198,8 +198,8 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 
 ## 11. Iteration Milestones
 - **Project Creation Tests:** ✅ Done  
-- **Application Flow Tests:** ⏳ In progress  
-- **Prfile Editing Tests:** 🔜 Next  
+- **Application Flow Tests:** ✅ Done   
+- **Prfile Editing Tests:** ✅ Done  
 
 ---
 
