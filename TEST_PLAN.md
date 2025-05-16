@@ -205,9 +205,9 @@ Refer to RUP table templates for Functional, UI, Stress, Security, and other tes
 
 ## 12. Risks, Dependencies
 
-| Risk                         | Mitigation Plan                               |
-|------------------------------|-----------------------------------------------|
-| tba         |                 |
+| **Risk**                                      | **Impact**                                                                 | **Mitigation Strategy**                                                                                     |
+|----------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| Insufficient test coverage for critical code | Undetected bugs, unreliable features, and increased maintenance overhead | Integrated a test coverage monitoring tool (e.g., via CI) to ensure visibility and promote better testing.  |
 
 ---
 
