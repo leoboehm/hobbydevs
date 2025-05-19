@@ -30,14 +30,28 @@
                 dense
             ></v-textarea>
 
-            <v-text-field
+            <v-select
                 v-model="projectData.category"
+                :items="categories"
                 label="Category"
-                :rules="[rules.required]"
-                :readonly="!editMode"
                 outlined
                 dense
-            ></v-text-field>
+                required
+                :rules="[rules.required]"
+                :readonly="!editMode"
+            ></v-select>
+
+            <v-select
+                v-model="projectData.skills"
+                :items="skills"
+                label="Skills"
+                outlined
+                dense
+                multiple
+                required
+                :rules="[rules.required]"
+                :readonly="!editMode"
+            ></v-select>
 
             <v-text-field
                 v-model="projectData.salary_range"
@@ -56,6 +70,40 @@
                 outlined
                 dense
             ></v-text-field>
+
+            <!-- <v-row dense>
+                <v-col cols="5" class="mr-8">
+                    <DatePicker
+                        v-model="projectData.start_date"
+                        label="Start Date"
+                        :min="today"
+                    />
+                </v-col>
+                <v-col cols="5">
+                    <DatePicker
+                        v-model="projectData.deadline"
+                        label="Deadline"
+                        :min="projectData.start_date"
+                    />
+                </v-col>
+            </v-row>
+
+            <v-row dense>
+                <v-col cols="5" class="mr-8">
+                    <DatePicker
+                        v-model="projectData.application_start_date"
+                        label="Start Date"
+                        :min="project.start_date"
+                    />
+                </v-col>
+                <v-col cols="5">
+                    <DatePicker
+                        v-model="projectData.application_deadline"
+                        label="End Date"
+                        :min="projectData.application_start_date"
+                    />
+                </v-col>
+            </v-row> -->
         </v-form>
 
         <v-row v-if="editMode">
@@ -74,30 +122,33 @@
     <div v-else>
         <p>Loading...</p>
     </div>
-
-    <!-- Error Handling -->
-    <v-alert v-if="errorMessage" type="error" class="mt-4">
-        {{ errorMessage }}
-    </v-alert>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useDate } from 'vuetify'
 import { useProjectStore } from '@/stores/project'
 import { useAuthStore } from '@/stores/auth'
+import { useCategoryStore } from '../stores/category'
+import { useSkillStore } from '../stores/skill'
+
+import DatePicker from '../components/DatePicker.vue'
 
 const router = useRouter()
 const route = useRoute()
 const projectStore = useProjectStore()
 const authStore = useAuthStore()
+const categoryStore = useCategoryStore()
+const skillStore = useSkillStore()
+
+const date = useDate()
 
 // Reactive references
 const editMode = ref(false)
 const valid = ref(false)
 const formRef = ref(null)
 
-const projectId = ref(route.params.id)
 const isOwner = ref(false)
 const project = ref(null)
 const projectData = ref({
@@ -106,12 +157,15 @@ const projectData = ref({
     category: '',
     salary_range: '',
     duration: '',
-    skills: '',
+    skills: [],
     start_date: '',
     deadline: '',
     application_start_date: '',
     application_deadline: '',
 })
+
+const categories = ref([])
+const skills = ref([])
 
 const errorMessage = ref(null)
 
@@ -123,11 +177,11 @@ const rules = {
 const fetchProject = async () => {
     try {
         const projectResponse = await projectStore.actionGetProjectByID(
-            projectId.value,
+            route.params.id,
         )
 
-        project.value = { ...projectResponse.data }
-        projectData.value = { ...projectResponse.data }
+        project.value = { ...projectResponse }
+        projectData.value = { ...projectResponse }
 
         isOwner.value = authStore.getUser.id == project.value.id
     } catch (error) {
@@ -138,13 +192,23 @@ const fetchProject = async () => {
 
 onMounted(async () => {
     await fetchProject()
+
+    await categoryStore.fetchCategories()
+    if (!categoryStore.getCategoriesLoading) {
+        categories.value = categoryStore.getCategories
+    }
+
+    await skillStore.fetchSkills()
+    if (!skillStore.getSkillsLoading) {
+        skills.value = skillStore.getSkills
+    }
 })
 
 // Submit updated project
 const saveEdit = async () => {
     if (formRef.value?.validate()) {
         try {
-            await projectStore.actionUpdateProject(projectId.value, projectData.value)
+            await projectStore.actionUpdateProject(projectData.value)
             router.go()
         } catch (error) {
             console.error('Update failed:', error)
@@ -160,4 +224,7 @@ const cancelEdit = () => {
     editMode.value = false
     formRef.value?.resetValidation()
 }
+
+// Computed
+const today = new Date()
 </script>

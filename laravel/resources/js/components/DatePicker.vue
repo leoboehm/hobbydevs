@@ -6,7 +6,7 @@
         readonly
         outlined
         dense
-        @click="menu = true"
+        @click="menu = readonly ? false : true"
     >
         <template v-slot:prepend>
             <v-menu
@@ -44,6 +44,7 @@ defineProps({
     type: [String, Date],
     default: undefined,
   },
+  readonly: Boolean
 })
 
 // Emits

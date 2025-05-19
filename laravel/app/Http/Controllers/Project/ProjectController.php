@@ -78,7 +78,7 @@ class ProjectController extends Controller
             'title' => self::REQUIRED_STRING . '|max:255',
             'description' => self::REQUIRED_STRING,
             'category' => self::REQUIRED_STRING,
-            'skills' => 'required|array',
+            'skills' => self::REQUIRED_STRING,
             'salary_range' => self::REQUIRED_STRING,
             'duration' => self::REQUIRED_STRING,
             'start_date' => self::REQUIRED_DATE,
