@@ -1,45 +1,75 @@
 <template>
-    <div v-if="project">
-        <v-card-text>
-            <v-row>
-                <v-col cols="12" sm="6">
-                    <strong>Category:</strong>
-                    <div>{{ project.category }}</div>
-                </v-col>
-                <v-col cols="12" sm="6">
-                    <strong>Required Skills:</strong>
-                    <div>{{ project.skills }}</div>
-                </v-col>
-                <v-col cols="12" sm="6">
-                    <strong>Salary:</strong>
-                    <div>{{ project.salary_range }}</div>
-                </v-col>
-                <v-col cols="12" sm="6">
-                    <strong>Duration:</strong>
-                    <div>{{ project.duration }}</div>
-                </v-col>
-                <v-col cols="12" sm="6">
-                    <strong>Start Date:</strong>
-                    <div>{{ project.start_date }}</div>
-                </v-col>
-                <v-col cols="12" sm="6">
-                    <strong>Deadline:</strong>
-                    <div>{{ project.deadline }}</div>
-                </v-col>
-            </v-row>
+    <v-container v-if="project">
+        <h1 v-if="!editMode">{{ project.title }}</h1>
+        <v-btn
+            color="primary"
+            @click="editMode = true"
+            v-if="!editMode && isOwner"
+        >
+            <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
+        </v-btn>
 
-            <v-divider class="my-4"></v-divider>
+        <v-divider class="my-4"></v-divider>
 
-            <strong>Description:</strong>
-            <p>{{ project.description }}</p>
+        <v-form ref="formRef" v-model="valid" lazy-validation>
+            <v-text-field
+                v-if="editMode"
+                v-model="projectData.title"
+                label="Title"
+                :rules="[rules.required]"
+                outlined
+                dense
+            ></v-text-field>
 
-            <!-- Edit Button visible only to the project owner -->
-            <v-btn v-if="isOwner" color="primary" @click="editProject">
-                <v-icon class="mr-2">mdi-pencil</v-icon>
-                Edit Project
-            </v-btn>
-        </v-card-text>
-    </div>
+            <v-textarea
+                v-model="projectData.description"
+                label="Description"
+                :rules="[rules.required]"
+                :readonly="!editMode"
+                outlined
+                dense
+            ></v-textarea>
+
+            <v-text-field
+                v-model="projectData.category"
+                label="Category"
+                :rules="[rules.required]"
+                :readonly="!editMode"
+                outlined
+                dense
+            ></v-text-field>
+
+            <v-text-field
+                v-model="projectData.salary_range"
+                label="Salary Range"
+                :rules="[rules.required]"
+                :readonly="!editMode"
+                outlined
+                dense
+            ></v-text-field>
+
+            <v-text-field
+                v-model="projectData.duration"
+                label="Duration"
+                :rules="[rules.required]"
+                :readonly="!editMode"
+                outlined
+                dense
+            ></v-text-field>
+        </v-form>
+
+        <v-row v-if="editMode">
+            <v-spacer />
+            <v-btn text color="red" @click="cancelEdit">Cancel</v-btn>
+            <v-btn color="green" @click="saveEdit" :disabled="!valid"
+                >Save</v-btn
+            >
+        </v-row>
+
+        <v-alert type="error" v-if="errorMessage" class="mt-4">
+            {{ errorMessage }}
+        </v-alert>
+    </v-container>
 
     <div v-else>
         <p>Loading...</p>
@@ -53,44 +83,81 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { useProjectStore } from '@/stores/project'
+import { useAuthStore } from '@/stores/auth'
 
-const route = useRoute()
 const router = useRouter()
+const route = useRoute()
+const projectStore = useProjectStore()
+const authStore = useAuthStore()
 
 // Reactive references
+const editMode = ref(false)
+const valid = ref(false)
+const formRef = ref(null)
+
 const projectId = ref(route.params.id)
-const project = ref(null)
 const isOwner = ref(false)
+const project = ref(null)
+const projectData = ref({
+    title: '',
+    description: '',
+    category: '',
+    salary_range: '',
+    duration: '',
+    skills: '',
+    start_date: '',
+    deadline: '',
+    application_start_date: '',
+    application_deadline: '',
+})
+
 const errorMessage = ref(null)
 
-// Fetch project data on mount
-onMounted(async () => {
-    try {
-        if (projectId.value) {
-            const response = await fetch(
-                `http://127.0.0.1:8000/api/project/${projectId.value}`,
-            )
-            if (response.ok) {
-                project.value = await response.json() // Store project data
+const rules = {
+    required: v => !!v || 'This field is required',
+}
 
-                // Check if the current user is the project owner
-                const currentUserId = 1 // Replace with actual logic to get the current user ID
-                isOwner.value = project.value.owner_id === currentUserId
-            } else {
-                errorMessage.value = 'Project not found.'
-            }
-        } else {
-            errorMessage.value = 'No project ID provided.'
-        }
+// Fetch project data on mount
+const fetchProject = async () => {
+    try {
+        const projectResponse = await projectStore.actionGetProjectByID(
+            projectId.value,
+        )
+
+        project.value = { ...projectResponse.data }
+        projectData.value = { ...projectResponse.data }
+
+        isOwner.value = authStore.getUser.id == project.value.id
     } catch (error) {
         console.error('Error fetching project:', error)
         errorMessage.value = 'Error fetching project data.'
     }
+}
+
+onMounted(async () => {
+    await fetchProject()
 })
 
-// Edit project function
-const editProject = () => {
-    router.push(`/projects/${projectId.value}/edit`)
+// Submit updated project
+const saveEdit = async () => {
+    if (formRef.value?.validate()) {
+        try {
+            await projectStore.actionUpdateProject(projectId.value, projectData.value)
+            router.go()
+        } catch (error) {
+            console.error('Update failed:', error)
+            errorMessage.value =
+                error.response?.data?.message || 'Failed to update project.'
+        }
+    }
+}
+
+// Cancel and go back
+const cancelEdit = () => {
+    projectData.value = { ...project.value }
+    editMode.value = false
+    formRef.value?.resetValidation()
 }
 </script>
