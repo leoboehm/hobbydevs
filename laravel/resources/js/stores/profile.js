@@ -17,6 +17,7 @@ export const useProfileStore = defineStore('profileStore', {
         async updateUser(userData) {
             try {
                 const res = await apiClient.put('/user', userData)
+                console.debug(res)
                 return res.data
             } catch (error) {
                 console.error('Failed to update profile:', error)
