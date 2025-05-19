@@ -1,18 +1,4 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-
-const submitApplication = (data) => {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!data['Skills'] || !data['Contact Information']) {
-    return { success: false, message: 'Please fill all required fields.' };
-  }
-
-  if (data['Contact Information'] && !emailPattern.test(data['Contact Information'])) {
-    return { success: false, message: 'Invalid email address.' };
-  }
-
-  return { success: true, message: 'Application submitted successfully.' };
-};
+import { Given, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('the user is logged in as a hobby developer', () => {
   cy.wrap({ userRole: 'hobby developer' }).as('userData');
@@ -20,57 +6,47 @@ Given('the user is logged in as a hobby developer', () => {
 });
 
 Given('the developer fills in {string} with {string}', (field, value) => {
-  cy.get('@formData').then((data) => {
+  cy.get('@formData').then(data => {
     data[field] = value;
     cy.wrap(data).as('formData');
   });
 });
 
-Given('the developer leaves the {string} field empty', (field) => {
-  cy.get('@formData').then((data) => {
+Given('the developer leaves the {string} field empty', field => {
+  cy.get('@formData').then(data => {
     data[field] = '';
     cy.wrap(data).as('formData');
   });
 });
 
-Given('the developer enters an invalid email in the {string} field', (field) => {
-  cy.get('@formData').then((data) => {
+Given('the developer enters an invalid email in the {string} field', field => {
+  cy.get('@formData').then(data => {
     data[field] = 'invalid-email';
     cy.wrap(data).as('formData');
   });
 });
 
-When('the developer clicks the {string} button', (button) => {
+When('the developer clicks the {string} button', button => {
   if (button === 'Submit') {
-    cy.get('@formData').then((data) => {
+    cy.get('@formData').then(data => {
+      const { submitApplication } = require('../../../../../support/validator');
       const response = submitApplication(data);
       cy.wrap(response.success).as('isFormSubmitted');
-      cy.wrap(response.success ? response.message : '').as('confirmationMessage');
-      cy.wrap(response.success ? '' : response.message).as('errorMessage');
+      cy.wrap(response.message).as('resultMessage');
     });
   }
 });
 
+
 Then('the application is successfully submitted', () => {
   cy.get('@isFormSubmitted').should('be.true');
-});
-
-Then('a confirmation message is shown', () => {
-  cy.get('@confirmationMessage').should('equal', 'Application submitted successfully.');
-});
-
-Then('an error message is displayed', () => {
-  cy.get('@errorMessage').should('not.be.empty');
 });
 
 Then('the form is not submitted', () => {
   cy.get('@isFormSubmitted').should('be.false');
 });
 
-Then('an error message is displayed indicating the email is invalid', () => {
-  cy.get('@errorMessage').should('equal', 'Invalid email address.');
-});
-
-Then('an error message is displayed indicating that all fields are required', () => {
-  cy.get('@errorMessage').should('equal', 'Please fill all required fields.');
+// one regex-parameterized step for *any* confirmation or error text:
+Then(/^(?:a confirmation|an error) message "(.+)" is (?:shown|displayed)$/, expectedMsg => {
+  cy.get('@resultMessage').should('equal', expectedMsg);
 });
