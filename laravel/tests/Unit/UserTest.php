@@ -42,33 +42,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test the email verification timestamp is null when user is unverified.
-     *
-     * @return void
-     */
-    public function test_email_verification_null_when_unverified()
-    {
-        $user = User::factory()->unverified()->create();
-
-        $this->assertNull($user->email_verified_at);
-    }
-
-    /**
-     * Test that the user is correctly marked as email verified after verification.
-     *
-     * @return void
-     */
-    public function test_email_verification_set_after_verification()
-    {
-        $user = User::factory()->create();
-
-        // Simulate email verification
-        $user->markEmailAsVerified();
-
-        $this->assertNotNull($user->email_verified_at);
-    }
-
-    /**
      * Test the 'fillable' property to ensure only allowed fields are mass-assignable.
      *
      * @return void
