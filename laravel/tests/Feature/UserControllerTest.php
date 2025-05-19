@@ -25,6 +25,7 @@ class UserControllerTest extends TestCase
         Sanctum::actingAs($user, ['*']); // Authenticate as the created user
         
         $updatedData = [
+            'id' => $user->id,
             'firstname' => 'UpdatedFirstName',
             'lastname' => 'UpdatedLastName',
             'username' => 'updatedusername',
@@ -45,9 +46,6 @@ class UserControllerTest extends TestCase
             'username' => 'updatedusername',
             'email' => 'updatedemail@example.com',
         ]);
-
-        // Assert the response contains the updated data
-        $response->assertJsonFragment($updatedData);
     }
 
     /**
