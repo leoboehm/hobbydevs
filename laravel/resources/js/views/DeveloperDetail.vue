@@ -91,25 +91,25 @@ const saveRating = async () => {
         const updatedDeveloper = {...developer.value}
         updatedDeveloper.rating = newRating
         await profileStore.updateUser(updatedDeveloper)
-        // router.go()
+        router.go()
     } catch (error) {
         alert('Something went wrong while trying to save rating.')
     }
 }
 
 const cancelRating = () => {
-    rating.value = developer.rating
+    rating.value = developer.value.rating
     ratingMode.value = false
 }
 
 const calculateRating = () => {
-    return (developer.rating + rating.value) / 2
+    return (developer.value.rating + rating.value) / 2
 }
 
 onMounted(async () => {
     developer.value = await developerStore.actionGetDeveloperById(
         route.params.id,
     )
-    rating.value = developer.rating
+    rating.value = developer.value.rating
 })
 </script>
