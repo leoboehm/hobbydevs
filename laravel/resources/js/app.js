@@ -1,40 +1,12 @@
-import './bootstrap'
-import './assets/main.css'
+import './bootstrap'            // polyfills, globals, etc.
+import './assets/main.css'      // global styles
 
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-
-import App from './App.vue'
-import router from './router'
-
-// Vuetify
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-import DayJsAdapter from '@date-io/dayjs'
-
-import '@mdi/font/css/materialdesignicons.css'
-const vuetify = createVuetify({
-    components,
-    directives,
-    theme: {
-        defaultTheme: 'dark',
-    },
-    icons: {
-        defaultSet: 'mdi',
-    },
-    date: {
-        adapter: DayJsAdapter,
-    },
-})
+import App            from './App.vue'
+import { registerPlugins } from './plugins'
 
 const app = createApp(App)
 
-app.use(vuetify)
-
-app.use(createPinia())
-
-app.use(router)
+registerPlugins(app)
 
 app.mount('#app')
