@@ -1,14 +1,7 @@
 import { defineStore } from 'pinia'
 import apiClient from '../services/axios'
-import { useAuthStore } from './auth'
 
 export const useDeveloperStore = defineStore('developer', {
-    state: () => ({
-    }),
-
-    getters: {
-    },
-
     actions: {
         async actionGetDevelopersList() {
             try {
