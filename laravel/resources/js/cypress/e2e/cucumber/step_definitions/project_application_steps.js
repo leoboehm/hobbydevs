@@ -29,7 +29,7 @@ Given('the developer enters an invalid email in the {string} field', field => {
 When('the developer clicks the {string} button', button => {
   if (button === 'Submit') {
     cy.get('@formData').then(data => {
-      const { submitApplication } = require('../../../../../support/validator');
+      const { submitApplication } = require('./project_application_validate');
       const response = submitApplication(data);
       cy.wrap(response.success).as('isFormSubmitted');
       cy.wrap(response.message).as('resultMessage');
