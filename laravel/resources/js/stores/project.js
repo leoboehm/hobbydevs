@@ -46,27 +46,30 @@ export const useProjectStore = defineStore('projectStore', {
         // Get project by ID
         async actionGetProjectByID(id) {
             try {
-              const project = await apiClient.get(`/project/${id}`)
-              console.log('Project data:', project) // Log project data
-              return project
+                const project = await apiClient.get(`/project/${id}`)
+                return project.data
             } catch (error) {
-              console.error('Error fetching project by ID:', error) // Log error
-              this.error = error.response
-                ? error.response.data.message
-                : `An error occurred during fetching of project with ID: ${id}`
-              return null
+                console.error('Error fetching project by ID:', error) // Log error
+                this.error = error.response
+                    ? error.response.data.message
+                    : `An error occurred during fetching of project with ID: ${id}`
+                return null
             }
-          },
-              // Update project
-        async actionUpdateProject(projectId, updatedData) {
-        try {
-          const response = await apiClient.put(`/project/${projectId}`, updatedData)
-          return response
-        } catch (error) {
-          console.error('Error updating project:', error)
-          this.error = error.response?.data?.message || 'Failed to update project.'
-          throw error
-        }
-      },                 
+        },
+        // Update project
+        async actionUpdateProject(projectData) {
+            try {
+                const response = await apiClient.put(
+                    `/project/${projectData.id}`,
+                    projectData,
+                )
+                return response
+            } catch (error) {
+                console.error('Error updating project:', error)
+                this.error =
+                    error.response?.data?.message || 'Failed to update project.'
+                throw error
+            }
+        },
     },
 })

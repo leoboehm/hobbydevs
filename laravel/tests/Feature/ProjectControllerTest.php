@@ -90,7 +90,7 @@ class ProjectControllerTest extends TestCase
             'title' => 'Updated Project Title',
             'description' => 'Updated description.',
             'category' => 'Web Development',
-            'skills' => ['Vue.js', 'PHP'],
+            'skills' => json_encode(['Vue.js', 'PHP']),
             'salary_range' => '30-50k',
             'duration' => '6 months',
             'start_date' => now()->addWeek()->toDateTimeString(),
