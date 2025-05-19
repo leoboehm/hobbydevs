@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -22,5 +23,10 @@ class UserController extends Controller
 
 
         return response()->json($user);
+    }
+
+    public function getDeveloperList(Request $request){
+        $developers = User::where('type', 'Developer')->get();
+        return response()->json($developers);
     }
 }
