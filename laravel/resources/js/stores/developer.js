@@ -9,7 +9,7 @@ export const useDeveloperStore = defineStore('developer', {
     },
 
     actions: {
-        async getDevelopersList() {
+        async actionGetDevelopersList() {
             try {
                 const response = await apiClient.get('/developers')
                 return response.data

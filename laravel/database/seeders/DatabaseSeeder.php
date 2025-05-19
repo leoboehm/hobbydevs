@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::factory()->create([
-            'type' => 'Owner',
+            'type' => 'Project Owner',
             'username' => 'testowner',
             'firstname' => 'Test',
             'lastname' => 'User',
