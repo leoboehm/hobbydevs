@@ -5,28 +5,17 @@
                 <span class="headline">Developer Details</span>
             </v-card-title>
             <v-card-text v-if="developer">
-                <p><strong>Name:</strong> {{ developer.name }}</p>
+                <p><strong>Name:</strong> {{ developer.firstname + " " + developer.lastname }}</p>
                 <p><strong>Email:</strong> {{ developer.email }}</p>
-                <p><strong>Skill:</strong> {{ developer.skill }}</p>
                 <p>
                     <strong>Experience:</strong>
                     {{ developer.experience }} years
                 </p>
                 <p><strong>Bio:</strong> {{ developer.bio }}</p>
                 <p>
-                    <strong>Resume:</strong>
-                    <a :href="developer.resume" target="_blank">{{
-                        developer.resume
-                    }}</a>
-                </p>
-                <p>
-                    <strong>Skills:</strong> {{ developer.skills.join(', ') }}
+                    <strong>Skills:</strong> {{ developer.skills }}
                 </p>
                 <p><strong>Interests:</strong> {{ developer.interests }}</p>
-                <p>
-                    <strong>References:</strong>
-                    {{ developer.references.join(', ') }}
-                </p>
                 <v-rating
                     v-model="developer.rating"
                     :max="5"
@@ -44,51 +33,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useDeveloperStore } from '../stores/developer'
+import { useRoute } from 'vue-router'
 
-// Props
-const props = defineProps({
-    id: {
-        type: [String, Number],
-        required: true,
-    },
-})
+const route = useRoute()
+const developerStore = useDeveloperStore()
 
 // Reactive state
 const developer = ref(null)
 
-const developersMock = [
-    {
-        id: 1,
-        name: 'Lisa',
-        email: 'lisa@example.com',
-        skill: 'Frontend',
-        experience: 2,
-        bio: 'I love working with Vue and Material Design.',
-        rating: 4,
-        resume: 'https://example.com/lisa-resume.pdf',
-        skills: ['Vue.js', 'HTML', 'CSS', 'JavaScript'],
-        interests: 'UI/UX Design, Animations',
-        references: ['Marie Curie', 'Ada Lovelace'],
-    },
-    {
-        id: 2,
-        name: 'Alex',
-        email: 'alex@example.com',
-        skill: 'Backend',
-        experience: 3,
-        bio: 'Specialized in Node.js and REST APIs.',
-        rating: 5,
-        resume: 'https://example.com/alex-resume.pdf',
-        skills: ['HTML', 'JavaScript'],
-        interests: 'Animations',
-        references: ['Ada Lovelace'],
-    },
-]
-
 // On mount, find developer by ID
-onMounted(() => {
-    const devId = parseInt(props.id)
-    developer.value = developersMock.find(dev => dev.id === devId)
+onMounted(async () => {
+    developer.value = await developerStore.actionGetDeveloperById(route.params.id,)
 })
 </script>

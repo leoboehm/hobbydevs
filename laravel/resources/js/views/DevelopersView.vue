@@ -21,7 +21,7 @@
                             style="cursor: pointer"
                         >
                             <v-card-title class="d-flex justify-space-between">
-                                {{ dev.firstname + dev.lastname }}
+                                {{ dev.firstname + " " + dev.lastname }}
                             </v-card-title>
                             <v-card-text>
                                 <p><strong>Bio:</strong>{{ dev.bio }}</p>

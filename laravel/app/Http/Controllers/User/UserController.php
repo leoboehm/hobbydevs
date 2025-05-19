@@ -29,4 +29,14 @@ class UserController extends Controller
         $developers = User::where('type', 'Developer')->get();
         return response()->json($developers);
     }
+    public function getDeveloperById(Request $request, string $id){
+        $developer = User::find($id);
+        
+        // Check if the user exists
+        if (!$developer) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json($developer);
+    }
 }
