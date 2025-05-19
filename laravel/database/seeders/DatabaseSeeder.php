@@ -1,8 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,13 +10,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
         \App\Models\User::factory()->create([
-            'username' => 'testuser',
+            'type' => 'Project Owner',
+            'username' => 'testowner',
             'firstname' => 'Test',
             'lastname' => 'User',
-            'email' => 'test@hobbydevs.com'
+            'email' => 'owner@hobbydevs.com'
+        ]);
+
+        \App\Models\User::factory()->create([
+            'type' => 'Developer',
+            'username' => 'testdeveloper',
+            'firstname' => 'Test',
+            'lastname' => 'User',
+            'email' => 'dev@hobbydevs.com'
         ]);
         
         \App\Models\Project::factory()->create([
@@ -41,7 +46,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Networking'],
         ]);
 
-        
         \App\Models\Skill::insert([
             ['name' => 'HTML'],
             ['name' => 'CSS'],

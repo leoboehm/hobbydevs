@@ -14,7 +14,6 @@
                         lg="4"
                     >
                         <!-- Clickable Card -->
-
                         <v-card
                             outlined
                             class="mb-4"
@@ -22,16 +21,13 @@
                             style="cursor: pointer"
                         >
                             <v-card-title class="d-flex justify-space-between">
-                                {{ dev.name }}
-                                <v-chip color="primary" small>{{
-                                    dev.skill
-                                }}</v-chip>
+                                {{ dev.firstname + " " + dev.lastname }}
                             </v-card-title>
                             <v-card-text>
                                 <p><strong>Bio:</strong>{{ dev.bio }}</p>
                                 <p>
                                     <strong>Skills:</strong>
-                                    {{ dev.skills.slice(0, 2).join(', ') }}
+                                    {{ dev.skills }}
                                 </p>
                                 <p><strong>Email:</strong> {{ dev.email }}</p>
                                 <p>
@@ -60,41 +56,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+
+import { useDeveloperStore } from '../stores/developer'
 
 const router = useRouter()
 
-const developers = ref([
-    {
-        id: 1,
-        name: 'Lisa',
-        email: 'lisa@example.com',
-        skill: 'Frontend',
-        experience: 2,
-        bio: 'I love working with Vue and Material Design.',
-        rating: 4,
-        resume: 'https://example.com/lisa-resume.pdf',
-        skills: ['Vue.js', 'HTML', 'CSS', 'JavaScript'],
-        interests: 'UI/UX Design, Animations',
-        references: ['Marie Curie', 'Ada Lovelace'],
-    },
-    {
-        id: 2,
-        name: 'Alex',
-        email: 'alex@example.com',
-        skill: 'Backend',
-        experience: 3,
-        bio: 'Specialized in Node.js and REST APIs.',
-        rating: 5,
-        resume: 'https://example.com/alex-resume.pdf',
-        skills: ['HTML', 'JavaScript'],
-        interests: 'Animations',
-        references: ['Ada Lovelace'],
-    },
-])
+const developerStore = useDeveloperStore()
 
-function goToDeveloper(id) {
+const developers = ref([])
+
+const goToDeveloper = (id) => {
     router.push(`/developers/${id}`)
 }
+
+onMounted(async () => {
+    developers.value = await developerStore.actionGetDevelopersList()
+})
 </script>

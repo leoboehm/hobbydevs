@@ -24,6 +24,24 @@ class User extends Authenticatable
         'lastname',
         'email',
         'password',
+        'skills' => '',
+        'experience' => '',
+        'bio' => '',
+        'rating' => 0,
+        'interests' => ''
+    ];
+    
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'skills' => '',
+        'experience' => '',
+        'bio' => '',
+        'rating' => 0,
+        'interests' => ''
     ];
 
     /**
@@ -42,7 +60,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 }

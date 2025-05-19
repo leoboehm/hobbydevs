@@ -39,7 +39,8 @@ Route::get('/sent-applications/{userId}', [ProjectApplicationController::class, 
 Route::get('/received-applications/{userId}', [ProjectApplicationController::class, 'getReceivedApplications']);
 
 Route::put('/user', [UserController::class, 'update']);
-
+Route::get('/developers', [UserController::class,'getDeveloperList']);
+Route::get('/developers/{id}', [UserController::class,'getDeveloperById']);
 // project
 Route::apiResource('project', ProjectController::class);
 // category

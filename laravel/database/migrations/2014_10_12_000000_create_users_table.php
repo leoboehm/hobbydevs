@@ -19,7 +19,11 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('password');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('skills');
+            $table->string('experience');
+            $table->longText('bio');
+            $table->float('rating');
+            $table->text('interests');
             $table->rememberToken();
             $table->timestamps();
         });
