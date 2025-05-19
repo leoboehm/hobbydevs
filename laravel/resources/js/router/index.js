@@ -7,83 +7,83 @@ const routes: [
     {
         path: '/',
         name: 'Home',
-        component: HomeView,
+        component: routeComponents.Home,
     },
     {
         path: '/about',
         name: 'About',
-        component: () => import('../views/AboutView.vue'),
+        component: component: routeComponents.About,
     },
     {
         path: '/developers',
         name: 'Developers',
-        component: () => import('../views/DevelopersView.vue'),
+        component: routeComponents.Developers,
         meta: { projectOwnersOnly: true },
     },
     {
         path: '/developers/:id',
         name: 'DeveloperDetail',
-        component: () => import('../views/DeveloperDetail.vue'),
+        component: routeComponents.DeveloperDetail,
         props: true,
         meta: { requiresAuth: true, projectOwnersOnly: true },
     },
     {
         path: '/apply/:projectId',
         name: 'Apply',
-        component: () => import('../views/ApplicationsView.vue'),
+        component: routeComponents.Applications,
         props: true,
         meta: { requiresAuth: true, developersOnly: true },
     },
     {
         path: '/profile',
         name: 'Profile',
-        component: () => import('../views/ProfileView.vue'),
+        component: routeComponents.Profile,
         meta: { requiresAuth: true },
     },
     {
         path: '/projects',
         name: 'Projects',
-        component: () => import('../views/ProjectsView.vue'),
+        component: routeComponents.Projects,
         meta: { developersOnly: true },
     },
     {
         path: '/projects/owned',
         name: 'OwnedProjects',
-        component: () => import('../views/OwnedProjectsView.vue'),
+        component: routeComponents.OwnedProjects,
         meta: { requiresAuth: true, projectOwnersOnly: true },
     },
     {
         path: '/projects/post',
         name: 'PostProject',
-        component: () => import('../views/PostProjectView.vue'),
+        component: routeComponents.PostProject,
         meta: { requiresAuth: true, projectOwnersOnly: true },
     },
     {
         path: '/projects/:id',
         name: 'ProjectDetail',
-        component: () => import('../views/ProjectDetailView.vue'),
+        component: routeComponents.ProjectDetail,
         meta: { requiresAuth: true, developersOnly: true },
     },
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/LoginView.vue'),
+        component: routeComponents.Login,
     },
     {
         path: '/signup',
         name: 'SignUp',
-        component: () => import('../views/SignUpView.vue'),
+        component: routeComponents.SignUp,
     },
     {
         path: '/:catchAll(.*)',
         name: 'page-not-found',
-        component: () => import('../views/Error404View.vue'),
+        component: routeComponents.NotFound,
     },
 ]
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-
+})
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore()
 
