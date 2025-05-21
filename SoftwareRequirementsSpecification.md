@@ -68,7 +68,7 @@ The following chapter provides an overview of this project with vision and Overa
 Hobby Devs is about creating a collaborative space, where ideas meet development. We want to connect people with innovative ideas to hobby developers who can bring these visions to life. Users can post their project ideas and developers can apply, providing their budget and time frame. Through ratings and reviews, the project idea can find the perfect developer, that will help you build ideas to reality.
 
 ### 2.2 Use Case Diagram
-![Use Case Diagram](./use_cases/Use_Case_Diagram.png)
+![Use Case Diagram](./use_cases/UCD.png)
 
 - Blue: Planned until end of november 2024
 - Green: Planned until end of may 2025
