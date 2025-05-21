@@ -131,7 +131,7 @@ This feature is the essential one of our project. The developer gets the possibi
 [Giving Rating](./use_cases/UC6_Giving_Rating.md)
 
 #### 3.1.7 Project Editing
-...
+Project owners can edit the details of their posted projects, such as title, description, required skills, salary range, and duration. This ensures that project information stays accurate and up to date.
 
 [Project Editing](./use_cases/UC7_Project_Editing.md)
 
