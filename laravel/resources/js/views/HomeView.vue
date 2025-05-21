@@ -1,33 +1,6 @@
 <template>
     <v-container class="py-12">
       <v-row>
-        <!-- Sleek Welcome Card with Fade -->
-        <v-col cols="12" v-if="authStore.getUser">
-          <v-fade-transition>
-            <v-card class="welcome-card d-flex align-center pa-0 glass" elevation="4">
-              <v-avatar size="80" class="ma-6 gradient-avatar">
-                <v-icon size="56" color="white">mdi-account-circle</v-icon>
-              </v-avatar>
-              <div class="flex-grow-1 py-6 pr-8">
-                <div class="text-h6 font-weight-bold mb-1">
-                  Welcome back, {{ authStore.getUser.firstname }}!
-                </div>
-                <div class="text-body-1 mb-2">
-                  <strong>Name:</strong>
-                  {{ authStore.getUser.firstname }} {{ authStore.getUser.lastname }}
-                </div>
-                <div class="text-body-1 mb-2">
-                  <strong>Email:</strong> {{ authStore.getUser.email }}
-                </div>
-                <div class="text-body-1 mb-4">
-                  <strong>Role:</strong> {{ authStore.getUserType }}
-                </div>
-                <v-btn color="primary" to="/profile" class="elevated-btn">Edit My Profile</v-btn>
-              </div>
-            </v-card>
-          </v-fade-transition>
-        </v-col>
-  
         <!-- Hero with Typing Animation -->
         <v-col cols="12">
           <v-sheet class="pa-12 text-center hero-gradient glass" elevation="6" rounded>
@@ -92,9 +65,7 @@
   <script setup>
   import { onMounted, ref } from 'vue'
   import Typed from 'typed.js'
-  import { useAuthStore } from '@/stores/auth'
   
-  const authStore = useAuthStore()
   const typed = ref(null)
   
   const features = [
