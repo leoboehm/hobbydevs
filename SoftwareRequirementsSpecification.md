@@ -126,10 +126,19 @@ This feature is the essential one of our project. The developer gets the possibi
 [Applying for a Project](./use_cases/UC5_Applying_for_a_Project.md)
 
 #### 3.1.6 Give Rating
+...
+
+[Giving Rating](./use_cases/UC6_Giving_Rating.md)
 
 #### 3.1.7 Project Editing
+...
+
+[Project Editing](./use_cases/UC7_Project_Editing.md)
 
 #### 3.1.8 Profile Editing
+...
+
+[Profile Editing](./use_cases/UC8_Profile_Editing.md)
 
 ## 3.2 Usability
 tbd
