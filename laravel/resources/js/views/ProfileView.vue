@@ -244,6 +244,15 @@
                                     outlined
                                     dense
                                 />
+                                <v-text-field
+                                    v-model="userData.transferAmount"
+                                    label="Amount"
+                                    type="number"
+                                    min="1"
+                                    :rules="[rules.required]"
+                                    outlined
+                                    dense
+                                />
                                 <v-btn
                                     color="green"
                                     @click="transferCredit"
@@ -332,6 +341,7 @@ const transferCredit = async () => {
         }
     }
 }
+
 
 const viewProjectDetail = id => {
     router.push({ name: 'ProjectDetail', params: { id } })
