@@ -28,6 +28,52 @@ This use case allows a **Project Owner** to edit the details of a project they h
 6. The system validates the input and saves the changes.
 7. A success message confirms the update, and the user is redirected to the updated project page or overview list.
 
+   
+##  .feature File
+The Gherkin script for this use case is available [here](../features/UC7_Project_Editing.feature).
+```gherkin
+Feature: Editing a Project
+  As a project owner
+  I want to edit the details of a project I posted
+  So that I can update information like title, category, skills, salary, and duration
+
+  Background:
+    Given the user is logged in as a project owner
+    And the user has posted a project
+
+  Scenario Outline: Successful project edit
+    Given the project owner clicks the "Edit" button
+    And updates the "<field>" with "<newValue>"
+    When the project owner clicks the "Save" button
+    Then the project is updated with the new information
+    And a success message is displayed
+
+    Examples:
+      | field        | newValue               |
+      | Title        | Hobby Devs Updated     |
+      | Description  | A new description here |
+      | Category     | Web Development        |
+      | Skills       | Vue, Laravel, Docker   |
+      | Salary Range | Not Paid               |
+      | Duration     |               3 Months |
+
+  Scenario: Required field missing
+    Given the project owner clicks the "Edit" button
+    And clears the "Title" field
+    When the project owner clicks the "Save" button
+    Then an error message is displayed indicating the title is required
+    And the changes are not saved
+
+  Scenario: Invalid form input
+    Given the project owner enters an empty skill list
+    When the project owner clicks the "Save" button
+    Then an error message is shown
+    And the project data remains unchanged
+```
+
+
+
+
 ### Activity Diagram
 ![1 drawio](https://github.com/user-attachments/assets/e7e0e6b0-0bc3-47d6-a692-f4f8b722b7b4)
 
