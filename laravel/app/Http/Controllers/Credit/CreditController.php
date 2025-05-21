@@ -56,7 +56,8 @@ class CreditController extends Controller
 
     public function getCredits(Request $request)
     {
-        $user = Auth::user();
+        //$user = Auth::user();
+        $user = $request->user();
         return response()->json(['credits' => $user->credits]);
     }
 

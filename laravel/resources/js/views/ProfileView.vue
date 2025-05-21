@@ -25,6 +25,7 @@
                 <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
                     >Your Projects</v-tab
                 >
+                <v-tab value="four">Available credit</v-tab>
             </v-tabs>
 
             <v-tabs-window v-model="activeTab">
@@ -215,6 +216,24 @@
                         </v-row>
                     </v-card-text>
                 </v-tabs-window-item>
+
+                <!-- Available Credit Tab -->
+                <v-tabs-window-item value="four">
+                    <v-card-text>
+                        <div v-if="authStore.getUserIsProjectOwner">
+                            You are not a project owner.
+                        </div>
+                        <div v-else>
+                            <p class="text-h6 font-weight-bold">
+                                Available credit: {{ userData.credits }}
+                            </p>
+                            <p>
+                                You can use this credit to post projects and
+                                hire developers.
+                            </p>
+                        </div>
+                    </v-card-text>
+                </v-tabs-window-item>
             </v-tabs-window>
         </v-card>
     </v-container>
@@ -227,12 +246,14 @@ import { useAuthStore } from '@/stores/auth'
 import { useProfileStore } from '@/stores/profile'
 import { useSkillStore } from '../stores/skill'
 import { useProjectStore } from '../stores/project'
+import { useCreditStore } from '../stores/credit'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const profileStore = useProfileStore()
 const projectStore = useProjectStore()
 const skillStore = useSkillStore()
+const creditStore = useCreditStore()
 
 const activeTab = ref('one')
 const editMode = ref(false)
@@ -287,6 +308,7 @@ const viewProjectDetail = id => {
 onMounted(async () => {
     loadUser()
     await profileStore.loadApplications()
+    await creditStore.fetchCredits()
 
     ownedProjects.value = await projectStore.actionGetProjectsByUser(
         originalUser.value.id,
