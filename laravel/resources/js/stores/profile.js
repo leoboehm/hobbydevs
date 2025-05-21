@@ -38,7 +38,7 @@ export const useProfileStore = defineStore('profileStore', {
 
                     for(let item in response.data) {
                         const project = await projectStore.actionGetProjectByID(response.data[item].project_id)
-                        response.data[item].project = project.data
+                        response.data[item].project = project
                     }
 
                     this.applications = response.data
@@ -53,7 +53,7 @@ export const useProfileStore = defineStore('profileStore', {
                     
                     for(let item in response.data) {
                         const project = await projectStore.actionGetProjectByID(response.data[item].project_id)
-                        response.data[item].project = project.data
+                        response.data[item].project = project
                     }
 
                     this.applications = response.data

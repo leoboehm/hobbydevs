@@ -135,15 +135,15 @@
                                 v-for="app in profileStore.getApplications"
                                 :key="app.id"
                             >
-                                <div v-if="authStore.getUserIsDeveloper">
+                                <template v-if="authStore.getUserIsDeveloper">
                                     <v-list-item-title>{{
                                         app.project.title
                                     }}</v-list-item-title>
                                     <v-list-item-subtitle>
                                         Status: {{ app.status }}
                                     </v-list-item-subtitle>
-                                </div>
-                                <div
+                                </template>
+                                <template
                                     v-else-if="authStore.getUserIsProjectOwner"
                                 >
                                     <v-list-item-title>
@@ -155,13 +155,22 @@
                                         >Status:
                                         {{ app.status }}</v-list-item-subtitle
                                     >
-                                </div>
+                                </template>
+                                <v-btn
+                                    @click="viewProjectDetail(app.project_id)"
+                                    class="text-primary"
+                                    outlined
+                                    >Go to project
+                                    <v-icon class="ml-2"
+                                        >mdi-arrow-right</v-icon
+                                    >
+                                </v-btn>
                             </v-list-item>
                         </v-list>
                     </v-card-text>
                 </v-tabs-window-item>
 
-                <!-- Applications Tab -->
+                <!-- Owned Projects Tab -->
                 <v-tabs-window-item value="three">
                     <v-card-text>
                         <div v-if="!ownedProjects.length">
