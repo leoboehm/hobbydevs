@@ -29,7 +29,6 @@ class UserControllerTest extends TestCase
             'firstname' => 'UpdatedFirstName',
             'lastname' => 'UpdatedLastName',
             'username' => 'updatedusername',
-            'email' => 'updatedemail@example.com',
         ];
 
         // Send PUT request to update user
@@ -44,7 +43,6 @@ class UserControllerTest extends TestCase
             'firstname' => 'UpdatedFirstName',
             'lastname' => 'UpdatedLastName',
             'username' => 'updatedusername',
-            'email' => 'updatedemail@example.com',
         ]);
     }
 
@@ -63,10 +61,10 @@ class UserControllerTest extends TestCase
 
         // Invalid data (username already taken)
         $invalidData = [
+            'id' => $user->id,
             'firstname' => '', // Required field is empty
             'lastname' => 'UpdatedLastName',
             'username' => $user->username, // Same username
-            'email' => 'invalidemail', // Invalid email format
         ];
 
         // Send PUT request with invalid data
@@ -76,6 +74,6 @@ class UserControllerTest extends TestCase
         $response->assertStatus(422); // 422 Unprocessable Entity
 
         // Assert that the validation errors are for specific fields
-        $response->assertJsonValidationErrors(['firstname', 'email']);
+        $response->assertJsonValidationErrors(['firstname']);
     }
 }

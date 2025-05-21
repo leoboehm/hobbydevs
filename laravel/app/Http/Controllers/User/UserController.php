@@ -11,29 +11,40 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = User::find($request->id);
-        
+
         $validated = $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'skills' => '',
-            'experience' => '',
-            'bio' => '',
-            'rating' => '',
-            'interests' => ''
+            "firstname" => "required|string|max:255",
+            "lastname" => "required|string|max:255",
+            "username" => "required|string|max:255",
         ]);
 
-        $user->update($validated);
+        $user->update([
+            "firstname" => $validated['firstname'],
+            'lastname' => $validated['lastname'],
+            'username' => $validated['username'],
+            'skills' => json_encode($request->skills),
+            'experience' => $request->experience,
+            'bio' => $request->bio,
+            'rating' => $request->rating,
+            'interests' => $request->interests
+        ]);
 
-        return response()->json(['message' => 'User updated successfully'], 200);
+        return response()->json($user);
     }
 
     public function getDeveloperList(Request $request)
     {
         $developers = User::where('type', 'Developer')->get();
-        return response()->json($developers);
+        
+        $developersList = [];
+
+        foreach ($developers as $developer) {
+            array_push($developersList, $this->decodeSkills($developer));
+        }
+
+        return response()->json($developersList);
     }
+    
     public function getDeveloperById(Request $request, string $id)
     {
         $developer = User::find($id);
@@ -43,6 +54,11 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        return response()->json($developer);
+        return response()->json($this->decodeSkills($developer));
+    }
+    
+    private function decodeSkills($userData) {
+        $userData->skills = json_decode($userData->skills, true);
+        return $userData;
     }
 }

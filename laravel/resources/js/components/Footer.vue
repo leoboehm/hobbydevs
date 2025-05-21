@@ -1,8 +1,10 @@
 <template>
     <v-footer app>
-        <v-container class="text-center">
-            <span>&copy; 2025 HobbyDevs. All rights reserved.</span>
-        </v-container>
+        <v-row dense class="text-center">
+            <v-spacer />
+            <span>2025 HobbyDevs. All rights reserved.</span>
+            <v-spacer />
+        </v-row>
     </v-footer>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <v-container class="py-10">
         <v-card elevation="2" class="pa-6" max-width="800" mx-auto>
-            <v-card-title>
+            <v-card-title class="d-flex justify-space-between align-center">
                 <span class="text-h5 font-weight-medium">My Profile</span>
                 <v-spacer />
                 <v-btn
@@ -22,6 +22,9 @@
             >
                 <v-tab value="one">Profile Info</v-tab>
                 <v-tab value="two">Applications</v-tab>
+                <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
+                    >Your Projects</v-tab
+                >
             </v-tabs>
 
             <v-tabs-window v-model="activeTab">
@@ -29,38 +32,81 @@
                 <v-tabs-window-item value="one">
                     <v-card-text>
                         <v-form ref="formRef" v-model="valid" lazy-validation>
-                            <v-text-field
-                                v-model="userData.firstname"
-                                label="First Name"
-                                :readonly="!editMode"
-                                :rules="[rules.required]"
-                                outlined
-                                dense
-                            />
-                            <v-text-field
-                                v-model="userData.lastname"
-                                label="Last Name"
-                                :readonly="!editMode"
-                                :rules="[rules.required]"
-                                outlined
-                                dense
-                            />
-                            <v-text-field
-                                v-model="userData.username"
-                                label="Username"
-                                :readonly="!editMode"
-                                :rules="[rules.required]"
-                                outlined
-                                dense
-                            />
-                            <v-text-field
-                                v-model="userData.email"
-                                label="Email"
-                                :readonly="!editMode"
-                                :rules="[rules.required, rules.email]"
-                                outlined
-                                dense
-                            />
+                            <v-row dense>
+                                <v-col cols="6">
+                                    <v-text-field
+                                        v-model="userData.firstname"
+                                        label="First Name"
+                                        :readonly="!editMode"
+                                        :rules="[rules.required]"
+                                        outlined
+                                        dense
+                                /></v-col>
+                                <v-col cols="6">
+                                    <v-text-field
+                                        v-model="userData.lastname"
+                                        label="Last Name"
+                                        :readonly="!editMode"
+                                        :rules="[rules.required]"
+                                        outlined
+                                        dense /></v-col
+                            ></v-row>
+                            <v-row dense>
+                                <v-col cols="6">
+                                    <v-text-field
+                                        v-model="userData.username"
+                                        label="Username"
+                                        :readonly="!editMode"
+                                        :rules="[rules.required]"
+                                        outlined
+                                        dense
+                                /></v-col>
+                                <v-col cols="6">
+                                    <v-text-field
+                                        v-model="userData.email"
+                                        label="Email"
+                                        disabled
+                                        outlined
+                                        dense
+                                /></v-col>
+                            </v-row>
+                            <template v-if="authStore.getUserIsDeveloper">
+                                <v-textarea
+                                    v-model="userData.bio"
+                                    label="Bio"
+                                    auto-grow
+                                    rows="2"
+                                    :readonly="!editMode"
+                                    outlined
+                                    dense
+                                />
+                                <v-text-field
+                                    v-model="userData.experience"
+                                    label="Past experience"
+                                    :readonly="!editMode"
+                                    outlined
+                                    dense
+                                />
+                                <v-textarea
+                                    v-model="userData.interests"
+                                    label="Interests"
+                                    auto-grow
+                                    rows="1"
+                                    :readonly="!editMode"
+                                    outlined
+                                    dense
+                                />
+                                <v-select
+                                    v-model="userData.skills"
+                                    :items="skills"
+                                    label="Skills"
+                                    outlined
+                                    dense
+                                    multiple
+                                    chips
+                                    :readonly="!editMode"
+                                ></v-select>
+                            </template>
                         </v-form>
                     </v-card-text>
 
@@ -102,9 +148,8 @@
                                 >
                                     <v-list-item-title>
                                         {{ app.user.firstname }}
-                                        {{ app.user.lastname }} applied to your project "{{
-                                            app.project.title
-                                        }}"
+                                        {{ app.user.lastname }} applied to your
+                                        project "{{ app.project.title }}"
                                     </v-list-item-title>
                                     <v-list-item-subtitle
                                         >Status:
@@ -115,6 +160,52 @@
                         </v-list>
                     </v-card-text>
                 </v-tabs-window-item>
+
+                <!-- Applications Tab -->
+                <v-tabs-window-item value="three">
+                    <v-card-text>
+                        <div v-if="!ownedProjects.length">
+                            No projects so far.
+                            <router-link to="/projects/post"
+                                >Click here</router-link
+                            >
+                            to post your first project.
+                        </div>
+                        <v-row
+                            dense
+                            v-for="project in ownedProjects"
+                            :key="project.id"
+                        >
+                            <v-col cols="12">
+                                <v-card class="elevation-2">
+                                    <v-card-title
+                                        class="text-h6 font-weight-bold"
+                                        >{{ project.title }}</v-card-title
+                                    >
+                                    <v-card-subtitle class="text-subtitle-2"
+                                        >Category:
+                                        {{ project.category }}</v-card-subtitle
+                                    >
+
+                                    <v-card-actions>
+                                        <v-spacer />
+                                        <v-btn
+                                            @click="
+                                                viewProjectDetail(project.id)
+                                            "
+                                            class="text-primary"
+                                            outlined
+                                            >Project detail
+                                            <v-icon class="ml-2"
+                                                >mdi-arrow-right</v-icon
+                                            >
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-tabs-window-item>
             </v-tabs-window>
         </v-card>
     </v-container>
@@ -122,11 +213,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useProfileStore } from '@/stores/profile'
+import { useSkillStore } from '../stores/skill'
+import { useProjectStore } from '../stores/project'
 
+const router = useRouter()
 const authStore = useAuthStore()
 const profileStore = useProfileStore()
+const projectStore = useProjectStore()
+const skillStore = useSkillStore()
 
 const activeTab = ref('one')
 const editMode = ref(false)
@@ -140,6 +237,10 @@ const userData = ref({
     username: '',
     email: '',
 })
+
+const skills = ref([])
+
+const ownedProjects = ref([])
 
 const rules = {
     required: v => !!v || 'This field is required',
@@ -161,11 +262,8 @@ const cancelEdit = () => {
 const saveEdit = async () => {
     if (formRef.value?.validate()) {
         try {
-            const updatedUser = await profileStore.updateUser(userData.value)
-            authStore.setUser(updatedUser)
-            originalUser.value = { ...updatedUser }
-            editMode.value = false
-            alert('Profile updated successfully!')
+            await profileStore.updateUser(userData.value)
+            router.go()
         } catch (error) {
             console.error('Failed to update profile:', error)
             alert('Something went wrong while saving.')
@@ -173,9 +271,22 @@ const saveEdit = async () => {
     }
 }
 
+const viewProjectDetail = id => {
+    router.push({ name: 'ProjectDetail', params: { id } })
+}
+
 onMounted(async () => {
     loadUser()
     await profileStore.loadApplications()
+
+    ownedProjects.value = await projectStore.actionGetProjectsByUser(
+        originalUser.value.id,
+    )
+
+    await skillStore.fetchSkills()
+    if (!skillStore.getSkillsLoading) {
+        skills.value = skillStore.getSkills
+    }
 })
 </script>
 
