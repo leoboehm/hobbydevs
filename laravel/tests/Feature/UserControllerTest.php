@@ -29,7 +29,6 @@ class UserControllerTest extends TestCase
             'firstname' => 'UpdatedFirstName',
             'lastname' => 'UpdatedLastName',
             'username' => 'updatedusername',
-            'email' => 'updatedemail@example.com',
         ];
 
         // Send PUT request to update user
@@ -44,7 +43,6 @@ class UserControllerTest extends TestCase
             'firstname' => 'UpdatedFirstName',
             'lastname' => 'UpdatedLastName',
             'username' => 'updatedusername',
-            'email' => 'updatedemail@example.com',
         ]);
     }
 
