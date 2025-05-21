@@ -92,3 +92,5 @@ The developer's profile reflects the new average rating.
 n/a
 
 # 7. CRUD Operation
+This Use Case represents an "Update" operation in the CRUD model.  
+The rating modifies the existing developer record by updating their average rating field based on new input from the project owner.
