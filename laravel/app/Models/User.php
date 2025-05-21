@@ -24,11 +24,11 @@ class User extends Authenticatable
         'lastname',
         'email',
         'password',
-        'skills' => '',
-        'experience' => '',
-        'bio' => '',
-        'rating' => 0,
-        'interests' => ''
+        'skills',
+        'experience',
+        'bio',
+        'rating',
+        'interests'
     ];
     
     /**
