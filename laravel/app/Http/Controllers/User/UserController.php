@@ -32,8 +32,16 @@ class UserController extends Controller
     public function getDeveloperList(Request $request)
     {
         $developers = User::where('type', 'Developer')->get();
-        return response()->json($developers);
+        
+        $developersList = [];
+
+        foreach ($developers as $developer) {
+            array_push($developersList, $this->decodeSkills($developer));
+        }
+
+        return response()->json($developersList);
     }
+    
     public function getDeveloperById(Request $request, string $id)
     {
         $developer = User::find($id);
@@ -43,6 +51,11 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        return response()->json($developer);
+        return response()->json($this->decodeSkills($developer));
+    }
+    
+    private function decodeSkills($userData) {
+        $userData->skills = json_decode($userData->skills, true);
+        return $userData;
     }
 }
