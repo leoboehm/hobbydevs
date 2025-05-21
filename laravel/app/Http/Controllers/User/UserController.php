@@ -11,23 +11,17 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = User::find($request->id);
-        
+
         $validated = $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'skills' => '',
-            'experience' => '',
-            'bio' => '',
-            'rating' => '',
-            'interests' => ''
+            "firstname" => "required|string|max:255",
+            "lastname" => "required|string|max:255",
+            "username" => "required|string|max:255",
         ]);
 
         $user->update([
-            "firstname" => $request->firstname,
-            'lastname' => $request->lastname,
-            'username' => $request->username,
+            "firstname" => $validated['firstname'],
+            'lastname' => $validated['lastname'],
+            'username' => $validated['username'],
             'skills' => json_encode($request->skills),
             'experience' => $request->experience,
             'bio' => $request->bio,
