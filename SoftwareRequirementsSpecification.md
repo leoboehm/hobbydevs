@@ -136,7 +136,7 @@ This feature is the essential one of our project. The developer gets the possibi
 [Project Editing](./use_cases/UC7_Project_Editing.md)
 
 #### 3.1.8 Profile Editing
-...
+In this feature a user can edit their profile information within the system. The user can update personal details such as their first name, last name, username and email address. The user can also see their applications.
 
 [Profile Editing](./use_cases/UC8_Profile_Editing.md)
 
