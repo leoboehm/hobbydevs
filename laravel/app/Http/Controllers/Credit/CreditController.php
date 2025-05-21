@@ -29,4 +29,42 @@ class CreditController extends Controller
 
         return response()->json(['credits' => $user->credits]);
     }
+
+    public function transferCredits(Request $request)
+    {
+        $user = Auth::user();
+        $recipientId = $request->input('recipient_id');
+        $amount = $request->input('amount', 1);
+
+        if ($user->credits < $amount) {
+            return response()->json(['error' => 'Not enough credits'], 400);
+        }
+
+        $recipient = User::find($recipientId);
+        if (!$recipient) {
+            return response()->json(['error' => 'Recipient not found'], 404);
+        }
+
+        $user->credits -= $amount;
+        $recipient->credits += $amount;
+
+        $user->save();
+        $recipient->save();
+
+        return response()->json(['credits' => $user->credits]);
+    }
+
+    public function getCredits(Request $request)
+    {
+        $user = Auth::user();
+        return response()->json(['credits' => $user->credits]);
+    }
+
+    /*public function getCreditHistory(Request $request)
+    {
+        $user = Auth::user();
+        // Assuming you have a CreditHistory model
+        $history = $user->creditHistory()->get();
+        return response()->json($history);
+    }*/
 }
