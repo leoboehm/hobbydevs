@@ -57,7 +57,7 @@ Another goal is to have a full-stack framework that facilitates integration betw
 3. Need to support both frontend and backend within the same framework, favoring Laravel due to its compatibility with Vue.js
 
 ## 4. Use-Case View
-![Use-Case]
+![Use Case View](./use_cases/UCD.png)
 
 ### 4.1 Use-Case Realizations
 Our application supports various interactions for two main actors: **Developer** and **Project Owner**.
