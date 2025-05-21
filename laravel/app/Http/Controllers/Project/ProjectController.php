@@ -20,7 +20,13 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
 
-        return response()->json($projects);
+        $projectsList = [];
+
+        foreach ($projects as $project) {
+            array_push($projectsList, $this->decodeSkills($project));
+        }
+
+        return response()->json($projectsList);
     }
 
     /**
@@ -59,7 +65,7 @@ class ProjectController extends Controller
             return response()->json(['message' => 'Project not found'], 404);
         }
 
-        return response()->json($project);
+        return response()->json($this->decodeSkills($project));
     }
 
     /**
@@ -101,5 +107,9 @@ class ProjectController extends Controller
     {
         //
     }
-    
+
+    private function decodeSkills($projectData) {
+        $projectData->skills = json_decode($projectData->skills, true);
+        return $projectData;
+    }
 }
