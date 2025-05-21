@@ -24,7 +24,9 @@ use App\Http\Controllers\User\UserController;
 
 // return user
 Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    $userData = $request->user();
+    $userData->skills = json_decode($userData->skills, true);
+    return $userData;
 });
 
 // register new user
