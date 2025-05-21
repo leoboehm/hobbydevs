@@ -6,6 +6,8 @@
 This use case allows a **Project Owner** to edit the details of a project they have already created. The purpose is to enable updating the title, description, required skills, or any other relevant fields after the project has been posted.
 
 ## 1.2 Mockup 
+![ss](https://github.com/user-attachments/assets/1d50bb5c-1fd9-4766-8094-51188d783eb2)
+
 
 ## 1.3 Screenshots
 
