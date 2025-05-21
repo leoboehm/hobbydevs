@@ -128,7 +128,7 @@ This feature is the essential one of our project. The developer gets the possibi
 #### 3.1.6 Give Rating
 In this feature, a project owner can rate a developer after collaborating on a project. The rating helps provide feedback and build trust within the platform. The rating is given on a scale from 1 to 5 stars and is displayed publicly on the developer’s profile.
 
-[Giving Rating](./use_cases/UC6_Giving_Rating.md)
+[Giving Rating](use_cases/UC6_Give_Rating.md)
 
 #### 3.1.7 Project Editing
 Project owners can edit the details of their posted projects, such as title, description, required skills, salary range, and duration. This ensures that project information stays accurate and up to date.
