@@ -25,7 +25,7 @@
                 <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
                     >Your Projects</v-tab
                 >
-                <v-tab value="four">Available credit</v-tab>
+                <v-tab value="four">Credit</v-tab>
             </v-tabs>
 
             <v-tabs-window v-model="activeTab">
@@ -220,10 +220,7 @@
                 <!-- Available Credit Tab -->
                 <v-tabs-window-item value="four">
                     <v-card-text>
-                        <div v-if="authStore.getUserIsProjectOwner">
-                            You are not a project owner.
-                        </div>
-                        <div v-else>
+                        <div>
                             <p class="text-h6 font-weight-bold">
                                 Available credit: {{ userData.credits }}
                             </p>
@@ -231,6 +228,29 @@
                                 You can use this credit to post projects and
                                 hire developers.
                             </p>
+                            <p class="text-h6 font-weight-bold">
+                                Transfer credit
+                            </p>
+                            <p>
+                                You can transfer credit to other users. Please
+                                enter the email of the user you want to transfer
+                                credit to.
+                            </p>
+                            <v-form ref="formRef" v-model="valid">
+                                <v-text-field
+                                    v-model="userData.transferEmail"
+                                    label="Email"
+                                    :rules="[rules.email]"
+                                    outlined
+                                    dense
+                                />
+                                <v-btn
+                                    color="green"
+                                    @click="transferCredit"
+                                    :disabled="!valid"
+                                    >Transfer</v-btn
+                                >
+                            </v-form>
                         </div>
                     </v-card-text>
                 </v-tabs-window-item>
@@ -297,6 +317,18 @@ const saveEdit = async () => {
         } catch (error) {
             console.error('Failed to update profile:', error)
             alert('Something went wrong while saving.')
+        }
+    }
+}
+const transferCredit = async () => {
+    if (formRef.value?.validate()) {
+        try {
+            await creditStore.transferCredit(userData.value.transferEmail)
+            alert('Credit transferred successfully.')
+            userData.value.transferEmail = ''
+        } catch (error) {
+            console.error('Failed to transfer credit:', error)
+            alert('Something went wrong while transferring credit.')
         }
     }
 }
