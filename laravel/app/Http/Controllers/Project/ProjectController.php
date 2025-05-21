@@ -109,7 +109,7 @@ class ProjectController extends Controller
     }
 
     private function decodeSkills($projectData) {
-        $projectData->skills = json_decode($projectData->skills, true);
+        $projectData->skills = json_decode($projectData->skills, true) ?: [];
         return $projectData;
     }
 }

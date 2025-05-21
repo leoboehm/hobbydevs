@@ -90,6 +90,7 @@ const saveRating = async () => {
         const newRating = calculateRating()
         const updatedDeveloper = {...developer.value}
         updatedDeveloper.rating = newRating
+        console.debug("developer", updatedDeveloper)
         await profileStore.updateUser(updatedDeveloper)
         router.go()
     } catch (error) {

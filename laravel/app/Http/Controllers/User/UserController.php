@@ -23,10 +23,10 @@ class UserController extends Controller
             'lastname' => $validated['lastname'],
             'username' => $validated['username'],
             'skills' => json_encode($request->skills),
-            'experience' => $request->experience,
-            'bio' => $request->bio,
-            'rating' => $request->rating,
-            'interests' => $request->interests
+            'experience' => $request->experience ?: '',
+            'bio' => $request->bio ?: '',
+            'rating' => $request->rating ?: '',
+            'interests' => $request->interests ?: ''
         ]);
 
         return response()->json($user);
@@ -58,7 +58,7 @@ class UserController extends Controller
     }
     
     private function decodeSkills($userData) {
-        $userData->skills = json_decode($userData->skills, true);
+        $userData->skills = json_decode($userData->skills, true) ?: [];
         return $userData;
     }
 }
