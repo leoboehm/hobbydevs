@@ -1,7 +1,7 @@
 <template>
     <v-container class="py-10">
         <v-card elevation="2" class="pa-6" max-width="800" mx-auto>
-            <v-card-title>
+            <v-card-title class="d-flex justify-space-between align-center">
                 <span class="text-h5 font-weight-medium">My Profile</span>
                 <v-spacer />
                 <v-btn

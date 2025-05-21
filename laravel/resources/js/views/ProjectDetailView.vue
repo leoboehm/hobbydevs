@@ -1,13 +1,15 @@
 <template>
     <v-container v-if="project">
-        <h1 v-if="!editMode">{{ project.title }}</h1>
-        <v-btn
-            color="primary"
-            @click="editMode = true"
-            v-if="!editMode && isOwner"
-        >
-            <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
-        </v-btn>
+        <h1 v-if="!editMode" class="d-flex justify-space-between align-center">
+            {{ project.title }}
+            <v-btn
+                color="primary"
+                @click="editMode = true"
+                v-if="!editMode && isOwner"
+            >
+                <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
+            </v-btn>
+        </h1>
 
         <v-divider class="my-4"></v-divider>
 
