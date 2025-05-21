@@ -24,9 +24,18 @@ class UserController extends Controller
             'interests' => ''
         ]);
 
-        $user->update($validated);
+        $user->update([
+            "firstname" => $request->firstname,
+            'lastname' => $request->lastname,
+            'username' => $request->username,
+            'skills' => json_encode($request->skills),
+            'experience' => $request->experience,
+            'bio' => $request->bio,
+            'rating' => $request->rating,
+            'interests' => $request->interests
+        ]);
 
-        return response()->json(['message' => 'User updated successfully'], 200);
+        return response()->json($user);
     }
 
     public function getDeveloperList(Request $request)
