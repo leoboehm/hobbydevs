@@ -8,7 +8,6 @@ export const routeComponents = {
   Apply:   () => import('../views/ApplicationsView.vue'),
   Profile: () => import('../views/ProfileView.vue'),
   Projects:() => import('../views/ProjectsView.vue'),
-  OwnedProjects:   () => import('../views/OwnedProjectsView.vue'),
   PostProject:() => import('../views/PostProjectView.vue'),
   ProjectDetail:() => import('../views/ProjectDetailView.vue'),
   Login:   () => import('../views/LoginView.vue'),

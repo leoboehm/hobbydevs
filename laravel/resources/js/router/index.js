@@ -47,12 +47,6 @@ const routes = [
       meta: { developersOnly: true },
     },
     {
-      path: '/projects/owned',
-      name: 'OwnedProjects',
-      component: routeComponents.OwnedProjects,
-      meta: { requiresAuth: true, projectOwnersOnly: true },
-    },
-    {
       path: '/projects/post',
       name: 'PostProject',
       component: routeComponents.PostProject,
@@ -62,7 +56,7 @@ const routes = [
       path: '/projects/:id',
       name: 'ProjectDetail',
       component: routeComponents.ProjectDetail,
-      meta: { requiresAuth: true, developersOnly: true },
+      meta: { requiresAuth: true },
     },
     {
       path: '/login',

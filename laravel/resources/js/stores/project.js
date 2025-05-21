@@ -43,6 +43,19 @@ export const useProjectStore = defineStore('projectStore', {
                 return null
             }
         },
+        // Get project list for specific user
+        async actionGetProjectsByUser(owner_id) {
+            try {
+                const projects = await this.actionGetAllProjects()
+                return projects.filter(item => item.owner_id == owner_id)
+            } catch (error) {
+                console.error(error)
+                this.error = error.response
+                    ? error.response.data.message
+                    : 'An error occurred during fetching of project list'
+                return null
+            }
+        },
         // Get project by ID
         async actionGetProjectByID(id) {
             try {

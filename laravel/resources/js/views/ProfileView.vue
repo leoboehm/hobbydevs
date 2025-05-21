@@ -22,6 +22,9 @@
             >
                 <v-tab value="one">Profile Info</v-tab>
                 <v-tab value="two">Applications</v-tab>
+                <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
+                    >Your Projects</v-tab
+                >
             </v-tabs>
 
             <v-tabs-window v-model="activeTab">
@@ -157,6 +160,52 @@
                         </v-list>
                     </v-card-text>
                 </v-tabs-window-item>
+
+                <!-- Applications Tab -->
+                <v-tabs-window-item value="three">
+                    <v-card-text>
+                        <div v-if="!ownedProjects.length">
+                            No projects so far.
+                            <router-link to="/projects/post"
+                                >Click here</router-link
+                            >
+                            to post your first project.
+                        </div>
+                        <v-row
+                            dense
+                            v-for="project in ownedProjects"
+                            :key="project.id"
+                        >
+                            <v-col cols="12">
+                                <v-card class="elevation-2">
+                                    <v-card-title
+                                        class="text-h6 font-weight-bold"
+                                        >{{ project.title }}</v-card-title
+                                    >
+                                    <v-card-subtitle class="text-subtitle-2"
+                                        >Category:
+                                        {{ project.category }}</v-card-subtitle
+                                    >
+
+                                    <v-card-actions>
+                                        <v-spacer />
+                                        <v-btn
+                                            @click="
+                                                viewProjectDetail(project.id)
+                                            "
+                                            class="text-primary"
+                                            outlined
+                                            >Project detail
+                                            <v-icon class="ml-2"
+                                                >mdi-arrow-right</v-icon
+                                            >
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-tabs-window-item>
             </v-tabs-window>
         </v-card>
     </v-container>
@@ -168,10 +217,12 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useProfileStore } from '@/stores/profile'
 import { useSkillStore } from '../stores/skill'
+import { useProjectStore } from '../stores/project'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const profileStore = useProfileStore()
+const projectStore = useProjectStore()
 const skillStore = useSkillStore()
 
 const activeTab = ref('one')
@@ -188,6 +239,8 @@ const userData = ref({
 })
 
 const skills = ref([])
+
+const ownedProjects = ref([])
 
 const rules = {
     required: v => !!v || 'This field is required',
@@ -218,9 +271,17 @@ const saveEdit = async () => {
     }
 }
 
+const viewProjectDetail = id => {
+    router.push({ name: 'ProjectDetail', params: { id } })
+}
+
 onMounted(async () => {
     loadUser()
     await profileStore.loadApplications()
+
+    ownedProjects.value = await projectStore.actionGetProjectsByUser(
+        originalUser.value.id,
+    )
 
     await skillStore.fetchSkills()
     if (!skillStore.getSkillsLoading) {
