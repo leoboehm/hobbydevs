@@ -40,21 +40,15 @@ class ProjectApplicationController extends Controller
     }
     public function getSentApplications(string $userId)
     {
-        $user = Auth::user();
-        $applications = Application::with('project')
-            ->where('user_id', $user->id)
-            ->get();
+        $applications = Application::where('user_id', $userId)->get();
         return response()->json($applications);
     }
 
     public function getReceivedApplications(string $userId)
     {
-        $user = Auth::user();
-        $applications = Application::with(['project', 'user'])
-            ->whereHas('project', function ($query) use ($user) {
-                $query->where('owner_id', $user->id);
-            })
-            ->get();
+        $applications = Application::with('project')->whereHas('project', function ($query) use ($userId) {
+            $query->where('owner_id', $userId);
+        })->get();
         return response()->json($applications);
     }
 }
