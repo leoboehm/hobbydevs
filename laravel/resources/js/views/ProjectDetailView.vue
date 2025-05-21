@@ -49,6 +49,7 @@
                 dense
                 multiple
                 required
+                chips
                 :rules="[rules.required]"
                 :readonly="!editMode"
             ></v-select>
