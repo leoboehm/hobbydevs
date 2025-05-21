@@ -126,7 +126,7 @@ This feature is the essential one of our project. The developer gets the possibi
 [Applying for a Project](./use_cases/UC5_Applying_for_a_Project.md)
 
 #### 3.1.6 Give Rating
-...
+In this feature, a project owner can rate a developer after collaborating on a project. The rating helps provide feedback and build trust within the platform. The rating is given on a scale from 1 to 5 stars and is displayed publicly on the developer’s profile.
 
 [Giving Rating](./use_cases/UC6_Giving_Rating.md)
 
