@@ -33,14 +33,14 @@ class CreditController extends Controller
     public function transferCredits(Request $request)
     {
         $user = Auth::user();
-        $recipientId = $request->input('recipient_id');
+        $recipientEmail = $request->input('recipient_email');
         $amount = $request->input('amount', 1);
 
         if ($user->credits < $amount) {
             return response()->json(['error' => 'Not enough credits'], 400);
         }
 
-        $recipient = User::find($recipientId);
+        $recipient = \App\Models\User::where('email', $recipientEmail)->first();
         if (!$recipient) {
             return response()->json(['error' => 'Recipient not found'], 404);
         }

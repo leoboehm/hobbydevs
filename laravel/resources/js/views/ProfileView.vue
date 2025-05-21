@@ -332,9 +332,13 @@ const saveEdit = async () => {
 const transferCredit = async () => {
     if (formRef.value?.validate()) {
         try {
-            await creditStore.transferCredit(userData.value.transferEmail)
+            await creditStore.transferCredits(
+                userData.value.transferEmail,
+                userData.value.transferAmount,
+            )
             alert('Credit transferred successfully.')
             userData.value.transferEmail = ''
+            userData.value.transferAmount = ''
         } catch (error) {
             console.error('Failed to transfer credit:', error)
             alert('Something went wrong while transferring credit.')
