@@ -17,20 +17,20 @@ const routes = [
     {
       path: '/developers',
       name: 'Developers',
-      component: routeComponents.Developers,
+      component: routeComponents.Devs,
       meta: { projectOwnersOnly: true },
     },
     {
       path: '/developers/:id',
       name: 'DeveloperDetail',
-      component: routeComponents.DeveloperDetail,
+      component: routeComponents.DevDetail,
       props: true,
       meta: { requiresAuth: true, projectOwnersOnly: true },
     },
     {
       path: '/apply/:projectId',
       name: 'Apply',
-      component: routeComponents.Applications,
+      component: routeComponents.Apply,
       props: true,
       meta: { requiresAuth: true, developersOnly: true },
     },
