@@ -2,76 +2,62 @@ import { defineStore } from 'pinia'
 import apiClient from '../services/axios'
 
 export const useAuthStore = defineStore('authStore', {
-    state: () => ({
-        user: null,
-        error: null,
-        isAuthenticated: false,
-    }),
-    getters: {
-        getIsAuthenticated: state => state.isAuthenticated,
-        getUser: state => state.user,
-        getUserType: state => state.user ? state.user.type : null,
-        getUserIsDeveloper: state => state.user ? state.user.type == "Developer" : null,
-        getUserIsProjectOwner: state => state.user ? state.user.type == "Project Owner" : null,
+  state: () => ({
+    user: null,
+    error: null,
+    isAuthenticated: false,
+  }),
+
+  getters: {
+    getIsAuthenticated: (state) => state.isAuthenticated,
+    getUser: (state) => state.user,
+    getUserType: (state) => state.user?.type ?? null,
+    getUserIsDeveloper: (state) => state.user?.type === 'Developer',
+    getUserIsProjectOwner: (state) => state.user?.type === 'Project Owner',
+  },
+
+  actions: {
+    async fetchUser() {
+      try {
+        const { data } = await apiClient.get('/user')
+        this.user = data
+        this.isAuthenticated = true
+      } catch {
+        this.user = null
+        this.isAuthenticated = false
+      }
     },
-    actions: {
-        async fetchUser() {
-            try {
-                const response = await apiClient.get('/user')
 
-                if (response.status == 200) {
-                    this.user = response.data
-                    this.isAuthenticated = true
-                }
-            } catch (error) {
-                this.user = null
-                this.isAuthenticated = false
-            }
-        },
-        setUser(updatedUser) {
-            this.user = updatedUser
-          },
-        // register new user
-        async actionRegisterNewUser(userData) {
-            try {
-                await apiClient.post('/register', userData)
-            } catch (error) {
-                if (error.response && error.response.data.message) {
-                    // If there's a message from the backend, set it to error
-                    this.error = error.response.data.message;
-                } else {
-                    // Default error message if no specific message exists
-                    this.error = 'An error occurred while registering. Please try again.';
-                }
-            }
-        },        
-        // login user
-        async actionLogin(credentials) {
-            try {
-                const response = await apiClient.post('/login', credentials)
-
-                if (response.status == 200) {
-                    await this.fetchUser()
-
-                    
-                }
-            } catch (error) {
-                console.error('Login-Error:', error)
-            }
-        },
-        // logout user
-        async actionLogout() {
-            try {
-                // Make POST request for logout
-                const response = await apiClient.post('/logout')
-
-                if (response.status === 200) {
-                    this.user = null
-                    this.isAuthenticated = false
-                }
-            } catch (error) {
-                console.error('Logout-Error:', error)
-            }
-        },
+    setUser(updatedUser) {
+      this.user = updatedUser
     },
+
+    async actionRegisterNewUser(userData) {
+      try {
+        await apiClient.post('/register', userData)
+      } catch (error) {
+        this.error = error.response?.data?.message ??
+          'An error occurred while registering. Please try again.'
+      }
+    },
+
+    async actionLogin(credentials) {
+      try {
+        await apiClient.post('/login', credentials)
+        await this.fetchUser()
+      } catch (error) {
+        console.error('Login-Error:', error)
+      }
+    },
+
+    async actionLogout() {
+      try {
+        await apiClient.post('/logout')
+        this.user = null
+        this.isAuthenticated = false
+      } catch (error) {
+        console.error('Logout-Error:', error)
+      }
+    },
+  },
 })
