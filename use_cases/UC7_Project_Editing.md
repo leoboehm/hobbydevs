@@ -9,6 +9,12 @@ This use case allows a **Project Owner** to edit the details of a project they h
 
 ## 1.3 Screenshots
 
+![Screenshot 2025-05-21 at 19 23 51](https://github.com/user-attachments/assets/51bae05a-4e88-4958-9d74-0737197c252c)
+
+
+![Screenshot 2025-05-21 at 19 24 04](https://github.com/user-attachments/assets/9fbe5a30-ee67-449f-9bd3-86db5444faba)
+
+
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
