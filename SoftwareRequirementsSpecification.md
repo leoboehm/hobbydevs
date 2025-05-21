@@ -70,8 +70,8 @@ Hobby Devs is about creating a collaborative space, where ideas meet development
 ### 2.2 Use Case Diagram
 ![Use Case Diagram](./use_cases/Use_Case_Diagram.png)
 
-- Blue: Planned until end of november
-- Green: Planned until end of *next semester*
+- Blue: Planned until end of november 2024
+- Green: Planned until end of may 2025
 
 ### 2.3 Technology Stack
 
@@ -95,12 +95,10 @@ Until November we plan to implement:
 - 3.1.4 Publish Project
 - 3.1.5 Applying for a Project
 
-Until *Next Semester*, we want to implement:
-- 3.1.6 Editing Project
-- 3.1.7. Chat Function
-- 3.1.8. Payment
-- 3.1.9. Rating & Reviews
-- 3.1.10. Email Notification
+Until May, we want to implement:
+- 3.1.6 Give Rating
+- 3.1.7. Project Editing
+- 3.1.8. Profile Editing
 
 #### 3.1.1 Create User Account
 This use case allows new users to register and create an account on the platform. The user's data will be securely stored in the database.
@@ -127,20 +125,11 @@ This feature is the essential one of our project. The developer gets the possibi
 
 [Applying for a Project](./use_cases/UC5_Applying_for_a_Project.md)
 
-#### 3.1.6 Editing Project
-*Next Semester*
+#### 3.1.6 Give Rating
 
-#### 3.1.7 Chat Function
-*Next Semester*
+#### 3.1.7 Project Editing
 
-#### 3.1.8 Payment
-*Next Semester*
-
-#### 3.1.9 Rating & Reviews
-*Next Semester*
-
-#### 3.1.10 Email Notification
-*Next Semester*
+#### 3.1.8 Profile Editing
 
 ## 3.2 Usability
 tbd
@@ -192,7 +181,7 @@ Currently, we have no purchased components. Should any be acquired in the future
 ### 3.9.1 User Interfaces
 The user interfaces to be implemented include:
 - **Dashboard**: Displays an overview of ongoing projects and user activity.
-- **Project Management**: A page for creating, editing, and viewing project details.
+- **Project Management**: A page for creating, editing and viewing project details.
 - **User Authentication**: Interfaces for registration and login.
 - **User Profile**: A section for users to view and edit their personal information and settings.
 
