@@ -6,12 +6,7 @@
 This use case describes how a user can edit their profile information within the system. The user can update personal details such as their first name, last name, username and email address. The user can also see their applications.
 
 ### 1.2 Mockup  
-*Include a mockup of the profile editing page here.*  
-📌 *[Insert image or link to mockup]*
-
-### 1.3 Screenshots  
-*Include actual screenshots of the implemented interface (if available).*  
-📌 *[Insert screenshots]*
+![Mockup Editing Profile](../mockups/uc8_mockup.png)
 
 ## 2. Flow of Events
 
