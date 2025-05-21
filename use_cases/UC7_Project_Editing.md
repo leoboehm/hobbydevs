@@ -29,6 +29,8 @@ This use case allows a **Project Owner** to edit the details of a project they h
 7. A success message confirms the update, and the user is redirected to the updated project page or overview list.
 
 ### Activity Diagram
+![1 drawio](https://github.com/user-attachments/assets/e7e0e6b0-0bc3-47d6-a692-f4f8b722b7b4)
+
 
 ## 2.2 Alternative Flows
 - **Validation Failure**:  
