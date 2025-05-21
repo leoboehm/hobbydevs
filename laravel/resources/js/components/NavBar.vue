@@ -24,6 +24,15 @@
   
         <v-btn
           text
+          to="/projects/post"
+          class="nav-btn"
+          v-if="authStore.getUserIsProjectOwner"
+        >
+          <v-icon left>mdi-text-box-plus-outline</v-icon> Post Project
+        </v-btn>
+
+        <v-btn
+          text
           to="/developers"
           class="nav-btn"
           v-if="authStore.getUserIsProjectOwner"
