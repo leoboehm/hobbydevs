@@ -10,6 +10,7 @@ use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectCategoryController;
 use App\Http\Controllers\Project\ProjectSkillController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\CreditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,6 @@ Route::apiResource('project', ProjectController::class);
 Route::apiResource('category', ProjectCategoryController::class);
 // skill
 Route::apiResource('skill', ProjectSkillController::class);
+// payment
+Route::middleware('auth:sanctum')->post('/credits/buy', [CreditController::class, 'buyCredits']);
+Route::middleware('auth:sanctum')->post('/credits/spend', [CreditController::class, 'spendCredits']);
