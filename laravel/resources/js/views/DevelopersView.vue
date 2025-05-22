@@ -27,12 +27,14 @@
                                 <p><strong>Bio:</strong>{{ dev.bio }}</p>
                                 <p>
                                     <strong>Skills:</strong>
-                                    {{ dev.skills }}
+                                    <template v-for="skill in dev.skills">
+                                        <v-chip size="small" class="ml-1">{{ skill }}</v-chip>
+                                    </template>
                                 </p>
                                 <p><strong>Email:</strong> {{ dev.email }}</p>
                                 <p>
                                     <strong>Experience:</strong>
-                                    {{ dev.experience }} years
+                                    {{ dev.experience }}
                                 </p>
                                 <v-rating
                                     v-model="dev.rating"

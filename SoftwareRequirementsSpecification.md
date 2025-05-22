@@ -37,10 +37,9 @@ The Hobby Devs project will be realized as a web application, targeting both pro
 
 - User Account Management
 - Project Publishing
+- Project Editing
 - Project Applications
-- Communication Features
 - Data Storage and Management
-- Search and Tagging Functionality
 
 ### 1.3 Definitions, Acronyms and Abbreviations
 | Abbrevation | Explanation                            |
@@ -65,13 +64,13 @@ The following chapter provides an overview of this project with vision and Overa
 ## 2. Overall Description
 
 ### 2.1 Vision
-Hobby Devs is about creating a collaborative space, where ideas meet development. We want to connect people with innovative ideas to hobby developers who can bring these visions to life. Users can post their project ideas and developers can apply, providing their budget and time frame. Through ratings and reviews, the project idea can find the perfect developer, that will help you build ideas to reality.
+Hobby Devs is about creating a collaborative space, where ideas meet development. We want to connect people with innovative ideas to hobby developers who can bring these visions to life. Users can post their project ideas and developers can apply, providing their budget and time frame. Through ratings, the project idea can find the perfect developer, that will help you build ideas to reality.
 
 ### 2.2 Use Case Diagram
 ![Use Case Diagram](./use_cases/UCD.png)
 
 - Blue: Planned until end of november 2024
-- Green: Planned until end of may 2025
+- Green: Planned until may 2025
 
 ### 2.3 Technology Stack
 
@@ -189,7 +188,7 @@ Currently, we have no purchased components. Should any be acquired in the future
 
 ### 3.9.1 User Interfaces
 The user interfaces to be implemented include:
-- **Dashboard**: Displays an overview of ongoing projects and user activity.
+- **Dashboard**: Displays an overview of ongoing projects.
 - **Project Management**: A page for creating, editing and viewing project details.
 - **User Authentication**: Interfaces for registration and login.
 - **User Profile**: A section for users to view and edit their personal information and settings.

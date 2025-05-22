@@ -104,3 +104,5 @@ n/a
 
 # 7. CRUD Operation
 - **Update**: The use case performs an update on existing project data in the database.
+It allows project owners to modify details of an already created project, such as title, description, skills, category, or duration.
+
