@@ -35,10 +35,14 @@ This document describes the architecture of the NeCo Project.
 ### 1.3 Definitions, Acronyms and Abbreviations
 |			Abbreviation									|	Explanation		|
 |---------------------------------------------------|---------------|
-| MVVM | Model-View-ViewModel-Architecture |
+| MVVM | Model-View-ViewModel-Architecture | 17.09.2024 |
 
 ### 1.4 References
-n/a
+|			Title									|	Date		|
+|---------------------------------------------------|---------------|
+| [Hobbydev Blog](https://hobbydevs.wordpress.com/) | 17.09.2024 |
+| [GitHub Repositiory](https://github.com/leoboehm/hobbydevs/tree/main) | 15.09.2024 |
+
 
 ### 1.5 Overview
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.

@@ -28,6 +28,9 @@ In this feature, a project owner can rate a developer after collaborating on a p
 7. Developer’s profile is updated with the new rating.
 
 ### Activity Diagram
+![uccc drawio](https://github.com/user-attachments/assets/766bbc0e-56da-493d-b047-9f19b83cd57c)
+
+
 
 ### .feature File
 The Gherkin script for this use case is available [here](../features/UC6_Give_Rating.feature).
@@ -89,3 +92,5 @@ The developer's profile reflects the new average rating.
 n/a
 
 # 7. CRUD Operation
+This Use Case represents an "Update" operation in the CRUD model.  
+The rating modifies the existing developer record by updating their average rating field based on new input from the project owner.
