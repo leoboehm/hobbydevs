@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
+
+use App\Http\Controllers\Controller;
+
 class CreditController extends Controller
 {
-    public function buyCredits(Request $request)
+
+    /*public function buyCredits(Request $request)
     {
         $user = Auth::user();
         $amount = $request->input('amount', 10); // default 10 credits
@@ -53,12 +58,15 @@ class CreditController extends Controller
 
         return response()->json(['credits' => $user->credits]);
     }
-
+*/
     public function getCredits(Request $request)
     {
-        //$user = Auth::user();
-        $user = $request->user();
-        return response()->json(['credits' => $user->credits]);
+        $user = User::find($request->id);
+        return 0;
+        //$user = $request->user();
+        //return response()->json(['credits' => $user->credits]);
+        //return response()->json(['credits' => $credits]);
+        //return 12;
     }
 
     /*public function getCreditHistory(Request $request)

@@ -51,7 +51,9 @@ Route::apiResource('category', ProjectCategoryController::class);
 // skill
 Route::apiResource('skill', ProjectSkillController::class);
 // payment
-Route::middleware('auth:sanctum')->post('/credits/buy', [CreditController::class, 'buyCredits']);
+/*Route::middleware('auth:sanctum')->post('/credits/buy', [CreditController::class, 'buyCredits']);
 Route::middleware('auth:sanctum')->post('/credits/spend', [CreditController::class, 'spendCredits']);
 Route::middleware('auth:sanctum')->post('/credits/transfer', [CreditController::class, 'transferCredits']);
 Route::middleware('auth:sanctum')->get('/credits', [CreditController::class, 'getCredits']);
+*/
+Route::get('credit', [CreditController::class,'getCredits']);
