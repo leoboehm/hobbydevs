@@ -14,7 +14,12 @@
                     {{ developer.experience }}
                 </p>
                 <p><strong>Bio:</strong> {{ developer.bio }}</p>
-                <p><strong>Skills:</strong> {{ developer.skills }}</p>
+                <p>
+                    <strong>Skills:</strong>
+                    <template v-for="skill in developer.skills">
+                        <v-chip size="small" class="ml-1">{{ skill }}</v-chip>
+                    </template>
+                </p>
                 <p><strong>Interests:</strong> {{ developer.interests }}</p>
                 <v-rating
                     v-model="developer.rating"
@@ -88,7 +93,7 @@ const rating = ref(0)
 const saveRating = async () => {
     try {
         const newRating = calculateRating()
-        const updatedDeveloper = {...developer.value}
+        const updatedDeveloper = { ...developer.value }
         updatedDeveloper.rating = newRating
         await profileStore.updateUser(updatedDeveloper)
         router.go()
@@ -98,7 +103,7 @@ const saveRating = async () => {
 }
 
 const cancelRating = () => {
-    rating.value = developer.value.rating
+    rating.value = 0
     ratingMode.value = false
 }
 

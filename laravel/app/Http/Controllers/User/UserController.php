@@ -25,7 +25,7 @@ class UserController extends Controller
             'skills' => json_encode($request->skills),
             'experience' => $request->experience ?: '',
             'bio' => $request->bio ?: '',
-            'rating' => $request->rating ?: '',
+            'rating' => $request->rating ?: $user->rating,
             'interests' => $request->interests ?: ''
         ]);
 
