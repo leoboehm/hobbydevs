@@ -63,8 +63,8 @@ The work in this repository does not only aim to repair the application, but to 
 
 ```bash
 # Clone repository
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
+git clone https://github.com/leoboehm/hobbydevs.git
+cd hobbydevs
 
 # Install backend dependencies
 composer install
