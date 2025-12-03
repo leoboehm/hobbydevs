@@ -7,6 +7,9 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=bugs)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 
 ---
 
