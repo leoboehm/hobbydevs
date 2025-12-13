@@ -25,7 +25,6 @@
                 <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
                     >Your Projects</v-tab
                 >
-                <v-tab value="four">Credit</v-tab>
             </v-tabs>
 
             <v-tabs-window v-model="activeTab">
@@ -216,53 +215,6 @@
                         </v-row>
                     </v-card-text>
                 </v-tabs-window-item>
-
-                <!-- Available Credit Tab -->
-                <v-tabs-window-item value="four">
-                    <v-card-text>
-                        <div>
-                            <p class="text-h6 font-weight-bold">
-                                Available credit: {{ userData.credits }}
-                            </p>
-                            <p>
-                                You can use this credit to post projects and
-                                hire developers.
-                            </p>
-                            <p class="text-h6 font-weight-bold">
-                                Transfer credit
-                            </p>
-                            <p>
-                                You can transfer credit to other users. Please
-                                enter the email of the user you want to transfer
-                                credit to.
-                            </p>
-                            <v-form ref="formRef" v-model="valid">
-                                <v-text-field
-                                    v-model="userData.transferEmail"
-                                    label="Email"
-                                    :rules="[rules.email]"
-                                    outlined
-                                    dense
-                                />
-                                <v-text-field
-                                    v-model="userData.transferAmount"
-                                    label="Amount"
-                                    type="number"
-                                    min="1"
-                                    :rules="[rules.required]"
-                                    outlined
-                                    dense
-                                />
-                                <v-btn
-                                    color="green"
-                                    @click="transferCredit"
-                                    :disabled="!valid"
-                                    >Transfer</v-btn
-                                >
-                            </v-form>
-                        </div>
-                    </v-card-text>
-                </v-tabs-window-item>
             </v-tabs-window>
         </v-card>
     </v-container>
@@ -275,14 +227,12 @@ import { useAuthStore } from '@/stores/auth'
 import { useProfileStore } from '@/stores/profile'
 import { useSkillStore } from '../stores/skill'
 import { useProjectStore } from '../stores/project'
-import { useCreditStore } from '../stores/credit'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const profileStore = useProfileStore()
 const projectStore = useProjectStore()
 const skillStore = useSkillStore()
-const creditStore = useCreditStore()
 
 const activeTab = ref('one')
 const editMode = ref(false)
@@ -329,23 +279,6 @@ const saveEdit = async () => {
         }
     }
 }
-const transferCredit = async () => {
-    if (formRef.value?.validate()) {
-        try {
-            await creditStore.transferCredits(
-                userData.value.transferEmail,
-                userData.value.transferAmount,
-            )
-            alert('Credit transferred successfully.')
-            userData.value.transferEmail = ''
-            userData.value.transferAmount = ''
-        } catch (error) {
-            console.error('Failed to transfer credit:', error)
-            alert('Something went wrong while transferring credit.')
-        }
-    }
-}
-
 
 const viewProjectDetail = id => {
     router.push({ name: 'ProjectDetail', params: { id } })
@@ -354,7 +287,6 @@ const viewProjectDetail = id => {
 onMounted(async () => {
     loadUser()
     await profileStore.loadApplications()
-    await creditStore.fetchCredits()
 
     ownedProjects.value = await projectStore.actionGetProjectsByUser(
         originalUser.value.id,
