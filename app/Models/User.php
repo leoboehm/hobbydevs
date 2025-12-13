@@ -28,8 +28,7 @@ class User extends Authenticatable
         'experience',
         'bio',
         'rating',
-        'interests',
-        'credits',
+        'interests'
     ];
     
     /**
@@ -42,8 +41,7 @@ class User extends Authenticatable
         'experience' => '',
         'bio' => '',
         'rating' => 0,
-        'interests' => '',
-        'credits' => 0,
+        'interests' => ''
     ];
 
     /**

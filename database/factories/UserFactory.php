@@ -35,8 +35,7 @@ class UserFactory extends Factory
             'experience' => '',
             'bio' => '',
             'rating' => 0,
-            'interests' => '',
-            'credits' => 0,
+            'interests' => ''
         ];
     }
 }
