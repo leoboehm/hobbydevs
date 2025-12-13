@@ -18,7 +18,7 @@ The focus is on improving the **maintainability** and **reliability** of the *Ho
 Key challenges in the existing codebase:
 - High technical debt due to inconsistent coding standards  
 - Incomplete and unstable features (session handling, database interactions)  
-- Low and fragmented automated test coverage (Cypress non-functional, PHPUnit incomplete)  
+- Low automated PHPUnit test coverage
 
 The work in this repository does not only aim to repair the application, but to serve as a **systematic strategy for quality improvement**, documented with measurable software quality metrics.
 
@@ -38,8 +38,7 @@ The work in this repository does not only aim to repair the application, but to 
    - Repair broken features.  
    - Ensure robust session and database handling.  
 
-4. **Testing & QA**  
-   - Restore and extend Cypress frontend tests.  
+4. **Testing & QA**
    - Improve PHPUnit coverage for backend logic.  
    - Introduce automated CI/CD quality checks.  
 
@@ -54,7 +53,7 @@ The work in this repository does not only aim to repair the application, but to 
 - **Backend:** Laravel (PHP)  
 - **Frontend:** Vue.js  
 - **Database:** MySQL  
-- **Testing:** PHPUnit, Cypress, Cucumber  
+- **Testing:** PHPUnit
 - **Code Quality:** SonarCloud, ESLint, PHPStan  
 
 ---
@@ -88,11 +87,6 @@ npm run dev
 ### Backend (PHPUnit)
 ```bash
 php artisan test
-```
-
-### Frontend (Cypress)
-```bash
-npm run cypress:open
 ```
 
 ---
