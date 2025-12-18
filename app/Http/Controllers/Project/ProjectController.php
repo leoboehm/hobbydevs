@@ -36,11 +36,11 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         Project::create([
-            'owner_id' => $request->id,
+            'owner_id' => $request->owner_id,
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
-            'skills' => json_encode($request->skills),
+            'skills' => json_encode($request->input('skills', [])),
             'salary_range' => $request->salary_range,
             'duration' => $request->duration,
             'start_date' => $request->start_date,

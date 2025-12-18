@@ -27,27 +27,26 @@ class ProjectControllerTest extends TestCase
                  ->assertJsonCount(3);
     }
 
-    // Currently not working: Request fails with 500, Array to String conversion
     // /**
     //  * Test storing a new project.
     //  */
-    // public function test_store_creates_new_project()
-    // {
-    //     $user = User::factory()->create();
+    public function test_store_creates_new_project()
+    {
+        $user = User::factory()->create();
+        $payload = Project::factory()->create([
+            'owner_id' => $user->id
+        ])->toArray();
 
-    //     $payload = Project::factory()->make([
-    //         'owner_id' => $user->id
-    //     ])->toArray();
+        $response = $this->postJson('/api/project', $payload);
 
-    //     $response = $this->postJson('/api/project', $payload);
+        $response->assertStatus(201)
+                ->assertJson(['message' => 'Project published successfully']);
 
-    //     dd($response);
-
-    //     $response->assertStatus(201)
-    //              ->assertJson(['message' => 'Project published successfully']);
-
-    //     $this->assertDatabaseHas('projects', ['title' => $payload['title']]);
-    // }
+        $this->assertDatabaseHas('projects', [
+            'title' => $payload['title'],
+            'owner_id' => $user->id,
+        ]);
+    }
 
     /**
      * Test showing a single project by ID.

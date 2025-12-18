@@ -43,8 +43,8 @@ class Project extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'deadline' => 'datetime',
-        'application_start_date',
-        'application_deadline'
+        'application_start_date' => 'datetime',
+        'application_deadline' => 'datetime',
     ];
 
     public function applications()

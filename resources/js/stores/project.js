@@ -22,7 +22,7 @@ export const useProjectStore = defineStore('projectStore', {
             try {
                 const authStore = useAuthStore()
 
-                projectData.id = authStore.getUser.id
+                projectData.owner_id = authStore.getUser.id
                 await apiClient.post('/project', projectData)
             } catch (error) {
                 this.error = error.response
