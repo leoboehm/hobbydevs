@@ -11,40 +11,40 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    // /**
-    //  * Test successful user update.
-    //  *
-    //  * @return void
-    //  */
-    // public function test_user_can_update_their_information()
-    // {
-    //     // Create a user
-    //     $user = User::factory()->create();
+    /**
+     * Test successful user update.
+     *
+     * @return void
+     */
+    public function test_user_can_update_their_information()
+    {
+        // Create a user
+        $user = User::factory()->create();
 
-    //     // Act as the user and send a valid update request
-    //     Sanctum::actingAs($user, ['*']); // Authenticate as the created user
+        // Act as the user and send a valid update request
+        Sanctum::actingAs($user, ['*']); // Authenticate as the created user
         
-    //     $updatedData = [
-    //         'id' => $user->id,
-    //         'firstname' => 'UpdatedFirstName',
-    //         'lastname' => 'UpdatedLastName',
-    //         'username' => 'updatedusername',
-    //     ];
+        $updatedData = [
+            'id' => $user->id,
+            'firstname' => 'UpdatedFirstName',
+            'lastname' => 'UpdatedLastName',
+            'username' => 'updatedusername',
+        ];
 
-    //     // Send PUT request to update user
-    //     $response = $this->putJson('/api/user', $updatedData);
+        // Send PUT request to update user
+        $response = $this->putJson('/api/user', $updatedData);
 
-    //     // Assert that the response status is 200 (OK)
-    //     $response->assertStatus(200);
+        // Assert that the response status is 200 (OK)
+        $response->assertStatus(200);
 
-    //     // Assert that the data has been updated in the database
-    //     $this->assertDatabaseHas('users', [
-    //         'id' => $user->id,
-    //         'firstname' => 'UpdatedFirstName',
-    //         'lastname' => 'UpdatedLastName',
-    //         'username' => 'updatedusername',
-    //     ]);
-    // }
+        // Assert that the data has been updated in the database
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'firstname' => 'UpdatedFirstName',
+            'lastname' => 'UpdatedLastName',
+            'username' => 'updatedusername',
+        ]);
+    }
 
     /**
      * Test validation when invalid data is provided.
