@@ -11,69 +11,150 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test successful user update.
-     *
-     * @return void
-     */
-    public function test_user_can_update_their_information()
+    /** @test */
+    public function user_can_update_all_fields_successfully()
     {
-        // Create a user
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'rating' => 3.5,
+        ]);
 
-        // Act as the user and send a valid update request
-        Sanctum::actingAs($user, ['*']); // Authenticate as the created user
-        
-        $updatedData = [
+        Sanctum::actingAs($user);
+
+        $payload = [
             'id' => $user->id,
-            'firstname' => 'UpdatedFirstName',
-            'lastname' => 'UpdatedLastName',
-            'username' => 'updatedusername',
+            'firstname' => 'Jane',
+            'lastname' => 'Doe',
+            'username' => 'janedoe',
+            'skills' => ['PHP', 'Laravel'],
+            'experience' => '5 years',
+            'bio' => 'Backend developer',
+            'rating' => 4.2,
+            'interests' => 'Open Source',
         ];
 
-        // Send PUT request to update user
-        $response = $this->putJson('/api/user', $updatedData);
+        $response = $this->putJson('/api/user', $payload);
 
-        // Assert that the response status is 200 (OK)
         $response->assertStatus(200);
 
-        // Assert that the data has been updated in the database
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'firstname' => 'UpdatedFirstName',
-            'lastname' => 'UpdatedLastName',
-            'username' => 'updatedusername',
+            'firstname' => 'Jane',
+            'lastname' => 'Doe',
+            'username' => 'janedoe',
+            'experience' => '5 years',
+            'bio' => 'Backend developer',
+            'rating' => 4.2,
+            'interests' => 'Open Source',
         ]);
     }
 
-    /**
-     * Test validation when invalid data is provided.
-     *
-     * @return void
-     */
-    public function test_user_update_fails_with_invalid_data()
+    /** @test */
+    public function user_update_applies_fallbacks_for_optional_fields()
     {
-        // Create a user
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'experience' => 'Old experience',
+            'bio' => 'Old bio',
+            'rating' => 2.0,
+            'interests' => 'Old interests',
+        ]);
 
-        // Act as the user
-        Sanctum::actingAs($user, ['*']); // Authenticate as the created user
+        Sanctum::actingAs($user);
 
-        // Invalid data (username already taken)
-        $invalidData = [
+        $payload = [
             'id' => $user->id,
-            'firstname' => '', // Required field is empty
-            'lastname' => 'UpdatedLastName',
-            'username' => $user->username, // Same username
+            'firstname' => 'Updated',
+            'lastname' => 'User',
+            'username' => 'updateduser',
+            // optional fields intentionally omitted
         ];
 
-        // Send PUT request with invalid data
-        $response = $this->putJson('/api/user', $invalidData);
+        $this->putJson('/api/user', $payload)->assertStatus(200);
 
-        // Assert that validation errors are returned
-        $response->assertStatus(422); // 422 Unprocessable Entity
+        $user->refresh();
 
-        // Assert that the validation errors are for specific fields
-        $response->assertJsonValidationErrors(['firstname']);
+        $this->assertEquals('', $user->experience);
+        $this->assertEquals('', $user->bio);
+        $this->assertEquals(2.0, $user->rating); // fallback to old value
+        $this->assertEquals('', $user->interests);
+    }
+
+    /** @test */
+    public function user_update_fails_validation_when_required_fields_are_missing()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->putJson('/api/user', [
+            'id' => $user->id,
+            'firstname' => '',
+            'lastname' => '',
+            'username' => '',
+        ]);
+
+        $response->assertStatus(422)
+                 ->assertJsonValidationErrors([
+                     'firstname',
+                     'lastname',
+                     'username',
+                 ]);
+    }
+
+    /** @test */
+    public function get_developer_list_returns_only_developers_with_decoded_skills()
+    {
+        User::factory()->create([
+            'type' => 'Developer',
+            'skills' => json_encode(['PHP', 'Laravel']),
+        ]);
+
+        User::factory()->create([
+            'type' => 'Customer',
+        ]);
+
+        User::factory()->create([
+            'type' => 'Developer',
+            'skills' => '',
+        ]);
+
+        $response = $this->getJson('/api/developers');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(2);
+
+        $response->assertJsonFragment([
+            'skills' => ['PHP', 'Laravel'],
+        ]);
+
+        $response->assertJsonFragment([
+            'skills' => [],
+        ]);
+    }
+
+    /** @test */
+    public function get_developer_by_id_returns_decoded_skills()
+    {
+        $developer = User::factory()->create([
+            'type' => 'Developer',
+            'skills' => json_encode(['Vue', 'React']),
+        ]);
+
+        $response = $this->getJson("/api/developers/{$developer->id}");
+
+        $response->assertStatus(200)
+                 ->assertJsonFragment([
+                     'skills' => ['Vue', 'React'],
+                 ]);
+    }
+
+    /** @test */
+    public function get_developer_by_id_returns_404_when_user_not_found()
+    {
+        $response = $this->getJson('/api/developers/999999');
+
+        $response->assertStatus(404)
+                 ->assertJson([
+                     'message' => 'User not found',
+                 ]);
     }
 }
