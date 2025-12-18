@@ -89,20 +89,16 @@ const features = [
 ]
 
 onMounted(() => {
-  try {
-    new Typed(typed.value, {
-      strings: [
-        'Connect with hobby developers.',
-        'Turn your vision into reality.',
-        'Build together. Grow together.',
-      ],
-      typeSpeed: 50,
-      backSpeed: 30,
-      loop: true,
-      smartBackspace: true,
-    })
-  } catch (error) {
-    console.error("Error:", error)
-  }
+  new Typed(typed.value, {
+    strings: [
+      'Connect with hobby developers.',
+      'Turn your vision into reality.',
+      'Build together. Grow together.',
+    ],
+    typeSpeed: 50,
+    backSpeed: 30,
+    loop: true,
+    smartBackspace: true,
+  })
 })
 </script>
