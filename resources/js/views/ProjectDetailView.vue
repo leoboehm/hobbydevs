@@ -74,7 +74,7 @@
                 dense
             ></v-text-field>
 
-            <!-- <v-row dense>
+            <v-row dense>
                 <v-col cols="5" class="mr-8">
                     <DatePicker
                         v-model="projectData.start_date"
@@ -106,7 +106,7 @@
                         :min="projectData.application_start_date"
                     />
                 </v-col>
-            </v-row> -->
+            </v-row>
         </v-form>
 
         <v-row v-if="editMode">
@@ -144,8 +144,6 @@ const projectStore = useProjectStore()
 const authStore = useAuthStore()
 const categoryStore = useCategoryStore()
 const skillStore = useSkillStore()
-
-const date = useDate()
 
 // Reactive references
 const editMode = ref(false)

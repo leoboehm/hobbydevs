@@ -99,6 +99,7 @@ const saveRating = async () => {
         router.go()
     } catch (error) {
         alert('Something went wrong while trying to save rating.')
+        console.error("Error while trying to save rating:", error)
     }
 }
 
