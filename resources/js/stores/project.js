@@ -34,7 +34,18 @@ export const useProjectStore = defineStore('projectStore', {
         async actionGetAllProjects() {
             try {
                 let projects = await apiClient.get('/project')
-                return projects.data
+                return projects.data.sort(function (a, b) {
+                    var key1 = a.updated_at;
+                    var key2 = b.updated_at;
+
+                    if (key1 < key2) {
+                        return 1;
+                    } else if (key1 == key2) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                });
             } catch (error) {
                 console.error(error)
                 this.error = error.response
