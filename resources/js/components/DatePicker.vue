@@ -1,12 +1,12 @@
 <template>
     <v-text-field
-        :id="id"
-        :label="label"
+        :id="props.id"
+        :label="props.label"
         v-model="formattedDate"
         readonly
         outlined
         dense
-        @click="menu = readonly ? false : true"
+        @click="menu = props.readonly ? false : true"
     >
         <template v-slot:prepend>
             <v-menu
@@ -19,7 +19,7 @@
                 </template>
                 <v-date-picker
                     v-model="proxyDate"
-                    :min="min"
+                    :min="props.min"
                     hide-header
                     @update:modelValue="menu = false"
                 />
@@ -32,8 +32,7 @@
 import { ref, computed } from 'vue'
 import { useDate } from 'vuetify'
 
-// Props
-defineProps({
+const props = defineProps({
   modelValue: {
     type: [String, Date],
     required: true,
@@ -47,23 +46,16 @@ defineProps({
   readonly: Boolean
 })
 
-// Emits
 const emit = defineEmits(['update:modelValue'])
 
-// Vuetify's date utility
 const date = useDate()
-
-// Local state
 const menu = ref(false)
-
-// Computed: formatted date display
 const formattedDate = computed(() =>
-  modelValue ? date.format(modelValue, 'fullDate') : ''
+  props.modelValue ? date.format(props.modelValue, 'fullDate') : ''
 )
 
-// Computed: two-way binding proxy
 const proxyDate = computed({
-  get: () => modelValue,
+  get: () => props.modelValue,
   set: (newVal) => {
     emit('update:modelValue', date.format(newVal, 'fullDate'))
   },

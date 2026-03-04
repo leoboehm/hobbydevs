@@ -247,7 +247,7 @@ const postProject = async () => {
         }
 
         await projectStore.actionPublishProject(projectData)
-        router.push({ name: 'Home' })
+        router.push({ name: 'Profile' })
     }
 }
 
