@@ -35,8 +35,8 @@ export const useProjectStore = defineStore('projectStore', {
             try {
                 let projects = await apiClient.get('/project')
                 return projects.data.sort(function (a, b) {
-                    var key1 = a.updated_at;
-                    var key2 = b.updated_at;
+                    const key1 = a.updated_at;
+                    const key2 = b.updated_at;
 
                     if (key1 < key2) {
                         return 1;
