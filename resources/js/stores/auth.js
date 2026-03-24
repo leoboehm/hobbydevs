@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import apiClient from '../services/axios'
+import { webClient } from '../services/axios'
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
@@ -19,7 +20,7 @@ export const useAuthStore = defineStore('authStore', {
   actions: {
     async loadUserToStore() {
       try {
-        const { data } = await apiClient.get('/user')
+        const { data } = await webClient.get('/user')
         this.user = data
         this.isAuthenticated = true
       } catch {
@@ -34,7 +35,8 @@ export const useAuthStore = defineStore('authStore', {
 
     async login(credentials) {
       try {
-        await apiClient.post('/login', credentials)
+        await webClient.get('/sanctum/csrf-cookie')
+        await webClient.post('/login', credentials)
         await this.loadUserToStore()
       } catch (error) {
         console.error('Login-Error:', error)
@@ -43,7 +45,7 @@ export const useAuthStore = defineStore('authStore', {
 
     async logout() {
       try {
-        await apiClient.post('/logout')
+        await webClient.post('/logout')
         this.user = null
         this.isAuthenticated = false
       } catch (error) {

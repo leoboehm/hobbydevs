@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectApplicationController;
 use App\Http\Controllers\Project\ProjectCategoryController;
@@ -21,16 +19,6 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
-// return user
-Route::middleware(['web', 'auth:sanctum'])->get('/user', function (Request $request) {
-    $userData = $request->user();
-    $userData->skills = json_decode($userData->skills, true) ?: [];
-    return $userData;
-});
-
-// auth
-Route::middleware('web')->post('/login', [AuthController::class, 'login']);
-Route::middleware(['auth:sanctum', 'web'])->post('/logout', [AuthController::class, 'logout']);
 // user
 Route::put('/user', [UserController::class, 'update']);
 Route::post('/register', [UserController::class, 'add']);

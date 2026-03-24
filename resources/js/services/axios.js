@@ -7,8 +7,12 @@ const apiClient = axios.create({
     'X-Requested-With': 'XMLHttpRequest',
     Accept: 'application/json',
   },
+  withCredentials: true
 })
 
-apiClient.defaults.withCredentials = true // allow sending cookies
-
 export default apiClient
+
+export const webClient = axios.create({
+  baseURL: '/',
+  withCredentials: true,
+})

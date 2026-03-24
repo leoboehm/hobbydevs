@@ -19,7 +19,7 @@ class AuthControllerTest extends TestCase
             'password' => Hash::make('password123'),
         ]);
 
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/login', [
             'email' => 'user@example.com',
             'password' => 'password123',
         ]);
@@ -38,7 +38,7 @@ class AuthControllerTest extends TestCase
             'password' => Hash::make('correctpassword'),
         ]);
 
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/login', [
             'email' => 'user@example.com',
             'password' => 'wrongpassword',
         ]);
@@ -52,7 +52,7 @@ class AuthControllerTest extends TestCase
     /** @test */
     public function it_requires_email_and_password_for_login()
     {
-        $response = $this->postJson('/api/login', []);
+        $response = $this->postJson('/login', []);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors(['email', 'password']);
@@ -69,7 +69,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $this->actingAs($user)
-             ->postJson('/api/logout')
+             ->postJson('/logout')
              ->assertStatus(200)
              ->assertJson(['message' => 'Logout successful.']);
 
