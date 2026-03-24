@@ -9,9 +9,9 @@ const routes = [
     component: routeComponents.Home,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: routeComponents.About,
+    path: '/help',
+    name: 'Help',
+    component: routeComponents.Help,
   },
   {
     path: '/developers',

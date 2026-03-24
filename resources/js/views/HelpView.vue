@@ -53,54 +53,6 @@
           </v-expansion-panel>
 
           <v-expansion-panel>
-            <v-expansion-panel-title>Functions</v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <ul class="pl-4">
-                <li>Review and rating system</li>
-                <li>Project editing</li>
-                <li>Payment integration</li>
-              </ul>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-title>Tech Stack</v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <ul class="pl-4">
-                <li>Frontend: Vue.js</li>
-                <li>Backend: PHP/Laravel</li>
-              </ul>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-title>Team Roles</v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <ul class="pl-4">
-                <li>
-                  <strong>Leonie:</strong> Project Management, Developer,
-                  Backend Architecture
-                </li>
-                <li>
-                  <strong>Zelong:</strong> Developer, Scrum Master, Frontend
-                  Development
-                </li>
-                <li>
-                  <strong>Yasi:</strong> Developer, Project Management, Tester
-                </li>
-                <li>
-                  <strong>Azra:</strong> Project Management, Developer, Frontend
-                  Development
-                </li>
-                <li>
-                  <strong>Ephraim:</strong> Backend Developer, Backend
-                  Architecture
-                </li>
-              </ul>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
             <v-expansion-panel-title>Need More Help?</v-expansion-panel-title>
             <v-expansion-panel-text>
               Feel free to contact our team at

@@ -94,14 +94,7 @@ const features = [
     icon: 'mdi-account-plus-outline',
     btn: 'Get Started',
     link: '/signup',
-  },
-  {
-    title: 'About Us',
-    desc: 'Learn how Hobby Devs bridges the gap between visionaries and developers.',
-    icon: 'mdi-information-outline',
-    btn: 'Read More',
-    link: '/about',
-  },
+  }
 ]
 
 onMounted(() => {

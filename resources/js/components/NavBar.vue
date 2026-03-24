@@ -40,8 +40,8 @@
         <v-icon left>mdi-head</v-icon> Developers
       </v-btn>
 
-      <v-btn text to="/about" class="nav-btn">
-        <v-icon left>mdi-information</v-icon> About
+      <v-btn text to="/help" class="nav-btn">
+        <v-icon left>mdi-information</v-icon> Help
       </v-btn>
 
       <v-btn
