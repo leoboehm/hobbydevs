@@ -91,7 +91,7 @@
               <!-- Confirm Password -->
               <v-text-field
                 v-model="confirmPassword"
-                :rules="[rules.required, rules.matchPassword]"
+                :rules="[rules.required, rules.matchPassword(() => password)]"
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="showConfirmPassword ? 'text' : 'password'"
                 @click:append="showConfirmPassword = !showConfirmPassword"
