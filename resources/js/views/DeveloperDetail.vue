@@ -113,7 +113,7 @@ const calculateRating = () => {
 }
 
 onMounted(async () => {
-    developer.value = await developerStore.actionGetDeveloperById(
+    developer.value = await developerStore.fetchDeveloperById(
         route.params.id,
     )
     rating.value = developer.value.rating

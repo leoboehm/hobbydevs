@@ -286,13 +286,13 @@ const viewProjectDetail = id => {
 
 onMounted(async () => {
     loadUser()
-    await profileStore.loadApplications()
+    await profileStore.loadApplicationsToStore()
 
-    ownedProjects.value = await projectStore.actionGetProjectsByUser(
+    ownedProjects.value = await projectStore.fetchProjectsByUser(
         originalUser.value.id,
     )
 
-    await skillStore.fetchSkills()
+    await skillStore.loadSkillsToStore()
     if (!skillStore.getSkillsLoading) {
         skills.value = skillStore.getSkills
     }

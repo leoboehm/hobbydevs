@@ -13,7 +13,7 @@ export const useSkillStore = defineStore('skill', {
     },
 
     actions: {
-        async fetchSkills() {
+        async loadSkillsToStore() {
             this.loading = true
             try {
                 const response = await apiClient.get('/skill')

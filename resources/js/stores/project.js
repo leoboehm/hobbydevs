@@ -8,7 +8,7 @@ export const useProjectStore = defineStore('projectStore', {
     }),
     actions: {
         // Apply for project
-        async actionApplyForProject(applicationData) {
+        async applyToProject(applicationData) {
             try {
                 await apiClient.post('/apply', applicationData)
             } catch (error) {
@@ -18,7 +18,7 @@ export const useProjectStore = defineStore('projectStore', {
             }
         },
         // Publish project
-        async actionPublishProject(projectData) {
+        async enlistProject(projectData) {
             try {
                 const authStore = useAuthStore()
 
@@ -27,11 +27,11 @@ export const useProjectStore = defineStore('projectStore', {
             } catch (error) {
                 this.error = error.response
                     ? error.response.data.message
-                    : 'An error occurred during project publishment'
+                    : 'An error occurred while saving the project'
             }
         },
         // Get project list
-        async actionGetAllProjects() {
+        async fetchAllProjects() {
             try {
                 let projects = await apiClient.get('/project')
                 return projects.data.sort(function (a, b) {
@@ -55,9 +55,9 @@ export const useProjectStore = defineStore('projectStore', {
             }
         },
         // Get project list for specific user
-        async actionGetProjectsByUser(owner_id) {
+        async fetchProjectsByUser(owner_id) {
             try {
-                const projects = await this.actionGetAllProjects()
+                const projects = await this.fetchAllProjects()
                 return projects.filter(item => item.owner_id == owner_id)
             } catch (error) {
                 console.error(error)
@@ -68,7 +68,7 @@ export const useProjectStore = defineStore('projectStore', {
             }
         },
         // Get project by ID
-        async actionGetProjectByID(id) {
+        async fetchProjectByID(id) {
             try {
                 const project = await apiClient.get(`/project/${id}`)
                 return project.data
@@ -81,7 +81,7 @@ export const useProjectStore = defineStore('projectStore', {
             }
         },
         // Update project
-        async actionUpdateProject(projectData) {
+        async updateProject(projectData) {
             try {
                 const response = await apiClient.put(
                     `/project/${projectData.id}`,

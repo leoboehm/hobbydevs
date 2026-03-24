@@ -176,7 +176,7 @@ const rules = {
 // Fetch project data on mount
 const fetchProject = async () => {
     try {
-        const projectResponse = await projectStore.actionGetProjectByID(
+        const projectResponse = await projectStore.fetchProjectByID(
             route.params.id,
         )
 
@@ -193,12 +193,12 @@ const fetchProject = async () => {
 onMounted(async () => {
     await fetchProject()
 
-    await categoryStore.fetchCategories()
+    await categoryStore.loadCategoriesToStore()
     if (!categoryStore.getCategoriesLoading) {
         categories.value = categoryStore.getCategories
     }
 
-    await skillStore.fetchSkills()
+    await skillStore.loadSkillsToStore()
     if (!skillStore.getSkillsLoading) {
         skills.value = skillStore.getSkills
     }
@@ -208,7 +208,7 @@ onMounted(async () => {
 const saveEdit = async () => {
     if (formRef.value?.validate()) {
         try {
-            await projectStore.actionUpdateProject(projectData.value)
+            await projectStore.updateProject(projectData.value)
             router.go()
         } catch (error) {
             console.error('Update failed:', error)

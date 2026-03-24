@@ -246,19 +246,19 @@ const postProject = async () => {
             ),
         }
 
-        await projectStore.actionPublishProject(projectData)
+        await projectStore.enlistProject(projectData)
         router.push({ name: 'Profile' })
     }
 }
 
 // Fetch categories and skills on mount
 onMounted(async () => {
-    await categoryStore.fetchCategories()
+    await categoryStore.loadCategoriesToStore()
     if (!categoryStore.getCategoriesLoading) {
         categories.value = categoryStore.getCategories
     }
 
-    await skillStore.fetchSkills()
+    await skillStore.loadSkillsToStore()
     if (!skillStore.getSkillsLoading) {
         skills.value = skillStore.getSkills
     }

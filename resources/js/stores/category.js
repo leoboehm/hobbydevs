@@ -13,7 +13,7 @@ export const useCategoryStore = defineStore('category', {
     },
 
     actions: {
-        async fetchCategories() {
+        async loadCategoriesToStore() {
             this.loading = true
             try {
                 const response = await apiClient.get('/category')

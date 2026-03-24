@@ -125,7 +125,7 @@ async function submit() {
     errorMessage.value = ''
     if (form.value?.validate()) {
         try {
-            await authStore.actionLogin({
+            await authStore.login({
                 email: email.value,
                 password: password.value,
             })

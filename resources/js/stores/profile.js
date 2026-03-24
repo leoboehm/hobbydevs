@@ -19,14 +19,14 @@ export const useProfileStore = defineStore('profileStore', {
                 await apiClient.put('/user', userData)
 
                 const authStore = useAuthStore()
-                authStore.fetchUser()
+                authStore.loadUserToStore()
             } catch (error) {
                 console.error('Failed to update profile:', error)
                 throw error
             }
         },
 
-        async loadApplications() {
+        async loadApplicationsToStore() {
             const authStore = useAuthStore()
             const projectStore = useProjectStore()
 
@@ -37,7 +37,7 @@ export const useProfileStore = defineStore('profileStore', {
                     )
 
                     for(let item in response.data) {
-                        const project = await projectStore.actionGetProjectByID(response.data[item].project_id)
+                        const project = await projectStore.fetchProjectByID(response.data[item].project_id)
                         response.data[item].project = project
                     }
 
@@ -52,7 +52,7 @@ export const useProfileStore = defineStore('profileStore', {
                     )
                     
                     for(let item in response.data) {
-                        const project = await projectStore.actionGetProjectByID(response.data[item].project_id)
+                        const project = await projectStore.fetchProjectByID(response.data[item].project_id)
                         response.data[item].project = project
                     }
 

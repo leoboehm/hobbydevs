@@ -106,7 +106,7 @@
   
   const logout = () => {
   if (authStore) {
-    authStore.actionLogout().then(() => {
+    authStore.logout().then(() => {
       router.push({ name: 'Home' }).then(() => {
         location.reload()
       })

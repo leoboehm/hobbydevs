@@ -96,7 +96,7 @@ const submit = async () => {
 
 
         try {
-            await projectStore.actionApplyForProject(applicationData)
+            await projectStore.applyToProject(applicationData)
             alert('Application submitted successfully!')
             router.push({ name: 'Home' })
         } catch (error) {

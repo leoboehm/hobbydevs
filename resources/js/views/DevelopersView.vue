@@ -74,6 +74,6 @@ const goToDeveloper = (id) => {
 }
 
 onMounted(async () => {
-    developers.value = await developerStore.actionGetDevelopersList()
+    developers.value = await developerStore.fetchDevelopersList()
 })
 </script>

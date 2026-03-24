@@ -3,7 +3,7 @@ import apiClient from '../services/axios'
 
 export const useDeveloperStore = defineStore('developer', {
     actions: {
-        async actionGetDevelopersList() {
+        async fetchDevelopersList() {
             try {
                 const response = await apiClient.get('/developers')
                 return response.data
@@ -11,7 +11,7 @@ export const useDeveloperStore = defineStore('developer', {
                 console.error('Error while loading developers: ', error)
             }
         },
-        async actionGetDeveloperById(id){
+        async fetchDeveloperById(id){
             try {
                 const response = await apiClient.get('/developers/' + id)
                 return response.data

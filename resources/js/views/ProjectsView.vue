@@ -65,7 +65,7 @@ const projectList = ref([])
 // Fetch projects on mounted
 onMounted(async () => {
     try {
-        const fetchedProjects = await projectStore.actionGetAllProjects()
+        const fetchedProjects = await projectStore.fetchAllProjects()
         if (fetchedProjects.length > 0) {
             projectList.value = fetchedProjects
         }

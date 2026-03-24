@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('authStore', {
   },
 
   actions: {
-    async fetchUser() {
+    async loadUserToStore() {
       try {
         const { data } = await apiClient.get('/user')
         this.user = data
@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('authStore', {
       this.user = updatedUser
     },
 
-    async actionRegisterNewUser(userData) {
+    async registerNewUser(userData) {
       try {
         await apiClient.post('/register', userData)
       } catch (error) {
@@ -41,16 +41,16 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
-    async actionLogin(credentials) {
+    async login(credentials) {
       try {
         await apiClient.post('/login', credentials)
-        await this.fetchUser()
+        await this.loadUserToStore()
       } catch (error) {
         console.error('Login-Error:', error)
       }
     },
 
-    async actionLogout() {
+    async logout() {
       try {
         await apiClient.post('/logout')
         this.user = null
