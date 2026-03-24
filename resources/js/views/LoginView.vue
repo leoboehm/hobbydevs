@@ -98,29 +98,21 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
-// State variables
 const valid = ref(false)
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 const errorMessage = ref('')
-
-// Form ref
 const form = ref(null)
 
-// Auth store
 const authStore = useAuthStore()
-
-// Router
 const router = useRouter()
 
-// Validation rules
 const rules = {
     required: value => !!value || 'This field is required',
     email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
 }
 
-// Methods
 async function submit() {
     errorMessage.value = ''
     if (form.value?.validate()) {

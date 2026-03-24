@@ -184,7 +184,6 @@ import { useCategoryStore } from '../stores/category'
 import { useSkillStore } from '../stores/skill'
 import DatePicker from '../components/DatePicker.vue'
 
-// Refs
 const valid = ref(false)
 const date = useDate()
 const currentStep = ref(0)
@@ -215,10 +214,8 @@ const rules = {
     required: value => !!value || 'This field is required',
 }
 
-// Router
 const router = useRouter()
 
-// Methods
 const postProject = async () => {
     if (valid.value) {
         let projectData = {
@@ -251,7 +248,6 @@ const postProject = async () => {
     }
 }
 
-// Fetch categories and skills on mount
 onMounted(async () => {
     await categoryStore.loadCategoriesToStore()
     if (!categoryStore.getCategoriesLoading) {
@@ -264,6 +260,5 @@ onMounted(async () => {
     }
 })
 
-// Computed
 const today = new Date()
 </script>

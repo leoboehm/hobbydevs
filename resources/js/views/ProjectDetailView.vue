@@ -144,7 +144,6 @@ const authStore = useAuthStore()
 const categoryStore = useCategoryStore()
 const skillStore = useSkillStore()
 
-// Reactive references
 const editMode = ref(false)
 const valid = ref(false)
 const formRef = ref(null)
@@ -173,7 +172,6 @@ const rules = {
     required: v => !!v || 'This field is required',
 }
 
-// Fetch project data on mount
 const fetchProject = async () => {
     try {
         const projectResponse = await projectStore.fetchProjectByID(
@@ -204,7 +202,6 @@ onMounted(async () => {
     }
 })
 
-// Submit updated project
 const saveEdit = async () => {
     if (formRef.value?.validate()) {
         try {
@@ -218,13 +215,11 @@ const saveEdit = async () => {
     }
 }
 
-// Cancel and go back
 const cancelEdit = () => {
     projectData.value = { ...project.value }
     editMode.value = false
     formRef.value?.resetValidation()
 }
 
-// Computed
 const today = new Date()
 </script>

@@ -144,7 +144,6 @@ import { ref } from 'vue'
 import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 
-// Reactive state variables
 const formRef = ref(null)
 const valid = ref(false)
 const accountType = ref('')
@@ -158,7 +157,6 @@ const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const accountTypes = ref(['Developer', 'Project Owner'])
 
-// Store for validation rules
 const rules = {
     required: value => !!value || 'This field is required',
     email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
@@ -167,13 +165,9 @@ const rules = {
     matchPassword: value => value === password.value || 'Passwords must match',
 }
 
-// Authentication store
 const authStore = useAuthStore()
-
-// Router instance
 const router = useRouter()
 
-// Submit method for form submission
 const submit = async () => {
     const isValid = await formRef.value?.validate()
     if (isValid) {
@@ -200,7 +194,6 @@ const submit = async () => {
     }
 }
 
-// Cancel method to reset the form
 const cancel = () => {
     accountType.value = ''
     firstname.value = ''

@@ -53,13 +53,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/project'
 import { useAuthStore } from '@/stores/auth'
 
-// Store & router
-const projectStore = useProjectStore()
 const route = useRoute()
 const router = useRouter()
+const projectStore = useProjectStore()
 const authStore = useAuthStore()
 
-// Form state
 const valid = ref(false)
 const firstName = ref('')
 const lastName = ref('')
@@ -68,18 +66,15 @@ const availability = ref('')
 const pastExperience = ref('')
 const motivation = ref('')
 const contactInfo = ref('')
-const form = ref(null) // for template ref
+const form = ref(null)
 
 const availableSkills = ['Java', 'Python', 'JavaScript', 'C++', 'HTML', 'CSS']
 
-// Validation rules
 const rules = {
     required: value => !!value || 'This field is required',
     email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
 }
 
-
-// Submit method
 const submit = async () => {
     if (form.value.validate()) {
         const applicationData = {
@@ -106,7 +101,6 @@ const submit = async () => {
     }
 }
 
-// Cancel method
 const cancel = () => {
     firstName.value = ''
     lastName.value = ''

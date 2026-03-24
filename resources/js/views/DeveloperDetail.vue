@@ -77,14 +77,12 @@ import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useDeveloperStore } from '../stores/developer'
 import { useAuthStore } from '../stores/auth'
-import { useApplicationStore } from '../stores/application'
 
 const router = useRouter()
 const route = useRoute()
 const developerStore = useDeveloperStore()
 const authStore = useAuthStore()
 
-// Reactive state
 const developer = ref(null)
 const ratingMode = ref(false)
 const rating = ref(0)

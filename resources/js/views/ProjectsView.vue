@@ -54,15 +54,12 @@ import { useProjectStore } from '../stores/project'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
-// Initialize stores and router
 const projectStore = useProjectStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
-// Reactive state
 const projectList = ref([])
 
-// Fetch projects on mounted
 onMounted(async () => {
     try {
         const fetchedProjects = await projectStore.fetchAllProjects()
@@ -74,7 +71,6 @@ onMounted(async () => {
     }
 })
 
-// Method to navigate to project details
 const viewProjectDetail = id => {
     if (authStore.getIsAuthenticated) {
         router.push({ name: 'ProjectDetail', params: { id } })
@@ -83,17 +79,11 @@ const viewProjectDetail = id => {
     }
 }
 
-// Method to navigate to apply page
 const apply = id => {
     if (authStore.getIsAuthenticated) {
         router.push({ name: 'Apply', params: { projectId: id } })
     } else {
         router.push({ name: 'Login' })
     }
-}
-
-// Method to navigate to edit project page
-const goToEditPage = projectId => {
-    router.push(`/projects/${projectId}/edit`)
 }
 </script>

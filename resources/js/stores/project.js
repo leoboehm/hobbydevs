@@ -7,7 +7,6 @@ export const useProjectStore = defineStore('projectStore', {
         error: null,
     }),
     actions: {
-        // Apply for project
         async applyToProject(applicationData) {
             try {
                 await apiClient.post('/apply', applicationData)
@@ -17,7 +16,7 @@ export const useProjectStore = defineStore('projectStore', {
                     : 'An error occurred during application submission'
             }
         },
-        // Publish project
+
         async enlistProject(projectData) {
             try {
                 const authStore = useAuthStore()
@@ -30,7 +29,7 @@ export const useProjectStore = defineStore('projectStore', {
                     : 'An error occurred while saving the project'
             }
         },
-        // Get project list
+
         async fetchAllProjects() {
             try {
                 let projects = await apiClient.get('/project')
@@ -54,7 +53,7 @@ export const useProjectStore = defineStore('projectStore', {
                 return null
             }
         },
-        // Get project list for specific user
+
         async fetchProjectsByUser(owner_id) {
             try {
                 const projects = await this.fetchAllProjects()
@@ -67,20 +66,20 @@ export const useProjectStore = defineStore('projectStore', {
                 return null
             }
         },
-        // Get project by ID
+
         async fetchProjectByID(id) {
             try {
                 const project = await apiClient.get(`/project/${id}`)
                 return project.data
             } catch (error) {
-                console.error('Error fetching project by ID:', error) // Log error
+                console.error('Error fetching project by ID:', error)
                 this.error = error.response
                     ? error.response.data.message
                     : `An error occurred during fetching of project with ID: ${id}`
                 return null
             }
         },
-        // Update project
+
         async updateProject(projectData) {
             try {
                 const response = await apiClient.put(

@@ -1,5 +1,5 @@
-import './bootstrap'            // polyfills, globals, etc.
-import './assets/main.css'      // global styles
+import './bootstrap'
+import './assets/main.css'
 
 import { createApp } from 'vue'
 import App            from './App.vue'
