@@ -81,7 +81,7 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category' => 'required|string',
-            'skills' => 'required|string',
+            'skills' => 'required|array',
             'salary_range' => 'required|string',
             'duration' => 'required|string',
             'start_date' => 'required|date',
@@ -89,6 +89,9 @@ class ProjectController extends Controller
             'application_start_date' => 'required|date',
             'application_deadline' => 'required|date',
         ]);
+
+        $skills = json_encode($validated['skills']);
+        $validated['skills'] = $skills;
 
         $project->update($validated);
 
