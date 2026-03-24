@@ -126,6 +126,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/application'
 import { useSkillStore } from '@/stores/skill'
 import { useProjectStore } from '@/stores/project'
+import { rules } from '@/utils/rules'
 
 // Reactive state
 const router = useRouter()
@@ -147,11 +148,6 @@ const userData = ref({
 })
 const skills = ref([])
 const ownedProjects = ref([])
-
-const rules = {
-  required: v => !!v || 'This field is required',
-  email: v => /.+@.+\..+/.test(v) || 'Invalid email',
-}
 
 // Lifecycle hooks
 onMounted(async () => {

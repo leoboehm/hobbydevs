@@ -129,6 +129,7 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { rules } from '@/utils/rules'
 
 // Reactive state
 const router = useRouter()
@@ -146,14 +147,6 @@ const confirmPassword = ref('')
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const accountTypes = ref(['Developer', 'Project Owner'])
-
-const rules = {
-  required: value => !!value || 'This field is required',
-  email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
-  minLength: min => value =>
-    value.length >= min || `Must be at least ${min} characters`,
-  matchPassword: value => value === password.value || 'Passwords must match',
-}
 
 // Methods
 const submit = async () => {

@@ -50,6 +50,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '@/stores/project'
 import { useAuthStore } from '@/stores/auth'
+import { rules } from '@/utils/rules'
 
 // Reactive state
 const route = useRoute()
@@ -67,11 +68,6 @@ const pastExperience = ref('')
 const motivation = ref('')
 const contactInfo = ref('')
 const availableSkills = ['Java', 'Python', 'JavaScript', 'C++', 'HTML', 'CSS']
-
-const rules = {
-  required: value => !!value || 'This field is required',
-  email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
-}
 
 // Lifecycle hooks
 onMounted(() => {

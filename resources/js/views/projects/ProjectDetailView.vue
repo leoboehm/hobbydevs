@@ -133,6 +133,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useCategoryStore } from '@/stores/category'
 import { useSkillStore } from '@/stores/skill'
 import DatePicker from '@/components/DatePicker.vue'
+import { rules } from '@/utils/rules'
 
 // Reactive State
 const router = useRouter()
@@ -163,10 +164,6 @@ const categories = ref([])
 const skills = ref([])
 const errorMessage = ref(null)
 const today = new Date()
-
-const rules = {
-  required: v => !!v || 'This field is required',
-}
 
 // Lifecycle hooks
 onMounted(async () => {
