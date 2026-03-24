@@ -26,10 +26,10 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Aktuelle Sitzung des Nutzers beenden
+        // end current session
         Auth::guard('web')->logout();
     
-        // Session invalidieren und CSRF-Token neu generieren
+        // invalidate session and generate new CSRF token
         $request->session()->invalidate();
         $request->session()->regenerateToken();
     

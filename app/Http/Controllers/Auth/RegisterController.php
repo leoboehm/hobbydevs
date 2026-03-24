@@ -12,12 +12,12 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // Check if the email is already in use
+        // Check if email is already in use
         if (User::where('email', $request->email)->exists()) {
             return response()->json(['message' => 'Email is already in use'], 400);
         }
 
-        // Create the user
+        // Create user
         User::create([
             'email' => $request->email,
             'firstname' => $request->firstname,
@@ -27,7 +27,6 @@ class RegisterController extends Controller
             'username' => $request->username,
         ]);
 
-        // Return success message
         return response()->json(['message' => 'User registered successfully'], 201);
     }
 }

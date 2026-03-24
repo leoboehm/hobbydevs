@@ -23,7 +23,6 @@ class ProjectCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -31,7 +30,6 @@ class ProjectCategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -39,7 +37,6 @@ class ProjectCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -47,6 +44,5 @@ class ProjectCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

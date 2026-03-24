@@ -75,11 +75,11 @@ class ProjectController extends Controller
     public function update(Request $request, string $id)
     {
         $project = Project::find($id);
-    
+
         if (!$project) {
             return response()->json(['message' => 'Project not found'], 404);
         }
-    
+
         $validated = $request->validate([
             'title' => self::REQUIRED_STRING . '|max:255',
             'description' => self::REQUIRED_STRING,
@@ -92,23 +92,23 @@ class ProjectController extends Controller
             'application_start_date' => self::REQUIRED_DATE,
             'application_deadline' => self::REQUIRED_DATE,
         ]);
-    
+
         $project->update($validated);
-    
+
         return response()->json(['message' => 'Project updated successfully'], 200);
     }
-    
-    
+
+
     /**
      * Route: DELETE /project/{id}
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
     }
 
-    private function decodeSkills($projectData) {
+    private function decodeSkills($projectData)
+    {
         $projectData->skills = json_decode($projectData->skills, true) ?: [];
         return $projectData;
     }

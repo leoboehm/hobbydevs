@@ -27,7 +27,7 @@ class ProjectApplicationController extends Controller
         $application = Application::create([
             'first_name' => $validatedData['firstName'],
             'last_name' => $validatedData['lastName'],
-            'skills' => json_encode($validatedData['skills']), // Als JSON speichern
+            'skills' => json_encode($validatedData['skills']),
             'availability' => $validatedData['availability'],
             'past_experience' => $validatedData['pastExperience'],
             'motivation' => $validatedData['motivation'],
