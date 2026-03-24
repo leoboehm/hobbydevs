@@ -167,10 +167,10 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDate } from 'vuetify'
-import { useProjectStore } from '../stores/project'
-import { useCategoryStore } from '../stores/category'
-import { useSkillStore } from '../stores/skill'
-import DatePicker from '../components/DatePicker.vue'
+import { useProjectStore } from '@/stores/project'
+import { useCategoryStore } from '@/stores/category'
+import { useSkillStore } from '@/stores/skill'
+import DatePicker from '@/components/DatePicker.vue'
 
 const valid = ref(false)
 const date = useDate()

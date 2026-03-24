@@ -39,7 +39,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useProjectStore } from '../../stores/project'
+import { useProjectStore } from '@/stores/project'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 

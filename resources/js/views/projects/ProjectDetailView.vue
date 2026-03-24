@@ -130,10 +130,9 @@ import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/stores/project'
 import { useAuthStore } from '@/stores/auth'
-import { useCategoryStore } from '../stores/category'
-import { useSkillStore } from '../stores/skill'
-
-import DatePicker from '../components/DatePicker.vue'
+import { useCategoryStore } from '@/stores/category'
+import { useSkillStore } from '@/stores/skill'
+import DatePicker from '@/components/DatePicker.vue'
 
 const router = useRouter()
 const route = useRoute()

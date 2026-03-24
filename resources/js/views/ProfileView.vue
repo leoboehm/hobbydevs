@@ -194,8 +194,8 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useApplicationStore } from '@/stores/application'
-import { useSkillStore } from '../stores/skill'
-import { useProjectStore } from '../stores/project'
+import { useSkillStore } from '@/stores/skill'
+import { useProjectStore } from '@/stores/project'
 
 const router = useRouter()
 const authStore = useAuthStore()

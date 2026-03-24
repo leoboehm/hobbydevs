@@ -14,11 +14,8 @@
           <p class="text-h5 mb-8 text-white hero-subtitle">
             <span ref="typed"></span>
           </p>
-          <v-btn color="white" class="ma-2 hero-btn" to="/signup" large>
-            <span class="gradient-text">Get Started</span>
-          </v-btn>
-          <v-btn color="secondary" class="ma-2 hero-btn" to="/projects" large>
-            View Projects
+          <v-btn color="white" class="ma-2 hero-btn" to="/help" large>
+            <span class="gradient-text">Learn More</span>
           </v-btn>
         </v-sheet>
       </v-col>
@@ -57,20 +54,6 @@
         </v-col>
       </v-row>
     </v-container>
-
-    <!-- CTA -->
-    <v-container class="text-center my-12">
-      <h2 class="text-h4 font-weight-bold mb-2">
-        Ready to bring your idea to life?
-      </h2>
-      <p class="text-body-1 mb-4">Start your journey today with Hobby Devs</p>
-      <v-btn color="primary" large to="/signup">Get Started</v-btn>
-    </v-container>
-
-    <!-- Floating Action Button -->
-    <v-btn fab icon color="primary" class="fab-cta" to="/projects">
-      <v-icon>mdi-rocket-launch</v-icon>
-    </v-btn>
   </v-container>
 </template>
 
@@ -94,6 +77,13 @@ const features = [
     icon: 'mdi-account-plus-outline',
     btn: 'Get Started',
     link: '/signup',
+  },
+  {
+    title: 'Explore Developers',
+    desc: 'Discover professionals, review their skills, and connect for collaboration.',
+    icon: 'mdi-account-search-outline',
+    btn: 'View Developers',
+    link: '/developers',
   }
 ]
 
