@@ -179,7 +179,7 @@ const submit = async () => {
     if (isValid) {
         if (authStore) {
             try {
-                await authStore.registerNewUser({
+                await authStore.registerUser({
                     email: email.value,
                     firstname: firstname.value,
                     lastname: lastname.value,

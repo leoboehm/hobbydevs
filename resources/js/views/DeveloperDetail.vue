@@ -77,13 +77,12 @@ import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useDeveloperStore } from '../stores/developer'
 import { useAuthStore } from '../stores/auth'
-import { useProfileStore } from '../stores/profile'
+import { useApplicationStore } from '../stores/application'
 
 const router = useRouter()
 const route = useRoute()
 const developerStore = useDeveloperStore()
 const authStore = useAuthStore()
-const profileStore = useProfileStore()
 
 // Reactive state
 const developer = ref(null)
@@ -95,7 +94,7 @@ const saveRating = async () => {
         const newRating = calculateRating()
         const updatedDeveloper = { ...developer.value }
         updatedDeveloper.rating = newRating
-        await profileStore.updateUser(updatedDeveloper)
+        await authStore.updateUser(updatedDeveloper)
         router.go()
     } catch (error) {
         alert('Something went wrong while trying to save rating.')

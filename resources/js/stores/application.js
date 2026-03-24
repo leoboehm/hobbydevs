@@ -4,7 +4,7 @@ import apiClient from '@/services/axios'
 import { useAuthStore } from './auth'
 import { useProjectStore } from './project'
 
-export const useProfileStore = defineStore('profileStore', {
+export const useApplicationStore = defineStore('applicationStore', {
     state: () => ({
         applications: [],
     }),
@@ -14,18 +14,6 @@ export const useProfileStore = defineStore('profileStore', {
     },
 
     actions: {
-        async updateUser(userData) {
-            try {
-                await apiClient.put('/user', userData)
-
-                const authStore = useAuthStore()
-                authStore.loadUserToStore()
-            } catch (error) {
-                console.error('Failed to update profile:', error)
-                throw error
-            }
-        },
-
         async loadApplicationsToStore() {
             const authStore = useAuthStore()
             const projectStore = useProjectStore()

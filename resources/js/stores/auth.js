@@ -32,15 +32,6 @@ export const useAuthStore = defineStore('authStore', {
       this.user = updatedUser
     },
 
-    async registerNewUser(userData) {
-      try {
-        await apiClient.post('/register', userData)
-      } catch (error) {
-        this.error = error.response?.data?.message ??
-          'An error occurred while registering. Please try again.'
-      }
-    },
-
     async login(credentials) {
       try {
         await apiClient.post('/login', credentials)
@@ -57,6 +48,27 @@ export const useAuthStore = defineStore('authStore', {
         this.isAuthenticated = false
       } catch (error) {
         console.error('Logout-Error:', error)
+      }
+    },
+
+    async registerUser(userData) {
+      try {
+        await apiClient.post('/register', userData)
+      } catch (error) {
+        this.error = error.response?.data?.message ??
+          'An error occurred while registering. Please try again.'
+      }
+    },
+
+    async updateUser(userData) {
+      try {
+        await apiClient.put('/user', userData)
+
+        const authStore = useAuthStore()
+        authStore.loadUserToStore()
+      } catch (error) {
+        console.error('Failed to update user:', error)
+        throw error
       }
     },
   },

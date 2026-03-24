@@ -127,12 +127,12 @@
                 <!-- Applications Tab -->
                 <v-tabs-window-item value="two">
                     <v-card-text>
-                        <div v-if="!profileStore.getApplications.length">
+                        <div v-if="!applicationStore.getApplications.length">
                             No applications found.
                         </div>
                         <v-list two-line v-else>
                             <v-list-item
-                                v-for="app in profileStore.getApplications"
+                                v-for="app in applicationStore.getApplications"
                                 :key="app.id"
                             >
                                 <template v-if="authStore.getUserIsDeveloper">
@@ -224,13 +224,13 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { useProfileStore } from '@/stores/profile'
+import { useApplicationStore } from '@/stores/application'
 import { useSkillStore } from '../stores/skill'
 import { useProjectStore } from '../stores/project'
 
 const router = useRouter()
 const authStore = useAuthStore()
-const profileStore = useProfileStore()
+const applicationStore = useApplicationStore()
 const projectStore = useProjectStore()
 const skillStore = useSkillStore()
 
@@ -271,10 +271,10 @@ const cancelEdit = () => {
 const saveEdit = async () => {
     if (formRef.value?.validate()) {
         try {
-            await profileStore.updateUser(userData.value)
+            await authStore.updateUser(userData.value)
             router.go()
         } catch (error) {
-            console.error('Failed to update profile:', error)
+            console.error('Failed to update user:', error)
             alert('Something went wrong while saving.')
         }
     }
@@ -286,7 +286,7 @@ const viewProjectDetail = id => {
 
 onMounted(async () => {
     loadUser()
-    await profileStore.loadApplicationsToStore()
+    await applicationStore.loadApplicationsToStore()
 
     ownedProjects.value = await projectStore.fetchProjectsByUser(
         originalUser.value.id,
