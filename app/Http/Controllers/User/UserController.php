@@ -5,9 +5,30 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function add(Request $request)
+    {
+        // Check if email is already in use
+        if (User::where('email', $request->email)->exists()) {
+            return response()->json(['message' => 'Email is already in use'], 400);
+        }
+
+        // Create user
+        User::create([
+            'email' => $request->email,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'password' => Hash::make($request->password),
+            'type' => $request->type,
+            'username' => $request->username,
+        ]);
+
+        return response()->json(['message' => 'User registered successfully'], 201);
+    }
+
     public function update(Request $request)
     {
         $user = User::find($request->id);
@@ -35,7 +56,7 @@ class UserController extends Controller
     public function getDeveloperList(Request $request)
     {
         $developers = User::where('type', 'Developer')->get();
-        
+
         $developersList = [];
 
         foreach ($developers as $developer) {
@@ -44,7 +65,7 @@ class UserController extends Controller
 
         return response()->json($developersList);
     }
-    
+
     public function getDeveloperById(Request $request, string $id)
     {
         $developer = User::find($id);
@@ -56,8 +77,9 @@ class UserController extends Controller
 
         return response()->json($this->decodeSkills($developer));
     }
-    
-    private function decodeSkills($userData) {
+
+    private function decodeSkills($userData)
+    {
         $userData->skills = json_decode($userData->skills, true) ?: [];
         return $userData;
     }

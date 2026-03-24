@@ -6,10 +6,57 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Hash;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
+    public function it_registers_a_new_user_successfully()
+    {
+        $response = $this->postJson('/api/register', [
+            'email' => 'test@example.com',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'password' => 'securePassword123',
+            'type' => 'user',
+            'username' => 'johndoe',
+        ]);
+
+        $response->assertStatus(201)
+            ->assertJson(['message' => 'User registered successfully']);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'test@example.com',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'type' => 'user',
+            'username' => 'johndoe',
+        ]);
+
+        $this->assertTrue(Hash::check('securePassword123', User::first()->password));
+    }
+
+    /** @test */
+    public function it_does_not_allow_duplicate_email_registration()
+    {
+        User::factory()->create([
+            'email' => 'duplicate@example.com',
+        ]);
+
+        $response = $this->postJson('/api/register', [
+            'email' => 'duplicate@example.com',
+            'firstname' => 'Jane',
+            'lastname' => 'Smith',
+            'password' => 'anotherPassword456',
+            'type' => 'admin',
+            'username' => 'janesmith',
+        ]);
+
+        $response->assertStatus(400)
+            ->assertJson(['message' => 'Email is already in use']);
+    }
 
     /** @test */
     public function user_can_update_all_fields_successfully()
@@ -93,11 +140,11 @@ class UserControllerTest extends TestCase
         ]);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors([
-                     'firstname',
-                     'lastname',
-                     'username',
-                 ]);
+            ->assertJsonValidationErrors([
+                'firstname',
+                'lastname',
+                'username',
+            ]);
     }
 
     /** @test */
@@ -142,9 +189,9 @@ class UserControllerTest extends TestCase
         $response = $this->getJson("/api/developers/{$developer->id}");
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'skills' => ['Vue', 'React'],
-                 ]);
+            ->assertJsonFragment([
+                'skills' => ['Vue', 'React'],
+            ]);
     }
 
     /** @test */
@@ -153,8 +200,8 @@ class UserControllerTest extends TestCase
         $response = $this->getJson('/api/developers/999999');
 
         $response->assertStatus(404)
-                 ->assertJson([
-                     'message' => 'User not found',
-                 ]);
+            ->assertJson([
+                'message' => 'User not found',
+            ]);
     }
 }
