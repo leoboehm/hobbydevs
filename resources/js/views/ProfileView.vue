@@ -14,90 +14,37 @@
       <v-tabs v-model="activeTab" background-color="grey lighten-4" centered>
         <v-tab value="one">Profile Info</v-tab>
         <v-tab value="two">Applications</v-tab>
-        <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
-          >Your Projects</v-tab
-        >
+        <v-tab value="three" v-if="authStore.getUserIsProjectOwner">Your Projects</v-tab>
       </v-tabs>
 
       <v-tabs-window v-model="activeTab">
         <!-- Profile Info Tab -->
         <v-tabs-window-item value="one">
           <v-card-text>
-            <v-form ref="formRef" v-model="valid" lazy-validation>
+            <v-form ref="form" v-model="valid" lazy-validation>
               <v-row dense>
                 <v-col cols="6">
-                  <v-text-field
-                    v-model="userData.firstname"
-                    label="First Name"
-                    :readonly="!editMode"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
-                /></v-col>
+                  <v-text-field v-model="userData.firstname" label="First Name" :readonly="!editMode"
+                    :rules="[rules.required]" outlined dense /></v-col>
                 <v-col cols="6">
-                  <v-text-field
-                    v-model="userData.lastname"
-                    label="Last Name"
-                    :readonly="!editMode"
-                    :rules="[rules.required]"
-                    outlined
-                    dense /></v-col
-              ></v-row>
+                  <v-text-field v-model="userData.lastname" label="Last Name" :readonly="!editMode"
+                    :rules="[rules.required]" outlined dense /></v-col></v-row>
               <v-row dense>
                 <v-col cols="6">
-                  <v-text-field
-                    v-model="userData.username"
-                    label="Username"
-                    :readonly="!editMode"
-                    :rules="[rules.required]"
-                    outlined
-                    dense
-                /></v-col>
+                  <v-text-field v-model="userData.username" label="Username" :readonly="!editMode"
+                    :rules="[rules.required]" outlined dense /></v-col>
                 <v-col cols="6">
-                  <v-text-field
-                    v-model="userData.email"
-                    label="Email"
-                    disabled
-                    outlined
-                    dense
-                /></v-col>
+                  <v-text-field v-model="userData.email" label="Email" disabled outlined dense /></v-col>
               </v-row>
               <template v-if="authStore.getUserIsDeveloper">
-                <v-textarea
-                  v-model="userData.bio"
-                  label="Bio"
-                  auto-grow
-                  rows="2"
-                  :readonly="!editMode"
-                  outlined
-                  dense
-                />
-                <v-text-field
-                  v-model="userData.experience"
-                  label="Past experience"
-                  :readonly="!editMode"
-                  outlined
-                  dense
-                />
-                <v-textarea
-                  v-model="userData.interests"
-                  label="Interests"
-                  auto-grow
-                  rows="1"
-                  :readonly="!editMode"
-                  outlined
-                  dense
-                />
-                <v-select
-                  v-model="userData.skills"
-                  :items="skills"
-                  label="Skills"
-                  outlined
-                  dense
-                  multiple
-                  chips
-                  :readonly="!editMode"
-                ></v-select>
+                <v-textarea v-model="userData.bio" label="Bio" auto-grow rows="2" :readonly="!editMode" outlined
+                  dense />
+                <v-text-field v-model="userData.experience" label="Past experience" :readonly="!editMode" outlined
+                  dense />
+                <v-textarea v-model="userData.interests" label="Interests" auto-grow rows="1" :readonly="!editMode"
+                  outlined dense />
+                <v-select v-model="userData.skills" :items="skills" label="Skills" outlined dense multiple chips
+                  :readonly="!editMode"></v-select>
               </template>
             </v-form>
           </v-card-text>
@@ -105,9 +52,7 @@
           <v-card-actions v-if="editMode">
             <v-spacer />
             <v-btn text color="red" @click="cancelEdit">Cancel</v-btn>
-            <v-btn color="green" @click="saveEdit" :disabled="!valid"
-              >Save</v-btn
-            >
+            <v-btn color="green" @click="saveEdit" :disabled="!valid">Save</v-btn>
           </v-card-actions>
         </v-tabs-window-item>
 
@@ -118,10 +63,7 @@
               No applications found.
             </div>
             <v-list two-line v-else>
-              <v-list-item
-                v-for="app in applicationStore.getApplications"
-                :key="app.id"
-              >
+              <v-list-item v-for="app in applicationStore.getApplications" :key="app.id">
                 <template v-if="authStore.getUserIsDeveloper">
                   <v-list-item-title>{{ app.project.title }}</v-list-item-title>
                   <v-list-item-subtitle>
@@ -135,15 +77,9 @@
                       app.project.title
                     }}"
                   </v-list-item-title>
-                  <v-list-item-subtitle
-                    >Status: {{ app.status }}</v-list-item-subtitle
-                  >
+                  <v-list-item-subtitle>Status: {{ app.status }}</v-list-item-subtitle>
                 </template>
-                <v-btn
-                  @click="viewProjectDetail(app.project_id)"
-                  class="text-primary"
-                  outlined
-                  >Go to project
+                <v-btn @click="viewProjectDetail(app.project_id)" class="text-primary" outlined>Go to project
                   <v-icon class="ml-2">mdi-arrow-right</v-icon>
                 </v-btn>
               </v-list-item>
@@ -164,18 +100,12 @@
                 <v-card class="elevation-2">
                   <v-card-title class="text-h6 font-weight-bold">{{
                     project.title
-                  }}</v-card-title>
-                  <v-card-subtitle class="text-subtitle-2"
-                    >Category: {{ project.category }}</v-card-subtitle
-                  >
+                    }}</v-card-title>
+                  <v-card-subtitle class="text-subtitle-2">Category: {{ project.category }}</v-card-subtitle>
 
                   <v-card-actions>
                     <v-spacer />
-                    <v-btn
-                      @click="viewProjectDetail(project.id)"
-                      class="text-primary"
-                      outlined
-                      >Project detail
+                    <v-btn @click="viewProjectDetail(project.id)" class="text-primary" outlined>Project detail
                       <v-icon class="ml-2">mdi-arrow-right</v-icon>
                     </v-btn>
                   </v-card-actions>
@@ -197,6 +127,7 @@ import { useApplicationStore } from '@/stores/application'
 import { useSkillStore } from '@/stores/skill'
 import { useProjectStore } from '@/stores/project'
 
+// Reactive state
 const router = useRouter()
 const authStore = useAuthStore()
 const applicationStore = useApplicationStore()
@@ -206,8 +137,7 @@ const skillStore = useSkillStore()
 const activeTab = ref('one')
 const editMode = ref(false)
 const valid = ref(false)
-const formRef = ref(null)
-
+const form = ref(null)
 const originalUser = ref(null)
 const userData = ref({
   firstname: '',
@@ -215,9 +145,7 @@ const userData = ref({
   username: '',
   email: '',
 })
-
 const skills = ref([])
-
 const ownedProjects = ref([])
 
 const rules = {
@@ -225,34 +153,7 @@ const rules = {
   email: v => /.+@.+\..+/.test(v) || 'Invalid email',
 }
 
-const loadUser = () => {
-  const user = authStore.getUser
-  originalUser.value = { ...user }
-  userData.value = { ...user }
-}
-
-const cancelEdit = () => {
-  userData.value = { ...originalUser.value }
-  editMode.value = false
-  formRef.value?.resetValidation()
-}
-
-const saveEdit = async () => {
-  if (formRef.value?.validate()) {
-    try {
-      await authStore.updateUser(userData.value)
-      router.go()
-    } catch (error) {
-      console.error('Failed to update user:', error)
-      alert('Something went wrong while saving.')
-    }
-  }
-}
-
-const viewProjectDetail = id => {
-  router.push({ name: 'ProjectDetail', params: { id } })
-}
-
+// Lifecycle hooks
 onMounted(async () => {
   loadUser()
   await applicationStore.loadApplicationsToStore()
@@ -266,6 +167,35 @@ onMounted(async () => {
     skills.value = skillStore.getSkills
   }
 })
+
+// Methods
+const loadUser = () => {
+  const user = authStore.getUser
+  originalUser.value = { ...user }
+  userData.value = { ...user }
+}
+
+const cancelEdit = () => {
+  userData.value = { ...originalUser.value }
+  editMode.value = false
+  form.value?.resetValidation()
+}
+
+const saveEdit = async () => {
+  if (form.value?.validate()) {
+    try {
+      await authStore.updateUser(userData.value)
+      router.go()
+    } catch (error) {
+      console.error('Failed to update user:', error)
+      alert('Something went wrong while saving.')
+    }
+  }
+}
+
+const viewProjectDetail = id => {
+  router.push({ name: 'ProjectDetail', params: { id } })
+}
 </script>
 
 <style scoped>

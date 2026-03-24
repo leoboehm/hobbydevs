@@ -83,6 +83,10 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
+// Reactive state
+const router = useRouter()
+const authStore = useAuthStore()
+
 const valid = ref(false)
 const email = ref('')
 const password = ref('')
@@ -90,14 +94,12 @@ const showPassword = ref(false)
 const errorMessage = ref('')
 const form = ref(null)
 
-const authStore = useAuthStore()
-const router = useRouter()
-
 const rules = {
   required: value => !!value || 'This field is required',
   email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
 }
 
+// Methods
 async function submit() {
   errorMessage.value = ''
   if (form.value?.validate()) {

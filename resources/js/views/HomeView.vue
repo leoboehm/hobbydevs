@@ -61,8 +61,8 @@
 import { onMounted, ref } from 'vue'
 import Typed from 'typed.js'
 
+// Reactive State
 const typed = ref(null)
-
 const features = [
   {
     title: 'Explore Projects',
@@ -84,9 +84,10 @@ const features = [
     icon: 'mdi-account-search-outline',
     btn: 'View Developers',
     link: '/developers',
-  }
+  },
 ]
 
+// Lifecycle hooks
 onMounted(() => {
   new Typed(typed.value, {
     strings: [

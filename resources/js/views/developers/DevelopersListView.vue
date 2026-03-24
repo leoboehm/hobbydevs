@@ -57,19 +57,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
 import { useDeveloperStore } from '@/stores/developer'
 
+// Reactive state
 const router = useRouter()
 const developerStore = useDeveloperStore()
 
 const developers = ref([])
 
-const goToDeveloper = id => {
-  router.push(`/developers/${id}`)
-}
-
+// Lifecycle hooks
 onMounted(async () => {
   developers.value = await developerStore.fetchDevelopersList()
 })
+
+// Methods
+const goToDeveloper = id => {
+  router.push(`/developers/${id}`)
+}
 </script>

@@ -32,6 +32,7 @@
 import { ref, computed } from 'vue'
 import { useDate } from 'vuetify'
 
+// Properties
 const props = defineProps({
   modelValue: {
     type: [String, Date],
@@ -46,14 +47,17 @@ const props = defineProps({
   readonly: Boolean,
 })
 
+// Emits
 const emit = defineEmits(['update:modelValue'])
 
+// Reactive state
 const date = useDate()
 const menu = ref(false)
+
+// Computed
 const formattedDate = computed(() =>
   props.modelValue ? date.format(props.modelValue, 'fullDate') : '',
 )
-
 const proxyDate = computed({
   get: () => props.modelValue,
   set: newVal => {

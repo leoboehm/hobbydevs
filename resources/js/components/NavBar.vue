@@ -94,11 +94,13 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
+// Reactive state
 const router = useRouter()
 const authStore = useAuthStore()
 
 const dialog = ref(false)
 
+// Methods
 const confirmLogout = () => {
   dialog.value = false
   logout()
@@ -121,16 +123,13 @@ const logout = () => {
 .nav-btn {
   font-weight: 600;
 }
-
 .nav-btn .v-icon {
   margin-right: 8px;
 }
-
 .logout-btn {
   font-weight: 600;
   color: #f44336;
 }
-
 .clickable-avatar {
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
@@ -138,7 +137,6 @@ const logout = () => {
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-
 .clickable-avatar:hover {
   transform: scale(1.1);
 }

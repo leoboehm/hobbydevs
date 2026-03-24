@@ -172,14 +172,15 @@ import { useCategoryStore } from '@/stores/category'
 import { useSkillStore } from '@/stores/skill'
 import DatePicker from '@/components/DatePicker.vue'
 
-const valid = ref(false)
-const date = useDate()
-const currentStep = ref(0)
-
+// Reactive State
+const router = useRouter()
 const projectStore = useProjectStore()
 const categoryStore = useCategoryStore()
 const skillStore = useSkillStore()
 
+const valid = ref(false)
+const date = useDate()
+const currentStep = ref(0)
 const project = ref({
   title: '',
   description: '',
@@ -188,22 +189,33 @@ const project = ref({
   start_date: '',
   end_date: '',
 })
-
 const application = ref({
   salary: '',
   start_date: '',
   end_date: '',
 })
-
 const categories = ref([])
 const skills = ref([])
+const today = new Date()
 
 const rules = {
   required: value => !!value || 'This field is required',
 }
 
-const router = useRouter()
+// Lifecycle hooks
+onMounted(async () => {
+  await categoryStore.loadCategoriesToStore()
+  if (!categoryStore.getCategoriesLoading) {
+    categories.value = categoryStore.getCategories
+  }
 
+  await skillStore.loadSkillsToStore()
+  if (!skillStore.getSkillsLoading) {
+    skills.value = skillStore.getSkills
+  }
+})
+
+// Methods
 const postProject = async () => {
   if (valid.value) {
     let projectData = {
@@ -235,18 +247,4 @@ const postProject = async () => {
     router.push({ name: 'Profile' })
   }
 }
-
-onMounted(async () => {
-  await categoryStore.loadCategoriesToStore()
-  if (!categoryStore.getCategoriesLoading) {
-    categories.value = categoryStore.getCategories
-  }
-
-  await skillStore.loadSkillsToStore()
-  if (!skillStore.getSkillsLoading) {
-    skills.value = skillStore.getSkills
-  }
-})
-
-const today = new Date()
 </script>

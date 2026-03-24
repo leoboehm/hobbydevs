@@ -134,6 +134,7 @@ import { useCategoryStore } from '@/stores/category'
 import { useSkillStore } from '@/stores/skill'
 import DatePicker from '@/components/DatePicker.vue'
 
+// Reactive State
 const router = useRouter()
 const route = useRoute()
 const projectStore = useProjectStore()
@@ -144,7 +145,6 @@ const skillStore = useSkillStore()
 const editMode = ref(false)
 const valid = ref(false)
 const formRef = ref(null)
-
 const isOwner = ref(false)
 const project = ref(null)
 const projectData = ref({
@@ -159,30 +159,16 @@ const projectData = ref({
   application_start_date: '',
   application_deadline: '',
 })
-
 const categories = ref([])
 const skills = ref([])
-
 const errorMessage = ref(null)
+const today = new Date()
 
 const rules = {
   required: v => !!v || 'This field is required',
 }
 
-const fetchProject = async () => {
-  try {
-    const projectResponse = await projectStore.fetchProjectByID(route.params.id)
-
-    project.value = { ...projectResponse }
-    projectData.value = { ...projectResponse }
-
-    isOwner.value = authStore.getUser.id == project.value.id
-  } catch (error) {
-    console.error('Error fetching project:', error)
-    errorMessage.value = 'Error fetching project data.'
-  }
-}
-
+// Lifecycle hooks
 onMounted(async () => {
   await fetchProject()
 
@@ -196,6 +182,21 @@ onMounted(async () => {
     skills.value = skillStore.getSkills
   }
 })
+
+// Methods
+const fetchProject = async () => {
+  try {
+    const projectResponse = await projectStore.fetchProjectByID(route.params.id)
+
+    project.value = { ...projectResponse }
+    projectData.value = { ...projectResponse }
+
+    isOwner.value = authStore.getUser.id == project.value.id
+  } catch (error) {
+    console.error('Error fetching project:', error)
+    errorMessage.value = 'Error fetching project data.'
+  }
+}
 
 const saveEdit = async () => {
   if (formRef.value?.validate()) {
@@ -215,6 +216,4 @@ const cancelEdit = () => {
   editMode.value = false
   formRef.value?.resetValidation()
 }
-
-const today = new Date()
 </script>

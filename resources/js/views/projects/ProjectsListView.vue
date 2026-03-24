@@ -43,12 +43,14 @@ import { useProjectStore } from '@/stores/project'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
+// Reactive State
+const router = useRouter()
 const projectStore = useProjectStore()
 const authStore = useAuthStore()
-const router = useRouter()
 
 const projectList = ref([])
 
+// Lifecycle hooks
 onMounted(async () => {
   try {
     const fetchedProjects = await projectStore.fetchAllProjects()
@@ -60,6 +62,7 @@ onMounted(async () => {
   }
 })
 
+// Methods
 const viewProjectDetail = id => {
   if (authStore.getIsAuthenticated) {
     router.push({ name: 'ProjectDetail', params: { id } })

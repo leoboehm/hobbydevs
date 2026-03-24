@@ -6,6 +6,9 @@ export const useProjectStore = defineStore('projectStore', {
   state: () => ({
     error: null,
   }),
+
+  getters: {},
+
   actions: {
     async applyToProject(applicationData) {
       try {

@@ -8,8 +8,6 @@
   </v-footer>
 </template>
 
-<script setup></script>
-
 <style scoped>
 v-footer {
   background-color: #333;

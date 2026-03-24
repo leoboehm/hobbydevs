@@ -10,5 +10,3 @@
     <v-btn color="primary" class="mt-4" to="/"> Go Back Home </v-btn>
   </v-container>
 </template>
-
-<script setup></script>

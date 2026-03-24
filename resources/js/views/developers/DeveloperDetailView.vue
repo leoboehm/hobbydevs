@@ -76,6 +76,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useDeveloperStore } from '@/stores/developer'
 import { useAuthStore } from '@/stores/auth'
 
+// Reactive state
 const router = useRouter()
 const route = useRoute()
 const developerStore = useDeveloperStore()
@@ -85,6 +86,13 @@ const developer = ref(null)
 const ratingMode = ref(false)
 const rating = ref(0)
 
+// Lifecycle hooks
+onMounted(async () => {
+  developer.value = await developerStore.fetchDeveloperById(route.params.id)
+  rating.value = developer.value.rating
+})
+
+// Methods
 const saveRating = async () => {
   try {
     const newRating = calculateRating()
@@ -106,9 +114,4 @@ const cancelRating = () => {
 const calculateRating = () => {
   return (developer.value.rating + rating.value) / 2
 }
-
-onMounted(async () => {
-  developer.value = await developerStore.fetchDeveloperById(route.params.id)
-  rating.value = developer.value.rating
-})
 </script>

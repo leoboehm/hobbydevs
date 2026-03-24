@@ -29,7 +29,7 @@
           </v-row>
 
           <v-card-text>
-            <v-form ref="formRef" v-model="valid" lazy-validation>
+            <v-form ref="form" v-model="valid" lazy-validation>
               <!-- Account Type -->
               <v-select
                 v-model="accountType"
@@ -130,7 +130,11 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
-const formRef = ref(null)
+// Reactive state
+const router = useRouter()
+const authStore = useAuthStore()
+
+const form = ref(null)
 const valid = ref(false)
 const accountType = ref('')
 const firstname = ref('')
@@ -151,11 +155,9 @@ const rules = {
   matchPassword: value => value === password.value || 'Passwords must match',
 }
 
-const authStore = useAuthStore()
-const router = useRouter()
-
+// Methods
 const submit = async () => {
-  const isValid = await formRef.value?.validate()
+  const isValid = await form.value?.validate()
   if (isValid) {
     if (authStore) {
       try {
@@ -188,6 +190,6 @@ const cancel = () => {
   email.value = ''
   password.value = ''
   confirmPassword.value = ''
-  formRef.value?.resetValidation()
+  form.value?.resetValidation()
 }
 </script>
