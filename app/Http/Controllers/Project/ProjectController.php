@@ -9,9 +9,6 @@ use App\Models\Project;
 
 class ProjectController extends Controller
 {
-    private const REQUIRED_STRING = 'required|string';
-    private const REQUIRED_DATE = 'required|date';
-
     /**
      * Route: GET /project
      * Display a listing of projects.
@@ -81,16 +78,16 @@ class ProjectController extends Controller
         }
 
         $validated = $request->validate([
-            'title' => self::REQUIRED_STRING . '|max:255',
-            'description' => self::REQUIRED_STRING,
-            'category' => self::REQUIRED_STRING,
-            'skills' => self::REQUIRED_STRING,
-            'salary_range' => self::REQUIRED_STRING,
-            'duration' => self::REQUIRED_STRING,
-            'start_date' => self::REQUIRED_DATE,
-            'deadline' => self::REQUIRED_DATE,
-            'application_start_date' => self::REQUIRED_DATE,
-            'application_deadline' => self::REQUIRED_DATE,
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
+            'skills' => 'required|string',
+            'salary_range' => 'required|string',
+            'duration' => 'required|string',
+            'start_date' => 'required|date',
+            'deadline' => 'required|date',
+            'application_start_date' => 'required|date',
+            'application_deadline' => 'required|date',
         ]);
 
         $project->update($validated);
