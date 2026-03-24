@@ -58,7 +58,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { useDeveloperStore } from '../../stores/developer'
+import { useDeveloperStore } from '@/stores/developer'
 
 const router = useRouter()
 const developerStore = useDeveloperStore()

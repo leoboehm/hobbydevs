@@ -17,7 +17,7 @@ const routes = [
     path: '/developers',
     name: 'Developers',
     component: routeComponents.Devs,
-    //meta: { projectOwnersOnly: true },
+    meta: { projectOwnersOnly: true },
   },
   {
     path: '/developers/:id',
