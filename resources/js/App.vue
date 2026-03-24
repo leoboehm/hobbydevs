@@ -1,15 +1,15 @@
 <template>
-    <v-app>
-        <NavBar />
+  <v-app>
+    <NavBar />
 
-        <v-main>
-            <v-container fluid>
-                <router-view />
-            </v-container>
-        </v-main>
+    <v-main>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-main>
 
-        <Footer />
-    </v-app>
+    <Footer />
+  </v-app>
 </template>
 
 <script setup>

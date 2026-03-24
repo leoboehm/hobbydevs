@@ -1,223 +1,192 @@
 <template>
-    <v-container class="py-10">
-        <v-card elevation="2" class="pa-6" max-width="800" mx-auto>
-            <v-card-title class="d-flex justify-space-between align-center">
-                <span class="text-h5 font-weight-medium">My Profile</span>
-                <v-spacer />
-                <v-btn
-                    color="primary"
-                    @click="editMode = true"
-                    v-if="!editMode"
-                >
-                    <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
-                </v-btn>
-            </v-card-title>
+  <v-container class="py-10">
+    <v-card elevation="2" class="pa-6" max-width="800" mx-auto>
+      <v-card-title class="d-flex justify-space-between align-center">
+        <span class="text-h5 font-weight-medium">My Profile</span>
+        <v-spacer />
+        <v-btn color="primary" @click="editMode = true" v-if="!editMode">
+          <v-icon left class="mr-2">mdi-pencil</v-icon>Edit
+        </v-btn>
+      </v-card-title>
 
-            <v-divider class="my-4"></v-divider>
+      <v-divider class="my-4"></v-divider>
 
-            <v-tabs
-                v-model="activeTab"
-                background-color="grey lighten-4"
-                centered
+      <v-tabs v-model="activeTab" background-color="grey lighten-4" centered>
+        <v-tab value="one">Profile Info</v-tab>
+        <v-tab value="two">Applications</v-tab>
+        <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
+          >Your Projects</v-tab
+        >
+      </v-tabs>
+
+      <v-tabs-window v-model="activeTab">
+        <!-- Profile Info Tab -->
+        <v-tabs-window-item value="one">
+          <v-card-text>
+            <v-form ref="formRef" v-model="valid" lazy-validation>
+              <v-row dense>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="userData.firstname"
+                    label="First Name"
+                    :readonly="!editMode"
+                    :rules="[rules.required]"
+                    outlined
+                    dense
+                /></v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="userData.lastname"
+                    label="Last Name"
+                    :readonly="!editMode"
+                    :rules="[rules.required]"
+                    outlined
+                    dense /></v-col
+              ></v-row>
+              <v-row dense>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="userData.username"
+                    label="Username"
+                    :readonly="!editMode"
+                    :rules="[rules.required]"
+                    outlined
+                    dense
+                /></v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="userData.email"
+                    label="Email"
+                    disabled
+                    outlined
+                    dense
+                /></v-col>
+              </v-row>
+              <template v-if="authStore.getUserIsDeveloper">
+                <v-textarea
+                  v-model="userData.bio"
+                  label="Bio"
+                  auto-grow
+                  rows="2"
+                  :readonly="!editMode"
+                  outlined
+                  dense
+                />
+                <v-text-field
+                  v-model="userData.experience"
+                  label="Past experience"
+                  :readonly="!editMode"
+                  outlined
+                  dense
+                />
+                <v-textarea
+                  v-model="userData.interests"
+                  label="Interests"
+                  auto-grow
+                  rows="1"
+                  :readonly="!editMode"
+                  outlined
+                  dense
+                />
+                <v-select
+                  v-model="userData.skills"
+                  :items="skills"
+                  label="Skills"
+                  outlined
+                  dense
+                  multiple
+                  chips
+                  :readonly="!editMode"
+                ></v-select>
+              </template>
+            </v-form>
+          </v-card-text>
+
+          <v-card-actions v-if="editMode">
+            <v-spacer />
+            <v-btn text color="red" @click="cancelEdit">Cancel</v-btn>
+            <v-btn color="green" @click="saveEdit" :disabled="!valid"
+              >Save</v-btn
             >
-                <v-tab value="one">Profile Info</v-tab>
-                <v-tab value="two">Applications</v-tab>
-                <v-tab value="three" v-if="authStore.getUserIsProjectOwner"
-                    >Your Projects</v-tab
-                >
-            </v-tabs>
+          </v-card-actions>
+        </v-tabs-window-item>
 
-            <v-tabs-window v-model="activeTab">
-                <!-- Profile Info Tab -->
-                <v-tabs-window-item value="one">
-                    <v-card-text>
-                        <v-form ref="formRef" v-model="valid" lazy-validation>
-                            <v-row dense>
-                                <v-col cols="6">
-                                    <v-text-field
-                                        v-model="userData.firstname"
-                                        label="First Name"
-                                        :readonly="!editMode"
-                                        :rules="[rules.required]"
-                                        outlined
-                                        dense
-                                /></v-col>
-                                <v-col cols="6">
-                                    <v-text-field
-                                        v-model="userData.lastname"
-                                        label="Last Name"
-                                        :readonly="!editMode"
-                                        :rules="[rules.required]"
-                                        outlined
-                                        dense /></v-col
-                            ></v-row>
-                            <v-row dense>
-                                <v-col cols="6">
-                                    <v-text-field
-                                        v-model="userData.username"
-                                        label="Username"
-                                        :readonly="!editMode"
-                                        :rules="[rules.required]"
-                                        outlined
-                                        dense
-                                /></v-col>
-                                <v-col cols="6">
-                                    <v-text-field
-                                        v-model="userData.email"
-                                        label="Email"
-                                        disabled
-                                        outlined
-                                        dense
-                                /></v-col>
-                            </v-row>
-                            <template v-if="authStore.getUserIsDeveloper">
-                                <v-textarea
-                                    v-model="userData.bio"
-                                    label="Bio"
-                                    auto-grow
-                                    rows="2"
-                                    :readonly="!editMode"
-                                    outlined
-                                    dense
-                                />
-                                <v-text-field
-                                    v-model="userData.experience"
-                                    label="Past experience"
-                                    :readonly="!editMode"
-                                    outlined
-                                    dense
-                                />
-                                <v-textarea
-                                    v-model="userData.interests"
-                                    label="Interests"
-                                    auto-grow
-                                    rows="1"
-                                    :readonly="!editMode"
-                                    outlined
-                                    dense
-                                />
-                                <v-select
-                                    v-model="userData.skills"
-                                    :items="skills"
-                                    label="Skills"
-                                    outlined
-                                    dense
-                                    multiple
-                                    chips
-                                    :readonly="!editMode"
-                                ></v-select>
-                            </template>
-                        </v-form>
-                    </v-card-text>
+        <!-- Applications Tab -->
+        <v-tabs-window-item value="two">
+          <v-card-text>
+            <div v-if="!applicationStore.getApplications.length">
+              No applications found.
+            </div>
+            <v-list two-line v-else>
+              <v-list-item
+                v-for="app in applicationStore.getApplications"
+                :key="app.id"
+              >
+                <template v-if="authStore.getUserIsDeveloper">
+                  <v-list-item-title>{{ app.project.title }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    Status: {{ app.status }}
+                  </v-list-item-subtitle>
+                </template>
+                <template v-else-if="authStore.getUserIsProjectOwner">
+                  <v-list-item-title>
+                    {{ app.user.firstname }}
+                    {{ app.user.lastname }} applied to your project "{{
+                      app.project.title
+                    }}"
+                  </v-list-item-title>
+                  <v-list-item-subtitle
+                    >Status: {{ app.status }}</v-list-item-subtitle
+                  >
+                </template>
+                <v-btn
+                  @click="viewProjectDetail(app.project_id)"
+                  class="text-primary"
+                  outlined
+                  >Go to project
+                  <v-icon class="ml-2">mdi-arrow-right</v-icon>
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+        </v-tabs-window-item>
 
-                    <v-card-actions v-if="editMode">
-                        <v-spacer />
-                        <v-btn text color="red" @click="cancelEdit"
-                            >Cancel</v-btn
-                        >
-                        <v-btn
-                            color="green"
-                            @click="saveEdit"
-                            :disabled="!valid"
-                            >Save</v-btn
-                        >
-                    </v-card-actions>
-                </v-tabs-window-item>
+        <!-- Owned Projects Tab -->
+        <v-tabs-window-item value="three">
+          <v-card-text>
+            <div v-if="!ownedProjects.length">
+              No projects so far.
+              <router-link to="/projects/post">Click here</router-link>
+              to post your first project.
+            </div>
+            <v-row dense v-for="project in ownedProjects" :key="project.id">
+              <v-col cols="12">
+                <v-card class="elevation-2">
+                  <v-card-title class="text-h6 font-weight-bold">{{
+                    project.title
+                  }}</v-card-title>
+                  <v-card-subtitle class="text-subtitle-2"
+                    >Category: {{ project.category }}</v-card-subtitle
+                  >
 
-                <!-- Applications Tab -->
-                <v-tabs-window-item value="two">
-                    <v-card-text>
-                        <div v-if="!applicationStore.getApplications.length">
-                            No applications found.
-                        </div>
-                        <v-list two-line v-else>
-                            <v-list-item
-                                v-for="app in applicationStore.getApplications"
-                                :key="app.id"
-                            >
-                                <template v-if="authStore.getUserIsDeveloper">
-                                    <v-list-item-title>{{
-                                        app.project.title
-                                    }}</v-list-item-title>
-                                    <v-list-item-subtitle>
-                                        Status: {{ app.status }}
-                                    </v-list-item-subtitle>
-                                </template>
-                                <template
-                                    v-else-if="authStore.getUserIsProjectOwner"
-                                >
-                                    <v-list-item-title>
-                                        {{ app.user.firstname }}
-                                        {{ app.user.lastname }} applied to your
-                                        project "{{ app.project.title }}"
-                                    </v-list-item-title>
-                                    <v-list-item-subtitle
-                                        >Status:
-                                        {{ app.status }}</v-list-item-subtitle
-                                    >
-                                </template>
-                                <v-btn
-                                    @click="viewProjectDetail(app.project_id)"
-                                    class="text-primary"
-                                    outlined
-                                    >Go to project
-                                    <v-icon class="ml-2"
-                                        >mdi-arrow-right</v-icon
-                                    >
-                                </v-btn>
-                            </v-list-item>
-                        </v-list>
-                    </v-card-text>
-                </v-tabs-window-item>
-
-                <!-- Owned Projects Tab -->
-                <v-tabs-window-item value="three">
-                    <v-card-text>
-                        <div v-if="!ownedProjects.length">
-                            No projects so far.
-                            <router-link to="/projects/post"
-                                >Click here</router-link
-                            >
-                            to post your first project.
-                        </div>
-                        <v-row
-                            dense
-                            v-for="project in ownedProjects"
-                            :key="project.id"
-                        >
-                            <v-col cols="12">
-                                <v-card class="elevation-2">
-                                    <v-card-title
-                                        class="text-h6 font-weight-bold"
-                                        >{{ project.title }}</v-card-title
-                                    >
-                                    <v-card-subtitle class="text-subtitle-2"
-                                        >Category:
-                                        {{ project.category }}</v-card-subtitle
-                                    >
-
-                                    <v-card-actions>
-                                        <v-spacer />
-                                        <v-btn
-                                            @click="
-                                                viewProjectDetail(project.id)
-                                            "
-                                            class="text-primary"
-                                            outlined
-                                            >Project detail
-                                            <v-icon class="ml-2"
-                                                >mdi-arrow-right</v-icon
-                                            >
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-tabs-window-item>
-            </v-tabs-window>
-        </v-card>
-    </v-container>
+                  <v-card-actions>
+                    <v-spacer />
+                    <v-btn
+                      @click="viewProjectDetail(project.id)"
+                      class="text-primary"
+                      outlined
+                      >Project detail
+                      <v-icon class="ml-2">mdi-arrow-right</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-tabs-window-item>
+      </v-tabs-window>
+    </v-card>
+  </v-container>
 </template>
 
 <script setup>
@@ -241,10 +210,10 @@ const formRef = ref(null)
 
 const originalUser = ref(null)
 const userData = ref({
-    firstname: '',
-    lastname: '',
-    username: '',
-    email: '',
+  firstname: '',
+  lastname: '',
+  username: '',
+  email: '',
 })
 
 const skills = ref([])
@@ -252,55 +221,55 @@ const skills = ref([])
 const ownedProjects = ref([])
 
 const rules = {
-    required: v => !!v || 'This field is required',
-    email: v => /.+@.+\..+/.test(v) || 'Invalid email',
+  required: v => !!v || 'This field is required',
+  email: v => /.+@.+\..+/.test(v) || 'Invalid email',
 }
 
 const loadUser = () => {
-    const user = authStore.getUser
-    originalUser.value = { ...user }
-    userData.value = { ...user }
+  const user = authStore.getUser
+  originalUser.value = { ...user }
+  userData.value = { ...user }
 }
 
 const cancelEdit = () => {
-    userData.value = { ...originalUser.value }
-    editMode.value = false
-    formRef.value?.resetValidation()
+  userData.value = { ...originalUser.value }
+  editMode.value = false
+  formRef.value?.resetValidation()
 }
 
 const saveEdit = async () => {
-    if (formRef.value?.validate()) {
-        try {
-            await authStore.updateUser(userData.value)
-            router.go()
-        } catch (error) {
-            console.error('Failed to update user:', error)
-            alert('Something went wrong while saving.')
-        }
+  if (formRef.value?.validate()) {
+    try {
+      await authStore.updateUser(userData.value)
+      router.go()
+    } catch (error) {
+      console.error('Failed to update user:', error)
+      alert('Something went wrong while saving.')
     }
+  }
 }
 
 const viewProjectDetail = id => {
-    router.push({ name: 'ProjectDetail', params: { id } })
+  router.push({ name: 'ProjectDetail', params: { id } })
 }
 
 onMounted(async () => {
-    loadUser()
-    await applicationStore.loadApplicationsToStore()
+  loadUser()
+  await applicationStore.loadApplicationsToStore()
 
-    ownedProjects.value = await projectStore.fetchProjectsByUser(
-        originalUser.value.id,
-    )
+  ownedProjects.value = await projectStore.fetchProjectsByUser(
+    originalUser.value.id,
+  )
 
-    await skillStore.loadSkillsToStore()
-    if (!skillStore.getSkillsLoading) {
-        skills.value = skillStore.getSkills
-    }
+  await skillStore.loadSkillsToStore()
+  if (!skillStore.getSkillsLoading) {
+    skills.value = skillStore.getSkills
+  }
 })
 </script>
 
 <style scoped>
 .v-card-title {
-    align-items: center;
+  align-items: center;
 }
 </style>

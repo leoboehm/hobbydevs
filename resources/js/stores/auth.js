@@ -9,11 +9,11 @@ export const useAuthStore = defineStore('authStore', {
   }),
 
   getters: {
-    getIsAuthenticated: (state) => state.isAuthenticated,
-    getUser: (state) => state.user,
-    getUserType: (state) => state.user?.type ?? null,
-    getUserIsDeveloper: (state) => state.user?.type === 'Developer',
-    getUserIsProjectOwner: (state) => state.user?.type === 'Project Owner',
+    getIsAuthenticated: state => state.isAuthenticated,
+    getUser: state => state.user,
+    getUserType: state => state.user?.type ?? null,
+    getUserIsDeveloper: state => state.user?.type === 'Developer',
+    getUserIsProjectOwner: state => state.user?.type === 'Project Owner',
   },
 
   actions: {
@@ -55,7 +55,8 @@ export const useAuthStore = defineStore('authStore', {
       try {
         await apiClient.post('/register', userData)
       } catch (error) {
-        this.error = error.response?.data?.message ??
+        this.error =
+          error.response?.data?.message ??
           'An error occurred while registering. Please try again.'
       }
     },

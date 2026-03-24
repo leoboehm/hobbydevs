@@ -1,6 +1,6 @@
-import vuetify      from './vuetify'
+import vuetify from './vuetify'
 import { createPinia } from 'pinia'
-import router       from '../router'
+import router from '../router'
 
 export function registerPlugins(app) {
   app.use(vuetify)

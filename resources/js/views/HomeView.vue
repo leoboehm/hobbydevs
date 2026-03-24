@@ -3,7 +3,11 @@
     <v-row>
       <!-- Hero with Typing Animation -->
       <v-col cols="12">
-        <v-sheet class="pa-12 text-center hero-gradient glass" elevation="6" rounded>
+        <v-sheet
+          class="pa-12 text-center hero-gradient glass"
+          elevation="6"
+          rounded
+        >
           <h1 class="text-h2 font-weight-black mb-4 text-white hero-title">
             Bring Your Ideas to Life
           </h1>
@@ -23,10 +27,21 @@
     <!-- Features -->
     <v-container class="mt-12">
       <v-row>
-        <v-col cols="12" md="4" v-for="feature in features" :key="feature.title">
+        <v-col
+          cols="12"
+          md="4"
+          v-for="feature in features"
+          :key="feature.title"
+        >
           <v-hover v-slot="{ isHovering, props }">
-            <v-card v-bind="props" class="feature-card pa-6 text-center glass" :elevation="isHovering ? 12 : 6"
-              :style="{ transform: isHovering ? 'translateY(-6px) scale(1.02)' : '' }">
+            <v-card
+              v-bind="props"
+              class="feature-card pa-6 text-center glass"
+              :elevation="isHovering ? 12 : 6"
+              :style="{
+                transform: isHovering ? 'translateY(-6px) scale(1.02)' : '',
+              }"
+            >
               <div class="feature-icon mb-3">
                 <v-icon size="48" color="white">{{ feature.icon }}</v-icon>
               </div>
@@ -45,7 +60,9 @@
 
     <!-- CTA -->
     <v-container class="text-center my-12">
-      <h2 class="text-h4 font-weight-bold mb-2">Ready to bring your idea to life?</h2>
+      <h2 class="text-h4 font-weight-bold mb-2">
+        Ready to bring your idea to life?
+      </h2>
       <p class="text-body-1 mb-4">Start your journey today with Hobby Devs</p>
       <v-btn color="primary" large to="/signup">Get Started</v-btn>
     </v-container>
@@ -56,7 +73,6 @@
     </v-btn>
   </v-container>
 </template>
-
 
 <script setup>
 import { onMounted, ref } from 'vue'
