@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('authStore', {
 
     async registerUser(userData) {
       try {
-        await apiClient.post('/register', userData)
+        await apiClient.post('/user', userData)
       } catch (error) {
         this.error =
           error.response?.data?.message ??

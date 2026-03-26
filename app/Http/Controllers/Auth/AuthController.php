@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    // POST: /login
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
+        // attempt login with provided credentials
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -24,6 +26,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Login failed. Wrong credentials'], 401);
     }
 
+    // POST: /logout
     public function logout(Request $request)
     {
         // end current session

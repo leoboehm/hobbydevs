@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // POST: /user
     public function add(Request $request)
     {
         // Check if email is already in use
@@ -29,6 +30,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User registered successfully'], 201);
     }
 
+    // PUT: /user
     public function update(Request $request)
     {
         $user = User::find($request->id);
@@ -53,6 +55,7 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    // GET: /developers
     public function getDeveloperList(Request $request)
     {
         $developers = User::where('type', 'Developer')->get();
@@ -66,6 +69,7 @@ class UserController extends Controller
         return response()->json($developersList);
     }
 
+    // GET: /developers/{id}
     public function getDeveloperById(Request $request, string $id)
     {
         $developer = User::find($id);

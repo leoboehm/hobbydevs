@@ -21,7 +21,7 @@ use App\Http\Controllers\User\UserController;
 
 // user
 Route::put('/user', [UserController::class, 'update']);
-Route::post('/register', [UserController::class, 'add']);
+Route::post('/user', [UserController::class, 'add']);
 Route::get('/developers', [UserController::class,'getDeveloperList']);
 Route::get('/developers/{id}', [UserController::class,'getDeveloperById']);
 // project

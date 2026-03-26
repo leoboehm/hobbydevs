@@ -15,7 +15,7 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_registers_a_new_user_successfully()
     {
-        $response = $this->postJson('/api/register', [
+        $response = $this->postJson('/api/user', [
             'email' => 'test@example.com',
             'firstname' => 'John',
             'lastname' => 'Doe',
@@ -45,7 +45,7 @@ class UserControllerTest extends TestCase
             'email' => 'duplicate@example.com',
         ]);
 
-        $response = $this->postJson('/api/register', [
+        $response = $this->postJson('/api/user', [
             'email' => 'duplicate@example.com',
             'firstname' => 'Jane',
             'lastname' => 'Smith',

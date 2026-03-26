@@ -19,6 +19,7 @@ class ProjectSkillController extends Controller
     }
 
     /**
+     * POST: /skill
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -26,6 +27,7 @@ class ProjectSkillController extends Controller
     }
 
     /**
+     * GET: /skill/{id}
      * Display the specified resource.
      */
     public function show(string $id)
@@ -33,6 +35,7 @@ class ProjectSkillController extends Controller
     }
 
     /**
+     * PUT: /skill/{id}
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
@@ -40,6 +43,7 @@ class ProjectSkillController extends Controller
     }
 
     /**
+     * DELETE: /skill/{id}
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)

@@ -11,6 +11,7 @@ class ProjectApplicationController extends Controller
 {
     private const REQUIRED_STRING = 'required|string';
 
+    // POST: /apply
     public function postApplication(Request $request)
     {
         $validatedData = $request->validate([
@@ -38,12 +39,15 @@ class ProjectApplicationController extends Controller
 
         return response()->json($application, 201);
     }
+
+    // GET: /sent-applications/{userId}
     public function getSentApplications(string $userId)
     {
         $applications = Application::where('user_id', $userId)->get();
         return response()->json($applications);
     }
 
+    // GET /received-applications/{userId}
     public function getReceivedApplications(string $userId)
     {
         $applications = Application::with('project')->whereHas('project', function ($query) use ($userId) {
