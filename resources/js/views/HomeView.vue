@@ -63,29 +63,6 @@ import Typed from 'typed.js'
 
 // Reactive State
 const typed = ref(null)
-const features = [
-  {
-    title: 'Explore Projects',
-    desc: 'Browse innovative ideas and apply based on your skills and availability.',
-    icon: 'mdi-lightbulb-on-outline',
-    btn: 'View Projects',
-    link: '/projects',
-  },
-  {
-    title: 'Sign Up',
-    desc: 'Create your profile and showcase your skills or post your project idea.',
-    icon: 'mdi-account-plus-outline',
-    btn: 'Get Started',
-    link: '/signup',
-  },
-  {
-    title: 'Explore Developers',
-    desc: 'Discover professionals, review their skills, and connect for collaboration.',
-    icon: 'mdi-account-search-outline',
-    btn: 'View Developers',
-    link: '/developers',
-  },
-]
 
 // Lifecycle hooks
 onMounted(() => {

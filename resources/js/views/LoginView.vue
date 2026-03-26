@@ -10,59 +10,38 @@
 
           <v-row align="center" justify="center" class="mb-3">
             <v-col class="text-center" cols="12">
-              <span class="font-weight-bold">New to the platform?</span></v-col
-            >
+              <span class="font-weight-bold">New to the platform?</span></v-col>
             <v-col class="text-center" cols="1">
               <v-icon large color="primary">mdi-account-plus</v-icon>
             </v-col>
             <v-col class="text-center" cols="7">
-              <span
-                >Create an account to enjoy all features and get started!</span
-              >
+              <span>Create an account to enjoy all features and get started!</span>
             </v-col>
             <v-col class="text-center" cols="12">
-              <v-btn
-                color="primary"
-                to="/signup"
-                dark
-                rounded
-                elevation="2"
-                width="200"
-              >
+              <v-btn color="primary" to="/signup" dark rounded elevation="2" width="200">
                 Sign Up Now
-              </v-btn></v-col
-            >
+              </v-btn></v-col>
           </v-row>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
-              <!-- Show error message if login fails -->
-              <v-alert v-if="errorMessage" type="error" class="mb-4">
-                {{ errorMessage }}
-              </v-alert>
-
               <!-- Email -->
-              <v-text-field
-                v-model="email"
-                :rules="[rules.required, rules.email]"
-                label="Email"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="email" :rules="[rules.required, rules.email]" label="Email" outlined
+                required></v-text-field>
 
               <!-- Password -->
-              <v-text-field
-                v-model="password"
-                :rules="[rules.required]"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                @click:append="showPassword = !showPassword"
-                label="Password"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="password" :rules="[rules.required]"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword" label="Password" outlined required></v-text-field>
             </v-form>
           </v-card-text>
 
+          <v-row v-if="authStore.error">
+            <v-col>
+              <v-alert type="error" dismissible>
+                {{ authStore.error }}
+              </v-alert>
+            </v-col>
+          </v-row>
           <v-card-actions class="justify-end mb-2">
             <v-btn text color="red" @click="cancel" class="mr-4">
               Cancel
@@ -71,6 +50,7 @@
             <v-btn color="primary" @click="submit" :disabled="!valid">
               Login
             </v-btn>
+            <!-- Error Message -->
           </v-card-actions>
         </v-card>
       </v-col>
@@ -92,23 +72,22 @@ const valid = ref(false)
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
-const errorMessage = ref('')
 const form = ref(null)
 
 // Methods
 async function submit() {
-  errorMessage.value = ''
   if (form.value?.validate()) {
     try {
       await authStore.login({
         email: email.value,
         password: password.value,
       })
+
+      if (authStore.error) return
+
       router.push({ name: 'Profile' })
     } catch (err) {
-      errorMessage.value =
-        err?.response?.data?.message ||
-        'Login failed. Please check your credentials.'
+      console.error('Login failed:', err)
     }
   }
 }
@@ -116,7 +95,6 @@ async function submit() {
 function cancel() {
   email.value = ''
   password.value = ''
-  errorMessage.value = ''
   form.value?.resetValidation()
 }
 </script>

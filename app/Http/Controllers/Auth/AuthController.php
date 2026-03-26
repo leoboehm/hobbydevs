@@ -23,7 +23,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Login successful!'], 200);
         }
 
-        return response()->json(['message' => 'Login failed. Wrong credentials'], 401);
+        return response()->json(['message' => 'Login failed. No user found with these credentials.'], 401);
     }
 
     // POST: /logout

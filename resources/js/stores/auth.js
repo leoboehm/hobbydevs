@@ -39,6 +39,8 @@ export const useAuthStore = defineStore('authStore', {
         await webClient.post('/login', credentials)
         await this.loadUserToStore()
       } catch (error) {
+        this.error = error.response?.data?.message ??
+          'No user found with these credentials. Please try again.'
         console.error('Login-Error:', error)
       }
     },

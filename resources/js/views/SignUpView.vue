@@ -10,98 +10,57 @@
 
           <v-row align="center" justify="center" class="mb-3">
             <v-col class="text-center" cols="5">
-              <span class="font-weight-bold"
-                >Already have an Account?</span
-              ></v-col
-            >
+              <span class="font-weight-bold">Already have an Account?</span></v-col>
             <v-col class="text-center" cols="4">
-              <v-btn
-                color="primary"
-                to="/login"
-                dark
-                rounded
-                elevation="2"
-                width="200"
-              >
+              <v-btn color="primary" to="/login" dark rounded elevation="2" width="200">
                 Go to Login
-              </v-btn></v-col
-            >
+              </v-btn></v-col>
           </v-row>
 
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
               <!-- Account Type -->
-              <v-select
-                v-model="accountType"
-                :items="accountTypes"
-                label="Account Type"
-                :rules="[rules.required]"
-                outlined
-                required
-              ></v-select>
+              <v-select v-model="accountType" :items="accountTypes" label="Account Type" :rules="[rules.required]"
+                outlined required></v-select>
 
               <!-- First Name -->
-              <v-text-field
-                v-model="firstname"
-                :rules="[rules.required]"
-                label="First Name"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="firstname" :rules="[rules.required]" label="First Name" outlined
+                required></v-text-field>
 
               <!-- Last Name -->
-              <v-text-field
-                v-model="lastname"
-                :rules="[rules.required]"
-                label="Last Name"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="lastname" :rules="[rules.required]" label="Last Name" outlined
+                required></v-text-field>
 
               <!-- Username -->
-              <v-text-field
-                v-model="username"
-                :rules="[rules.required, rules.minLength(3)]"
-                label="Username"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="username" :rules="[rules.required, rules.minLength(3)]" label="Username" outlined
+                required></v-text-field>
 
               <!-- Email -->
-              <v-text-field
-                v-model="email"
-                :rules="[rules.required, rules.email]"
-                label="Email"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="email" :rules="[rules.required, rules.email]" label="Email" outlined
+                required></v-text-field>
 
               <!-- Password -->
-              <v-text-field
-                v-model="password"
-                :rules="[rules.required, rules.minLength(6)]"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                @click:append="showPassword = !showPassword"
-                label="Password"
-                outlined
-                required
-              ></v-text-field>
+              <v-text-field v-model="password" :rules="[rules.required, rules.minLength(6)]"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword" label="Password" outlined required></v-text-field>
 
               <!-- Confirm Password -->
-              <v-text-field
-                v-model="confirmPassword"
-                :rules="[rules.required, rules.matchPassword(() => password)]"
+              <v-text-field v-model="confirmPassword" :rules="[rules.required, rules.matchPassword(() => password)]"
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="showConfirmPassword ? 'text' : 'password'"
-                @click:append="showConfirmPassword = !showConfirmPassword"
-                label="Confirm Password"
-                outlined
-                required
-              ></v-text-field>
+                @click:append="showConfirmPassword = !showConfirmPassword" label="Confirm Password" outlined
+                required></v-text-field>
             </v-form>
           </v-card-text>
 
+          <!-- Error Message -->
+          <v-row v-if="authStore.error">
+            <v-col>
+              <v-alert type="error" dismissible>
+                {{ authStore.error }}
+              </v-alert>
+            </v-col>
+          </v-row>
           <v-card-actions class="justify-end">
             <v-btn text color="red" @click="cancel" class="mr-4">
               Cancel
@@ -110,14 +69,6 @@
             <v-btn color="primary" @click="submit" :disabled="!valid">
               Sign Up
             </v-btn>
-            <!-- Error Message -->
-            <v-row v-if="authStore.error">
-              <v-col>
-                <v-alert type="error" dismissible>
-                  {{ authStore.error }}
-                </v-alert>
-              </v-col>
-            </v-row>
           </v-card-actions>
         </v-card>
       </v-col>
