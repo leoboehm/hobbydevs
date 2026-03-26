@@ -44,7 +44,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $response->assertStatus(401)
-                 ->assertJson(['message' => 'Login failed. Wrong credentials']);
+                 ->assertJson(['message' => 'Login failed. No user found with these credentials.']);
 
         $this->assertGuest();
     }
