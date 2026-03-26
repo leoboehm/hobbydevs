@@ -186,7 +186,7 @@ class UserControllerTest extends TestCase
             'skills' => json_encode(['Vue', 'React']),
         ]);
 
-        $response = $this->getJson("/api/developers/{$developer->id}");
+        $response = $this->getJson("/api/user/{$developer->id}");
 
         $response->assertStatus(200)
             ->assertJsonFragment([
@@ -197,7 +197,7 @@ class UserControllerTest extends TestCase
     /** @test */
     public function get_developer_by_id_returns_404_when_user_not_found()
     {
-        $response = $this->getJson('/api/developers/999999');
+        $response = $this->getJson('/api/user/999999');
 
         $response->assertStatus(404)
             ->assertJson([

@@ -30,7 +30,7 @@ class User extends Authenticatable
         'rating',
         'interests'
     ];
-    
+
     /**
      * The model's default values for attributes.
      *
@@ -62,4 +62,33 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public static function emailExists(string $email): bool
+    {
+        return self::where('email', $email)->exists();
+    }
+
+    public function updateProfile(array $data): bool
+    {
+        return $this->update([
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'username' => $data['username'],
+            'skills' => $data['skills'] ?? [],
+            'experience' => $data['experience'] ?? '',
+            'bio' => $data['bio'] ?? '',
+            'rating' => $data['rating'] ?? $this->rating,
+            'interests' => $data['interests'] ?? ''
+        ]);
+    }
+
+    public function getSkillsAttribute($value)
+    {
+        return json_decode($value, true) ?: [];
+    }
+
+    public function setSkillsAttribute($value)
+    {
+        $this->attributes['skills'] = json_encode($value ?? []);
+    }
 }

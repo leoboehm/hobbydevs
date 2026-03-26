@@ -32,4 +32,35 @@ class Application extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function setSkillsAttribute($value)
+    {
+        $this->attributes['skills'] = json_encode($value ?? []);
+    }
+
+    public static function createApplication(array $data): self
+    {
+        return self::create([
+            'first_name' => $data['firstName'],
+            'last_name' => $data['lastName'],
+            'skills' => $data['skills'],
+            'availability' => $data['availability'],
+            'past_experience' => $data['pastExperience'],
+            'motivation' => $data['motivation'],
+            'contact_info' => $data['contactInfo'],
+            'user_id' => $data['user_id'],
+            'project_id' => $data['project_id'],
+        ]);
+    }
+
+    public static function findByUserId(string $userId)
+    {
+        return self::where('user_id', $userId)->get();
+    }
+
+    public static function findByOwnerId(string $userId)
+    {
+        return self::with('project')->whereHas('project', function ($query) use ($userId) {
+            $query->where('owner_id', $userId);
+        })->get();
+    }
 }

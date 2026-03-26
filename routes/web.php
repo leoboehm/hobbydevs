@@ -23,8 +23,6 @@ Route::get('/user', function (Request $request) {
     if (!$user) {
         return response()->json(null, 401);
     }
-
-    $user->skills = json_decode($user->skills, true) ?: [];
     return $user;
 });
 

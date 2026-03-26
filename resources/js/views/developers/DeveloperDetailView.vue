@@ -73,13 +73,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useDeveloperStore } from '@/stores/developer'
 import { useAuthStore } from '@/stores/auth'
 
 // Reactive state
 const router = useRouter()
 const route = useRoute()
-const developerStore = useDeveloperStore()
 const authStore = useAuthStore()
 
 const developer = ref(null)
@@ -88,7 +86,7 @@ const rating = ref(0)
 
 // Lifecycle hooks
 onMounted(async () => {
-  developer.value = await developerStore.fetchDeveloperById(route.params.id)
+  developer.value = await authStore.fetchUserById(route.params.id)
   rating.value = developer.value.rating
 })
 

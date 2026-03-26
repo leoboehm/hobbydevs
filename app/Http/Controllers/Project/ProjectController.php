@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Project;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -15,15 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-
-        $projectsList = [];
-
-        foreach ($projects as $project) {
-            array_push($projectsList, $this->decodeSkills($project));
-        }
-
-        return response()->json($projectsList);
+        return response()->json(Project::all());
     }
 
     /**
@@ -37,7 +28,7 @@ class ProjectController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
-            'skills' => json_encode($request->input('skills', [])),
+            'skills' => $request->skills,
             'salary_range' => $request->salary_range,
             'duration' => $request->duration,
             'start_date' => $request->start_date,
@@ -55,14 +46,9 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        $project = Project::find($id);
+        $project = Project::findOrFail($id);
 
-        // Check if the project exists
-        if (!$project) {
-            return response()->json(['message' => 'Project not found'], 404);
-        }
-
-        return response()->json($this->decodeSkills($project));
+        return response()->json($project);
     }
 
     /**
@@ -71,11 +57,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $project = Project::find($id);
-
-        if (!$project) {
-            return response()->json(['message' => 'Project not found'], 404);
-        }
+        $project = Project::findOrFail($id);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -90,9 +72,6 @@ class ProjectController extends Controller
             'application_deadline' => 'required|date',
         ]);
 
-        $skills = json_encode($validated['skills']);
-        $validated['skills'] = $skills;
-
         $project->update($validated);
 
         return response()->json(['message' => 'Project updated successfully'], 200);
@@ -105,11 +84,5 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-    }
-
-    private function decodeSkills($projectData)
-    {
-        $projectData->skills = json_decode($projectData->skills, true) ?: [];
-        return $projectData;
     }
 }

@@ -67,12 +67,20 @@ export const useAuthStore = defineStore('authStore', {
       try {
         await apiClient.put('/user', userData)
 
-        const authStore = useAuthStore()
-        authStore.loadUserToStore()
+        await this.loadUserToStore()
       } catch (error) {
         console.error('Failed to update user:', error)
         throw error
       }
     },
+
+    async fetchUserById(id) {
+      try {
+        const response = await apiClient.get('/user/' + id)
+        return response.data
+      } catch (error) {
+        console.error('Error while loading user: ', error)
+      }
+    }
   },
 })

@@ -9,30 +9,21 @@ use App\Models\Application;
 
 class ProjectApplicationController extends Controller
 {
-    private const REQUIRED_STRING = 'required|string';
-
     // POST: /apply
     public function postApplication(Request $request)
     {
         $validatedData = $request->validate([
-            'firstName' => self::REQUIRED_STRING . '|max:255',
-            'lastName' => self::REQUIRED_STRING . '|max:255',
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
             'skills' => 'required|array',
-
-            'availability' => self::REQUIRED_STRING,
-            'pastExperience' => self::REQUIRED_STRING,
-            'motivation' => self::REQUIRED_STRING,
-            'contactInfo' => self::REQUIRED_STRING,
+            'availability' => 'required|string',
+            'pastExperience' => 'required|string',
+            'motivation' => 'required|string',
+            'contactInfo' => 'required|string',
         ]);
 
-        $application = Application::create([
-            'first_name' => $validatedData['firstName'],
-            'last_name' => $validatedData['lastName'],
-            'skills' => json_encode($validatedData['skills']),
-            'availability' => $validatedData['availability'],
-            'past_experience' => $validatedData['pastExperience'],
-            'motivation' => $validatedData['motivation'],
-            'contact_info' => $validatedData['contactInfo'],
+        $application = Application::createApplication([
+            ...$validatedData,
             'user_id' => $request->id,
             'project_id' => $request->project_id,
         ]);
@@ -43,16 +34,14 @@ class ProjectApplicationController extends Controller
     // GET: /sent-applications/{userId}
     public function getSentApplications(string $userId)
     {
-        $applications = Application::where('user_id', $userId)->get();
+        $applications = Application::findByUserId($userId);
         return response()->json($applications);
     }
 
     // GET /received-applications/{userId}
     public function getReceivedApplications(string $userId)
     {
-        $applications = Application::with('project')->whereHas('project', function ($query) use ($userId) {
-            $query->where('owner_id', $userId);
-        })->get();
+        $applications = Application::findByOwnerId($userId);
         return response()->json($applications);
     }
 }

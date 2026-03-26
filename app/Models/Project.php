@@ -51,4 +51,14 @@ class Project extends Model
     {
         return $this->hasMany(Application::class);
     }
+    
+    public function getSkillsAttribute($value)
+    {
+        return json_decode($value, true) ?: [];
+    }
+
+    public function setSkillsAttribute($value)
+    {
+        $this->attributes['skills'] = json_encode($value ?? []);
+    }
 }

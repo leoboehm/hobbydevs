@@ -22,8 +22,8 @@ use App\Http\Controllers\User\UserController;
 // user
 Route::put('/user', [UserController::class, 'update']);
 Route::post('/user', [UserController::class, 'add']);
+Route::get('/user/{id}', [UserController::class,'getUserById']);
 Route::get('/developers', [UserController::class,'getDeveloperList']);
-Route::get('/developers/{id}', [UserController::class,'getDeveloperById']);
 // project
 Route::apiResource('project', ProjectController::class);
 // category
