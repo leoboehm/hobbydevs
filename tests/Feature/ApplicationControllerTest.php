@@ -73,7 +73,7 @@ class ApplicationControllerTest extends TestCase
         Application::create([
             'first_name' => 'Anna',
             'last_name' => 'Test',
-            'skills' => json_encode(['Vue.js']),
+            'skills' => ['Vue.js'],
             'availability' => 'Part-time',
             'past_experience' => 'Worked on frontends',
             'motivation' => 'Learning opportunity',
@@ -86,7 +86,7 @@ class ApplicationControllerTest extends TestCase
         Application::create([
             'first_name' => 'Tom',
             'last_name' => 'Other',
-            'skills' => json_encode(['React']),
+            'skills' => ['React'],
             'availability' => 'Full-time',
             'past_experience' => '5 years React',
             'motivation' => 'Interested in project',
@@ -114,7 +114,7 @@ class ApplicationControllerTest extends TestCase
         Application::create([
             'first_name' => 'Lisa',
             'last_name' => 'Applicant',
-            'skills' => json_encode(['Python']),
+            'skills' => ['Python'],
             'availability' => 'Remote only',
             'past_experience' => 'Data science background',
             'motivation' => 'Wants to apply skills',

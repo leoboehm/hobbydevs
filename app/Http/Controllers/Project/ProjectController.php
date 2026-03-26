@@ -46,7 +46,12 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::find($id);
+
+        // Check if the project exists
+        if (!$project) {
+            return response()->json(['message' => 'Project not found'], 404);
+        }
 
         return response()->json($project);
     }
@@ -57,7 +62,11 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json(['message' => 'Project not found'], 404);
+        }
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -76,7 +85,6 @@ class ProjectController extends Controller
 
         return response()->json(['message' => 'Project updated successfully'], 200);
     }
-
 
     /**
      * Route: DELETE /project/{id}

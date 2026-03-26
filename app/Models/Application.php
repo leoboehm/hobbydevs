@@ -22,6 +22,15 @@ class Application extends Model
         'status',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'skills' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -30,11 +39,6 @@ class Application extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
-    }
-
-    public function setSkillsAttribute($value)
-    {
-        $this->attributes['skills'] = json_encode($value ?? []);
     }
 
     public static function createApplication(array $data): self

@@ -19,13 +19,13 @@ class ApplicationFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'skills' => json_encode($this->faker->words(5)), // store as JSON-encoded array
+            'skills' => $this->faker->words(5),
             'availability' => $this->faker->randomElement(['Immediate', '1-2 weeks', '1 month']),
             'past_experience' => $this->faker->paragraph(3),
             'motivation' => $this->faker->paragraph(2),
             'contact_info' => $this->faker->email(),
-            'user_id' => User::factory(), // generates a user automatically
-            'project_id' => Project::factory(), // generates a project automatically
+            'user_id' => User::factory(),
+            'project_id' => Project::factory(),
             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
         ];
     }

@@ -152,7 +152,7 @@ class UserControllerTest extends TestCase
     {
         User::factory()->create([
             'type' => 'Developer',
-            'skills' => json_encode(['PHP', 'Laravel']),
+            'skills' => ['PHP', 'Laravel'],
         ]);
 
         User::factory()->create([
@@ -174,7 +174,7 @@ class UserControllerTest extends TestCase
         ]);
 
         $response->assertJsonFragment([
-            'skills' => [],
+            'skills' => "",
         ]);
     }
 
@@ -183,7 +183,7 @@ class UserControllerTest extends TestCase
     {
         $developer = User::factory()->create([
             'type' => 'Developer',
-            'skills' => json_encode(['Vue', 'React']),
+            'skills' => ['Vue', 'React'],
         ]);
 
         $response = $this->getJson("/api/user/{$developer->id}");

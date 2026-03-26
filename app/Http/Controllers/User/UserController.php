@@ -30,7 +30,10 @@ class UserController extends Controller
     // PUT: /user
     public function update(Request $request)
     {
-        $user = User::findOrFail($request->id);
+        $user = User::find($request->id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
         $validated = $request->validate([
             "firstname" => "required|string|max:255",
@@ -53,7 +56,12 @@ class UserController extends Controller
     // GET: /user/{id}
     public function getUserById(Request $request, string $id)
     {
-        $developer = User::findOrFail($id);
+        $developer = User::find($id);
+
+        // Check if the user exists
+        if (!$developer) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
         return response()->json($developer);
     }

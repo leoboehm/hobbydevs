@@ -40,7 +40,7 @@ class ProjectTest extends TestCase
             'title' => 'Test Project',
             'description' => 'This is a test description.',
             'category' => 'Web Development',
-            'skills' => json_encode(['PHP', 'Vue.js']),
+            'skills' => ['PHP', 'Vue.js'],
             'salary_range' => '30-50k',
             'duration' => '6 months',
             'start_date' => now()->addWeek(),

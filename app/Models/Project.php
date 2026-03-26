@@ -45,20 +45,11 @@ class Project extends Model
         'deadline' => 'datetime',
         'application_start_date' => 'datetime',
         'application_deadline' => 'datetime',
+        'skills' => 'array',
     ];
 
     public function applications()
     {
         return $this->hasMany(Application::class);
-    }
-    
-    public function getSkillsAttribute($value)
-    {
-        return json_decode($value, true) ?: [];
-    }
-
-    public function setSkillsAttribute($value)
-    {
-        $this->attributes['skills'] = json_encode($value ?? []);
     }
 }

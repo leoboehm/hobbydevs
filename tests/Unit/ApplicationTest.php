@@ -22,7 +22,7 @@ class ApplicationTest extends TestCase
         return array_merge([
             'first_name' => 'Jane',
             'last_name' => 'Doe',
-            'skills' => json_encode(['Laravel', 'Vue.js']),
+            'skills' => ['Laravel', 'Vue.js'],
             'availability' => 'Part-time',
             'past_experience' => 'Worked on multiple web applications.',
             'motivation' => 'I am passionate about web development.',
