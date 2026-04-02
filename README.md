@@ -1,4 +1,4 @@
-# HobbyDevs – Refactoring & Quality Improvement
+# HobbyDevs – Refactoring Project
 
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=leoboehm_hobbydevs&metric=coverage)](https://sonarcloud.io/summary/new_code?id=leoboehm_hobbydevs)
@@ -14,50 +14,17 @@
 ---
 
 ## About the Project
-
-This repository is part of a **scientific case study** conducted within the scope of a DHBW Mosbach Computer Science thesis.  
-The focus is on improving the **maintainability** and **reliability** of the *HobbyDevs* web application, originally developed as a student project.
-
-Key challenges in the existing codebase:
-- High technical debt due to inconsistent coding standards  
-- Incomplete and unstable features (session handling, database interactions)  
-- Low automated PHPUnit test coverage
-
-The work in this repository does not only aim to repair the application, but to serve as a **systematic strategy for quality improvement**, documented with measurable software quality metrics.
-
----
-
-## Objectives
-
-1. **Baseline Analysis**  
-   - Collect software quality metrics (Maintainability Index, Cyclomatic Complexity, Test Coverage, Bug Count).  
-   - Document current weaknesses in architecture and implementation.  
-
-2. **Refactoring for Maintainability**  
-   - Apply systematic refactoring and introduce coding standards.  
-   - Reduce complexity and technical debt.  
-
-3. **Reliability Improvements**  
-   - Repair broken features.  
-   - Ensure robust session and database handling.  
-
-4. **Testing & QA**
-   - Improve PHPUnit coverage for backend logic.  
-   - Introduce automated CI/CD quality checks.  
-
-5. **Evaluation**  
-   - Compare quality metrics before and after improvements.  
-   - Document findings in the context of software engineering literature.  
+This repository is part of a scientific case study conducted within the scope of a DHBW Computer Science thesis. The focus is on improving the maintainability and reliability of the *HobbyDevs* web application, originally developed as a student project.<br>
+The *Hobbydevs* platform is designed to facilitate small-scale software collaborations outside of a traditional corporate context. Its purpose is to provide a platform that connects so-called Project Owners with Hobby Developers. Project Owners can publish software project ideas and define their requirements (scope, required skills, time frame, budget), while Hobby Developers create profiles outlining their skills and interests and can apply for projects.
 
 ---
 
 ## Tech Stack
 
-- **Backend:** Laravel (PHP)  
-- **Frontend:** Vue.js  
-- **Database:** MySQL  
+- **Backend:** Laravel (PHP)
+- **Frontend:** Vue.js
+- **Database:** MySQL
 - **Testing:** PHPUnit
-- **Code Quality:** SonarCloud, ESLint, PHPStan  
 
 ---
 
@@ -85,11 +52,26 @@ php artisan migrate --seed
 php artisan serve
 npm run dev
 ```
+You can now access the application at `127.0.0.1:8000`.<br>
+**Note**: The backend and frontend are not configured for cross-origin communication. The application will **only** work at `127.0.0.1`, not at `localhost`.<br>
+**Note**: If you get database errors, make sure MySQL is installed and running on your machine. You might have to add your MySQL socket location to the `.env` file. Example:
+```env
+DB_SOCKET=/opt/lampp/var/mysql/mysql.sock
+```
 
 ## Testing
-### Backend (PHPUnit)
+without coverage:
 ```bash
+# Without coverage
 php artisan test
+
+# With test coverage (using clover)
+XDEBUG_MODE=coverage php artisan test –coverage-html “reports/clover_html”
+```
+Open `hobbydevs/reports/clover_html/index.html` to view the clover report.<br>
+**Note**: Running tests locally resets the database. Run the following command afterwards, to seed the table again:
+```bash
+php artisan migrate --fresh --seed
 ```
 
 ---
